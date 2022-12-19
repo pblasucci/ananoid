@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <VersionPrefix>0.6.0</VersionPrefix>
+        <Title>Ananoid</Title>
+        <Authors>Mulberry Labs, BV</Authors>
+        <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
+        <Copyright>2023 © Mulberry Labs, BV. All rights reserved.</Copyright>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DocumentationFile>obj/Debug/net6.0/ananoid.xml</DocumentationFile>
+        <VersionSuffix>debug</VersionSuffix>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DocumentationFile>obj/Release/net6.0/ananoid.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Library.fsi" />
+        <Compile Include="Library.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Update="FSharp.Core" Version="7.0.0" />
+    </ItemGroup>
+
+</Project>

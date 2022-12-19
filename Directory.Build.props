@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <WarningLevel>5</WarningLevel>
+        <WarnOn>
+            $(WarnOn);  <!-- include warning set elsewhere -->
+            1182;       <!-- unused bindings -->
+            3218;       <!-- signature / implementation argument mismatch -->
+            3366;       <!-- OCaml-style indexer notation -->
+            3390;       <!-- invalid XMLDoc comments -->
+            <!--
+            ⮟⮟⮟ These are useful for advanced debugging ⮟⮟⮟
+
+            3388;   ... additional implicit upcasts (subsumption)
+            3389;   ... implicit numeric widening
+            3395;   ... method argument implicit conversion
+            -->
+        </WarnOn>
+        <NoWarn>
+            $(NoWarn);  <!-- include suppressions set elsewhere -->
+            0052;       <!-- implicit copies of structs -->
+        </NoWarn>
+        <IsPackable>false</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>MulberryLabs.Ananoid</RootNamespace>
+        <Company>Mulberry Labs, BV</Company>
+        <Product>Ananoid</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <!-- Settings specific to DEBUG builds go here -->
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+</Project>

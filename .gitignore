@@ -1,0 +1,9 @@
+**/BenchmarkDotNet.Artifacts/
+**/[bB]in/
+**/[oO]bj/
+/packages/
+.idea/
+/_ReSharper.Caches/
+riderModule.iml
+*.DotSettings
+*.DotSettings.*
