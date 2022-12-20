@@ -1,12 +1,14 @@
 ﻿namespace MulberryLabs.Ananoid
 
-#nowarn "9" (* Unverifiable IL - see `Library.stackspan` function for details *)
+#nowarn "9" (* unverifiable IL - see `Library.stackspan` function for details *)
 #nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
+#nowarn "9999" (* we ignore our own rules! -- see `NanoId.TryDelay` for details *)
 
 open System
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 open System.Text.RegularExpressions
+open Microsoft.FSharp.Core
 
 
 [<AutoOpen>]
@@ -16,6 +18,11 @@ module Library =
   [<Literal>]
   let Unreachable =
     "The program executed an instruction that was thought to be unreachable."
+
+  let inline unreachable (dataKey, dataValue) =
+    let failure = InvalidProgramException Unreachable
+    failure.Data[ dataKey ] <- dataValue
+    raise failure
 
   let inline outOfRange paramName =
     raise (ArgumentOutOfRangeException paramName)
@@ -277,36 +284,54 @@ type NanoId(value : string, length : uint32) =
 
   static member Empty = NanoId()
 
-  static member NewId { Alphabet' = alphabet; Size' = size } =
+  static member NewId({ Alphabet' = alphabet; Size' = size }) =
     match Alphabet.Validate alphabet with
-    | Ok _ ->
-      match Core.nanoIdOf alphabet.Letters size with
+    | Ok a ->
+      match Core.nanoIdOf a.Letters size with
       | Empty -> NanoId.Empty
       | Trimmed t & Length n -> NanoId(t, n)
 
-    | Error reason ->
-      let unreachable = InvalidProgramException Unreachable
-      unreachable.Data[ nameof AlphabetError ] <- reason
-      raise unreachable
+    | Error reason -> unreachable (nameof AlphabetError, reason)
 
   static member NewId() = NanoId.NewId(NanoIdOptions.UrlSafe)
 
   static member Parse(value, alphabet : IAlphabet) =
     alphabet
     |> Alphabet.Validate
-    |> Result.bind (fun _ ->
+    |> Result.bind (fun a ->
       match value with
-      | Empty when alphabet.IncludesAll("") -> Ok NanoId.Empty
-      | Trimmed t & Length n when alphabet.IncludesAll(t) -> Ok(NanoId(t, n))
+      | Empty when a.IncludesAll("") -> Ok NanoId.Empty
+      | Trimmed t & Length n when a.IncludesAll(t) -> Ok(NanoId(t, n))
       | _ -> Error IncompatibleAlphabet
     )
 
   static member Parse(value) = NanoId.Parse(value, UrlSafe)
 
-  static member TryParse(value, alphabet, [<Out>] nanoId : outref<NanoId>) =
+  static member TryParse(value, alphabet, [<Out>] nanoId : outref<_>) =
     let result = NanoId.Parse(value, alphabet)
     nanoId <- result |> Result.defaultValue NanoId.Empty
     Result.isOk result
 
-  static member TryParse(value, [<Out>] nanoId : outref<NanoId>) =
+  static member TryParse(value, [<Out>] nanoId : outref<_>) =
     NanoId.TryParse(value, UrlSafe, &nanoId)
+
+  [<CompiledName("NanoId@Delay")>]
+  static member Delay(alphabet) =
+    alphabet
+    |> Alphabet.Validate
+    |> Result.map (fun a size ->
+      match Core.nanoIdOf a.Letters size with
+      | Empty -> NanoId.Empty
+      | Trimmed t & Length n -> NanoId(t, n)
+    )
+
+  [<CompiledName("Delay")>]
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  static member DelegateDelay(alphabet) =
+    alphabet |> NanoId.Delay |> Result.map (fun fn -> Func<_, _> fn)
+
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  static member TryDelay(alphabet, [<Out>] makeNanoId : outref<_>) =
+    let result = NanoId.DelegateDelay(alphabet)
+    makeNanoId <- result |> Result.defaultValue null
+    Result.isOk result

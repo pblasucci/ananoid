@@ -1,5 +1,6 @@
 namespace MulberryLabs.Ananoid
 
+open System
 open System.Runtime.CompilerServices
 
 
@@ -369,3 +370,15 @@ type NanoId =
   /// </param>
   /// <returns>true is parsing succeeded; false, otherwise.</returns>
   static member TryParse : value : string * nanoId : outref<NanoId> -> bool
+
+  [<CompiledName("NanoId@Delay")>]
+  static member Delay :
+    alphabet : IAlphabet -> Result<int -> NanoId, AlphabetError>
+
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<CompiledName("Delay")>]
+  static member DelegateDelay :
+    alphabet : IAlphabet -> Result<Func<int, NanoId>, AlphabetError>
+
+  static member TryDelay :
+    alphabet : IAlphabet * makeNanoId : outref<Func<int, NanoId>> -> bool

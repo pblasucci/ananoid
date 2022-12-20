@@ -3,6 +3,7 @@
 **/[oO]bj/
 /packages/
 .idea/
+.fsdocs/
 /_ReSharper.Caches/
 riderModule.iml
 *.DotSettings
