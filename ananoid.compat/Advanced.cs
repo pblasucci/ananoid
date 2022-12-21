@@ -8,11 +8,11 @@ internal static class Advanced
     public static void BypassingNanoIdOptions()
     {
         // We can provide the alphabet now, and the size later.
-        if (ToNanoIdFactory(Numbers) is
-            { IsOk: true, ResultValue: var makeNanoId })
+        var result = ToNanoIdFactory(Numbers);
+        if (result is { IsOk: true, ResultValue: var factory })
         {
-            var delayed1 = makeNanoId(9);
-            var delayed2 = makeNanoId(99);
+            var delayed1 = factory(9);
+            var delayed2 = factory(99);
 
             WriteLine("Some delayed NanoIds:");
             WriteLine($"\t...Numeric, 9: {delayed1}");
