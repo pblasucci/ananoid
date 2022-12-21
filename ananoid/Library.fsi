@@ -1,4 +1,4 @@
-namespace MulberryLabs.Ananoid
+namespace rec MulberryLabs.Ananoid
 
 open System
 open System.Runtime.CompilerServices
@@ -109,6 +109,39 @@ type Alphabet =
   /// </returns>
   static member Validate :
     alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
+
+  /// <summary>
+  /// Produces a function for generating NanoId instances of varying sizes
+  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
+  /// </summary>
+  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
+  /// <returns>
+  /// On successful validation, returns a "factory function" which will produce
+  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
+  /// constituted from the input given alphabet;
+  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// with further details about what went wrong.
+  /// </returns>
+  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
+  static member ToNanoIdFactory :
+    alphabet : IAlphabet -> Result<int -> NanoId, AlphabetError>
+
+  /// <summary>
+  /// Produces a function for generating NanoId instances of varying sizes
+  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
+  /// </summary>
+  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
+  /// <returns>
+  /// On successful validation, returns a "factory function" which will produce
+  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
+  /// constituted from the input given alphabet;
+  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// with further details about what went wrong.
+  /// </returns>
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<CompiledName("ToNanoIdFactory")>]
+  static member ToNanoIdFactoryDelegate :
+    alphabet : IAlphabet -> Result<Func<int, NanoId>, AlphabetError>
 
 
 /// Details the values which can be changed to alter the generated identifiers.
@@ -370,15 +403,3 @@ type NanoId =
   /// </param>
   /// <returns>true is parsing succeeded; false, otherwise.</returns>
   static member TryParse : value : string * nanoId : outref<NanoId> -> bool
-
-  [<CompiledName("NanoId@Delay")>]
-  static member Delay :
-    alphabet : IAlphabet -> Result<int -> NanoId, AlphabetError>
-
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  [<CompiledName("Delay")>]
-  static member DelegateDelay :
-    alphabet : IAlphabet -> Result<Func<int, NanoId>, AlphabetError>
-
-  static member TryDelay :
-    alphabet : IAlphabet * makeNanoId : outref<Func<int, NanoId>> -> bool

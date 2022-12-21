@@ -100,6 +100,10 @@ module rec NanoId =
 
 
 module rec Alphabet =
+
+  open FsCheck
+  open MulberryLabs.Ananoid
+
   [<Property(MaxTest = 1)>]
   let ``Custom alphabet fails if alphabet is null`` () =
     match Alphabet.Validate(Unchecked.defaultof<_>) with
@@ -155,7 +159,20 @@ module rec Alphabet =
     | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
 
   [<Property(Arbitrary = [| typeof<Generation> |])>]
-  let ``All pre-defined alphabets produce compatible outputs`` options =
+  let ``All pre-defined alphabets produce comprehensible outputs`` options =
     let generated = NanoId.NewId options
     options.Alphabet.IncludesAll(string generated)
     |> Prop.label $"%s{IncompatibleAlphabet.Message} (%A{generated})"
+
+  [<Property>]
+  let ``NanoIdFactory produces validatable output``
+    (alphabet : Alphabet)
+    (NonNegativeInt size)
+    =
+    let expected =
+      alphabet
+      |> Alphabet.ToNanoIdFactory
+      |> Result.map (fun makeNanoId -> makeNanoId size)
+    let raw = expected |> Result.map string |> Result.defaultValue ""
+    let actual = NanoId.Parse(raw, alphabet)
+    actual = expected |> Prop.label $"%A{expected} <> %A{actual}"

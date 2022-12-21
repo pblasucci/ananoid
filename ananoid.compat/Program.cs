@@ -17,7 +17,7 @@ Customization.CustomAlphabetRequirements();
 
 // advanced
 Console.WriteLine($"\n::{nameof(Advanced)}::");
-Advanced.DelayedCreation();
+Advanced.BypassingNanoIdOptions();
 
 // primitives
 Console.WriteLine($"\n::{nameof(Primitives)}::");

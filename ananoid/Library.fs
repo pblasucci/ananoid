@@ -1,4 +1,4 @@
-﻿namespace MulberryLabs.Ananoid
+﻿namespace rec MulberryLabs.Ananoid
 
 #nowarn "9" (* unverifiable IL - see `Library.stackspan` function for details *)
 #nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
@@ -135,6 +135,7 @@ type Alphabet =
   | Numbers
   | Uppercase
   | UrlSafe
+
   override me.ToString() = (me :> IAlphabet).Letters
 
   interface IAlphabet with
@@ -178,6 +179,19 @@ type Alphabet =
     else
       Ok alphabet
 
+  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
+  static member ToNanoIdFactory(alphabet) =
+    alphabet
+    |> Alphabet.Validate
+    |> Result.map (fun a z -> NanoId.NewId(a, max 0 z))
+
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<CompiledName("ToNanoIdFactory")>]
+  static member ToNanoIdFactoryDelegate(alphabet) =
+    alphabet
+    |> Alphabet.ToNanoIdFactory
+    |> Result.map (fun func -> Func<_, _> func)
+
 
 [<NoComparison>]
 type NanoIdOptions =
@@ -193,7 +207,7 @@ type NanoIdOptions =
   static member Of(alphabet : IAlphabet, size) =
     alphabet
     |> Alphabet.Validate
-    |> Result.map (fun _ -> { Alphabet' = alphabet; Size' = max 0 size })
+    |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
 
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = 21 }
 
@@ -225,35 +239,35 @@ module Core =
   open type System.Numerics.BitOperations
   open type NanoIdOptions
 
+  let generate (alphabet & Length length) size =
+    let mask = (2 <<< 31 - LeadingZeroCount((length - 1u) ||| 1u)) - 1
+    let step = int (ceil ((1.6 * float mask * float size) / float length))
+
+    let nanoid = stackspan<char> size
+    let mutable nanoidCount = 0
+
+    let buffer = stackspan<byte> step
+    let mutable bufferCount = 0
+
+    while nanoidCount < size do
+      RandomNumberGenerator.Fill(buffer)
+      bufferCount <- 0
+
+      while nanoidCount < size && bufferCount < step do
+        let index = int buffer[bufferCount] &&& mask
+        bufferCount <- bufferCount + 1
+
+        if index < int length then
+          nanoid[nanoidCount] <- alphabet[index]
+          nanoidCount <- nanoidCount + 1
+
+    nanoid.ToString()
+
   [<CompiledName("NewNanoId")>]
   let nanoIdOf (alphabet & Length length) size =
-    if size <= 0 then
-      ""
-    elif length <= 0u || 256u <= length then
-      outOfRange (nameof alphabet)
-    else
-      let mask = (2 <<< 31 - LeadingZeroCount((length - 1u) ||| 1u)) - 1
-      let step = int (ceil ((1.6 * float mask * float size) / float length))
-
-      let nanoid = stackspan<char> size
-      let mutable nanoidCount = 0
-
-      let buffer = stackspan<byte> step
-      let mutable bufferCount = 0
-
-      while nanoidCount < size do
-        RandomNumberGenerator.Fill(buffer)
-        bufferCount <- 0
-
-        while nanoidCount < size && bufferCount < step do
-          let index = int buffer[bufferCount] &&& mask
-          bufferCount <- bufferCount + 1
-
-          if index < int length then
-            nanoid[nanoidCount] <- alphabet[index]
-            nanoidCount <- nanoidCount + 1
-
-      nanoid.ToString()
+    if size <= 0 then ""
+    elif length <= 0u || 256u <= length then outOfRange (nameof alphabet)
+    else generate alphabet size
 
   [<CompiledName("NewNanoId")>]
   let nanoId () = nanoIdOf UrlSafe.Alphabet.Letters UrlSafe.Size
@@ -284,14 +298,17 @@ type NanoId(value : string, length : uint32) =
 
   static member Empty = NanoId()
 
-  static member NewId({ Alphabet' = alphabet; Size' = size }) =
+  static member NewId(alphabet, size) =
     match Alphabet.Validate alphabet with
+    | Ok _ when size < 1 -> NanoId.Empty
     | Ok a ->
-      match Core.nanoIdOf a.Letters size with
+      match Core.generate a.Letters size with
       | Empty -> NanoId.Empty
       | Trimmed t & Length n -> NanoId(t, n)
 
     | Error reason -> unreachable (nameof AlphabetError, reason)
+
+  static member NewId(options) = NanoId.NewId(options.Alphabet', options.Size')
 
   static member NewId() = NanoId.NewId(NanoIdOptions.UrlSafe)
 
@@ -314,24 +331,3 @@ type NanoId(value : string, length : uint32) =
 
   static member TryParse(value, [<Out>] nanoId : outref<_>) =
     NanoId.TryParse(value, UrlSafe, &nanoId)
-
-  [<CompiledName("NanoId@Delay")>]
-  static member Delay(alphabet) =
-    alphabet
-    |> Alphabet.Validate
-    |> Result.map (fun a size ->
-      match Core.nanoIdOf a.Letters size with
-      | Empty -> NanoId.Empty
-      | Trimmed t & Length n -> NanoId(t, n)
-    )
-
-  [<CompiledName("Delay")>]
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  static member DelegateDelay(alphabet) =
-    alphabet |> NanoId.Delay |> Result.map (fun fn -> Func<_, _> fn)
-
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  static member TryDelay(alphabet, [<Out>] makeNanoId : outref<_>) =
-    let result = NanoId.DelegateDelay(alphabet)
-    makeNanoId <- result |> Result.defaultValue null
-    Result.isOk result
