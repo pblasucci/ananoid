@@ -1,6 +1,5 @@
 namespace MulberryLabs.Ananoid.Tests
 
-open System
 open FsCheck
 open MulberryLabs.Ananoid
 open MulberryLabs.Ananoid.Core

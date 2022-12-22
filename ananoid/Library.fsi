@@ -110,6 +110,10 @@ type Alphabet =
   static member Validate :
     alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
 
+
+[<Extension>]
+[<Sealed>]
+type IAlphabetExtensions =
   /// <summary>
   /// Produces a function for generating NanoId instances of varying sizes
   /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
@@ -123,8 +127,9 @@ type Alphabet =
   /// with further details about what went wrong.
   /// </returns>
   [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
+  [<Extension>]
   static member ToNanoIdFactory :
-    alphabet : IAlphabet -> Result<int -> NanoId, AlphabetError>
+    alphabet : IAlphabet -> Result<int -> NanoId,AlphabetError>
 
   /// <summary>
   /// Produces a function for generating NanoId instances of varying sizes
@@ -140,8 +145,9 @@ type Alphabet =
   /// </returns>
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<CompiledName("ToNanoIdFactory")>]
+  [<Extension>]
   static member ToNanoIdFactoryDelegate :
-    alphabet : IAlphabet -> Result<Func<int, NanoId>, AlphabetError>
+    alphabet : IAlphabet -> Result<Func<int, NanoId>,AlphabetError>
 
 
 /// Details the values which can be changed to alter the generated identifiers.

@@ -179,7 +179,12 @@ type Alphabet =
     else
       Ok alphabet
 
+
+[<Extension>]
+[<Sealed>]
+type IAlphabetExtensions =
   [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
+  [<Extension>]
   static member ToNanoIdFactory(alphabet) =
     alphabet
     |> Alphabet.Validate
@@ -187,10 +192,9 @@ type Alphabet =
 
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<CompiledName("ToNanoIdFactory")>]
+  [<Extension>]
   static member ToNanoIdFactoryDelegate(alphabet) =
-    alphabet
-    |> Alphabet.ToNanoIdFactory
-    |> Result.map (fun func -> Func<_, _> func)
+    alphabet.ToNanoIdFactory() |> Result.map (fun func -> Func<_, _> func)
 
 
 [<NoComparison>]

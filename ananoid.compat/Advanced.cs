@@ -1,14 +1,13 @@
 namespace MulberryLabs.Ananoid.Compat;
 
 using static Console;
-using static Alphabet; // defines all presets as static members.
 
 internal static class Advanced
 {
     public static void BypassingNanoIdOptions()
     {
         // We can provide the alphabet now, and the size later.
-        var result = ToNanoIdFactory(Numbers);
+        var result = Alphabet.Numbers.ToNanoIdFactory();
         if (result is { IsOk: true, ResultValue: var factory })
         {
             var delayed1 = factory(9);
@@ -20,7 +19,7 @@ internal static class Advanced
         }
 
         // We can also investigate failures
-        switch (ToNanoIdFactory(new TooLongAlphabet()))
+        switch (new TooLongAlphabet().ToNanoIdFactory())
         {
             case { IsError: true, ErrorValue: var error }:
                 WriteLine($"Alphabet.ToNanoIdFactory error: '{error.Message}'");

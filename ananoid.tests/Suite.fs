@@ -169,10 +169,10 @@ module rec Alphabet =
     (alphabet : Alphabet)
     (NonNegativeInt size)
     =
-    let expected =
-      alphabet
-      |> Alphabet.ToNanoIdFactory
-      |> Result.map (fun makeNanoId -> makeNanoId size)
-    let raw = expected |> Result.map string |> Result.defaultValue ""
-    let actual = NanoId.Parse(raw, alphabet)
-    actual = expected |> Prop.label $"%A{expected} <> %A{actual}"
+    let expect =
+      alphabet.ToNanoIdFactory() |> Result.map (fun factory -> factory size)
+
+    let actual =
+      expect |> Result.bind (fun value -> NanoId.Parse(string value, alphabet))
+
+    (expect = actual) |> Prop.label $"%A{expect} <> %A{actual}"
