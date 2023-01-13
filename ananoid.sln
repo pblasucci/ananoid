@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ananoid.compat", "ananoid.c
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ananoid.perf", "ananoid.perf\ananoid.perf.fsproj", "{B9C82520-31D1-42ED-BF4B-D669CE5442BF}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ananoidcc", "ananoidcc\ananoidcc.fsproj", "{F66DCB13-AC2A-4EEA-9670-86BD67B91103}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B9C82520-31D1-42ED-BF4B-D669CE5442BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9C82520-31D1-42ED-BF4B-D669CE5442BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9C82520-31D1-42ED-BF4B-D669CE5442BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

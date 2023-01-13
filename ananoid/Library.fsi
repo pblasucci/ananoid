@@ -1,4 +1,4 @@
-namespace rec MulberryLabs.Ananoid
+namespace MulberryLabs.Ananoid
 
 open System
 open System.Runtime.CompilerServices
@@ -111,48 +111,9 @@ type Alphabet =
     alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
 
 
-[<Extension>]
-[<Sealed>]
-type IAlphabetExtensions =
-  /// <summary>
-  /// Produces a function for generating NanoId instances of varying sizes
-  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
-  /// </summary>
-  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
-  /// <returns>
-  /// On successful validation, returns a "factory function" which will produce
-  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
-  /// constituted from the input given alphabet;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
-  /// </returns>
-  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
-  [<Extension>]
-  static member ToNanoIdFactory :
-    alphabet : IAlphabet -> Result<int -> NanoId,AlphabetError>
-
-  /// <summary>
-  /// Produces a function for generating NanoId instances of varying sizes
-  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
-  /// </summary>
-  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
-  /// <returns>
-  /// On successful validation, returns a "factory function" which will produce
-  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
-  /// constituted from the input given alphabet;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
-  /// </returns>
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  [<CompiledName("ToNanoIdFactory")>]
-  [<Extension>]
-  static member ToNanoIdFactoryDelegate :
-    alphabet : IAlphabet -> Result<Func<int, NanoId>,AlphabetError>
-
-
 /// Details the values which can be changed to alter the generated identifiers.
-[<Sealed>]
 [<NoComparison>]
+[<Sealed>]
 type NanoIdOptions =
   /// The alphabet from which identifiers will be generated, and against
   /// which raw strings may be checked for validity (e.g. for parsing).
@@ -329,7 +290,8 @@ module Core =
 
 /// Represents a unique textual identifier, with a known length,
 /// based on a particular alphabet (i.e. a set of letters).
-[<IsReadOnly; Struct>]
+[<IsReadOnly>]
+[<Struct>]
 type NanoId =
   /// The number of characters in this instance.
   member Length : uint32
@@ -409,3 +371,42 @@ type NanoId =
   /// </param>
   /// <returns>true is parsing succeeded; false, otherwise.</returns>
   static member TryParse : value : string * nanoId : outref<NanoId> -> bool
+
+
+[<Extension>]
+[<Sealed>]
+type IAlphabetExtensions =
+  /// <summary>
+  /// Produces a function for generating NanoId instances of varying sizes
+  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
+  /// </summary>
+  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
+  /// <returns>
+  /// On successful validation, returns a "factory function" which will produce
+  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
+  /// constituted from the input given alphabet;
+  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// with further details about what went wrong.
+  /// </returns>
+  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
+  [<Extension>]
+  static member ToNanoIdFactory :
+    alphabet : IAlphabet -> Result<int -> NanoId,AlphabetError>
+
+  /// <summary>
+  /// Produces a function for generating NanoId instances of varying sizes
+  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
+  /// </summary>
+  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
+  /// <returns>
+  /// On successful validation, returns a "factory function" which will produce
+  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
+  /// constituted from the input given alphabet;
+  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// with further details about what went wrong.
+  /// </returns>
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<CompiledName("ToNanoIdFactory")>]
+  [<Extension>]
+  static member ToNanoIdFactoryDelegate :
+    alphabet : IAlphabet -> Result<Func<int, NanoId>,AlphabetError>

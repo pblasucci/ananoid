@@ -1,14 +1,14 @@
-﻿namespace rec MulberryLabs.Ananoid
+﻿namespace MulberryLabs.Ananoid
 
 #nowarn "9" (* unverifiable IL - see `Library.stackspan` function for details *)
 #nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
-#nowarn "9999" (* we ignore our own rules! -- see `NanoId.TryDelay` for details *)
+#nowarn "9999" (* the rules don't apply to us! -- see `NanoId.TryDelay` for details *)
 
+open Microsoft.FSharp.Core
 open System
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 open System.Text.RegularExpressions
-open Microsoft.FSharp.Core
 
 
 [<AutoOpen>]
@@ -180,23 +180,6 @@ type Alphabet =
       Ok alphabet
 
 
-[<Extension>]
-[<Sealed>]
-type IAlphabetExtensions =
-  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
-  [<Extension>]
-  static member ToNanoIdFactory(alphabet) =
-    alphabet
-    |> Alphabet.Validate
-    |> Result.map (fun a z -> NanoId.NewId(a, max 0 z))
-
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  [<CompiledName("ToNanoIdFactory")>]
-  [<Extension>]
-  static member ToNanoIdFactoryDelegate(alphabet) =
-    alphabet.ToNanoIdFactory() |> Result.map (fun func -> Func<_, _> func)
-
-
 [<NoComparison>]
 type NanoIdOptions =
   {
@@ -292,7 +275,8 @@ module Core =
     let nanoId' () = nanoIdOf' UrlSafe.Alphabet.Letters UrlSafe.Size
 
 
-[<IsReadOnly; Struct>]
+[<IsReadOnly>]
+[<Struct>]
 type NanoId(value : string, length : uint32) =
   member _.Length = length
 
@@ -335,3 +319,20 @@ type NanoId(value : string, length : uint32) =
 
   static member TryParse(value, [<Out>] nanoId : outref<_>) =
     NanoId.TryParse(value, UrlSafe, &nanoId)
+
+
+[<Extension>]
+[<Sealed>]
+type IAlphabetExtensions =
+  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
+  [<Extension>]
+  static member ToNanoIdFactory(alphabet) =
+    alphabet
+    |> Alphabet.Validate
+    |> Result.map (fun a z -> NanoId.NewId(a, max 0 z))
+
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<CompiledName("ToNanoIdFactory")>]
+  [<Extension>]
+  static member ToNanoIdFactoryDelegate(alphabet) =
+    alphabet.ToNanoIdFactory() |> Result.map (fun func -> Func<_, _> func)
