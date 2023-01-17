@@ -1,14 +1,13 @@
 ﻿namespace MulberryLabs.Ananoid
 
-#nowarn "9" (* unverifiable IL - see `Library.stackspan` function for details *)
-#nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
-#nowarn "9999" (* the rules don't apply to us! -- see `NanoId.TryDelay` for details *)
-
 open Microsoft.FSharp.Core
 open System
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 open System.Text.RegularExpressions
+
+#nowarn "9" (* unverifiable IL - see `Library.stackspan` function for details *)
+#nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
 
 
 [<AutoOpen>]
