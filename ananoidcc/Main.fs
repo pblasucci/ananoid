@@ -16,8 +16,6 @@ open type TextWrapping
 
 
 module Main =
-  //TODO tooltips?
-
   let alphabetMenuItems (state : IWritable<_>) =
     MenuItem.create
       [
@@ -44,10 +42,13 @@ module Main =
       fun context ->
         let state = context.usePassed alphabet
         let input = $"{nameof alphabet}_textbox"
+        let maxLength = 255
+        let computeSize (Length soFar) = $"(%i{soFar}/%i{maxLength})"
+
         Grid.create
           [
             Grid.classes [ nameof alphabet ]
-            Grid.columnDefinitions "*, Auto"
+            Grid.columnDefinitions "Auto, *, Auto"
             Grid.rowDefinitions "Auto, *"
             Grid.children
               [
@@ -55,12 +56,19 @@ module Main =
                   [
                     Label.row 0
                     Label.column 0
-                    Label.content "Alphabet:"
+                    Label.content "Alphabet"
+                    Label.tip "The set of 'letters' from which an identifier is made."
+                  ]
+                TextBlock.create
+                  [
+                    TextBlock.row 0
+                    TextBlock.column 1
+                    TextBlock.text (computeSize state.Current)
                   ]
                 Menu.create
                   [
                     Menu.row 0
-                    Menu.column 1
+                    Menu.column 2
                     Menu.viewItems [ alphabetMenuItems state ]
                   ]
                 TextBox.create
@@ -68,10 +76,12 @@ module Main =
                     TextBox.name input
                     TextBox.row 1
                     TextBox.column 0
-                    TextBox.columnSpan 2
+                    TextBox.columnSpan 3
+                    TextBox.maxLength maxLength
                     TextBox.acceptsReturn true
                     TextBox.textWrapping Wrap
                     TextBox.text state.Current
+                    TextBox.onTextChanged state.Set
                   ]
               ]
           ]
@@ -96,7 +106,8 @@ module Main =
                   [
                     Label.row 0
                     Label.column 0
-                    Label.content "Length:"
+                    Label.content "Length"
+                    Label.tip "The length of a generated identifier, in number of characters."
                   ]
                 NumericUpDown.create
                   [
@@ -160,7 +171,8 @@ module Main =
                     Label.row 0
                     Label.column 0
                     Label.columnSpan 4
-                    Label.content "Frequency:"
+                    Label.content "Frequency"
+                    Label.tip "The rate at which new identifiers are generated."
                   ]
                 NumericUpDown.create
                   [

@@ -78,4 +78,7 @@ let formatDuration seconds =
       elif next < 1.0 then h.Render(int (round current))
       else loop next t
 
-  loop seconds timeNames
+  if Double.IsNaN seconds then
+    "\u221E" (* ⮜ infinity *)
+  else
+    loop seconds timeNames
