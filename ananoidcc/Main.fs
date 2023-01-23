@@ -1,6 +1,7 @@
 namespace MulberryLabs.Ananoid
 
 open Microsoft.FSharp.Reflection
+open System
 open System.Globalization
 open Avalonia
 open Avalonia.Controls
@@ -178,6 +179,10 @@ module Main =
                   [
                     NumericUpDown.row 1
                     NumericUpDown.column 0
+                    NumericUpDown.clipValueToMinMax true
+                    NumericUpDown.increment 10
+                    NumericUpDown.maximum Int32.MaxValue
+                    NumericUpDown.minimum 1
                     NumericUpDown.parsingNumberStyle NumberStyles.Integer
                     NumericUpDown.value state.Current.Amount
                     NumericUpDown.onValueChanged updateValue
