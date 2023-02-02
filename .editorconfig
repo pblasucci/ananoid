@@ -2,8 +2,8 @@
 [*]
 # indentation and spacing
 indent_style = space
-indent_size = 4
-tab_width = 4
+indent_size = 2
+tab_width = 2
 # new line
 end_of_line = lf
 insert_final_newline = true
@@ -11,8 +11,7 @@ max_line_length = 80
 trim_trailing_whitespace = true
 
 # fsharp files
-[*.{fs, fsi, fsx}]
-indent_size = 2
+[*.{fs,fsi,fsx}]
 # fantomas
 fsharp_align_function_signature_to_indentation = true
 fsharp_alternative_long_member_definitions = true

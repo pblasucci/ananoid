@@ -391,7 +391,7 @@ type IAlphabetExtensions =
   [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
   [<Extension>]
   static member ToNanoIdFactory :
-    alphabet : IAlphabet -> Result<int -> NanoId,AlphabetError>
+    alphabet : IAlphabet -> Result<int -> NanoId, AlphabetError>
 
   /// <summary>
   /// Produces a function for generating NanoId instances of varying sizes
@@ -409,4 +409,4 @@ type IAlphabetExtensions =
   [<CompiledName("ToNanoIdFactory")>]
   [<Extension>]
   static member ToNanoIdFactoryDelegate :
-    alphabet : IAlphabet -> Result<Func<int, NanoId>,AlphabetError>
+    alphabet : IAlphabet -> Result<Func<int, NanoId>, AlphabetError>

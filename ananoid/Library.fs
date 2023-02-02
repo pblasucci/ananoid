@@ -20,7 +20,7 @@ module Library =
 
   let inline unreachable (dataKey, dataValue) =
     let failure = InvalidProgramException Unreachable
-    failure.Data[ dataKey ] <- dataValue
+    failure.Data[dataKey] <- dataValue
     raise failure
 
   let inline outOfRange paramName =
@@ -149,6 +149,7 @@ type Alphabet =
       | NoLookalikesSafe -> CharSets.NoLookalikesSafe
       | Numbers -> CharSets.Numbers
       | Uppercase -> CharSets.Uppercase
+
     member me.IncludesAll(value) =
       match value with
       | Empty -> true
