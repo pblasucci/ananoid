@@ -8,7 +8,6 @@
         <Authors>Mulberry Labs, BV</Authors>
         <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
         <Copyright>2023 © Mulberry Labs, BV. All rights reserved.</Copyright>
-        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
