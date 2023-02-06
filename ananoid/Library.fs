@@ -107,20 +107,17 @@ type AlphabetError =
   | AlphabetTooLarge
   | AlphabetTooSmall
   | IncoherentAlphabet
-  | IncompatibleAlphabet
   member me.Message =
     match me with
     | AlphabetTooLarge -> "Alphabet may not contain more than 255 letters."
     | AlphabetTooSmall -> "Alphabet must contain at least one letter."
     | IncoherentAlphabet -> "Alphabet cannot validate its own letters."
-    | IncompatibleAlphabet -> "Alphabet failed to validate given letters."
   override me.ToString() =
     let case =
       match me with
       | AlphabetTooLarge -> nameof AlphabetTooLarge
       | AlphabetTooSmall -> nameof AlphabetTooSmall
       | IncoherentAlphabet -> nameof IncoherentAlphabet
-      | IncompatibleAlphabet -> nameof IncompatibleAlphabet
     $"{nameof AlphabetError}.{case} '{me.Message}'"
 
 
@@ -300,25 +297,42 @@ type NanoId(value : string, length : uint32) =
 
   static member NewId() = NanoId.NewId(NanoIdOptions.UrlSafe)
 
-  static member Parse(value, alphabet : IAlphabet) =
-    alphabet
-    |> Alphabet.Validate
-    |> Result.bind (fun a ->
-      match value with
-      | Empty when a.IncludesAll("") -> Ok NanoId.Empty
-      | Trimmed t & Length n when a.IncludesAll(t) -> Ok(NanoId(t, n))
-      | _ -> Error IncompatibleAlphabet
-    )
 
-  static member Parse(value) = NanoId.Parse(value, UrlSafe)
+[<Sealed>]
+type NanoIdParser(alphabet : IAlphabet) =
+  member _.Alphabet = alphabet
 
-  static member TryParse(value, alphabet, [<Out>] nanoId : outref<_>) =
-    let result = NanoId.Parse(value, alphabet)
-    nanoId <- result |> Result.defaultValue NanoId.Empty
-    Result.isOk result
+  member me.Parse(value) =
+    match value with
+    | Empty when alphabet.IncludesAll("") -> Some NanoId.Empty
+    | Trimmed t & Length n when alphabet.IncludesAll(t) -> Some(NanoId(t, n))
+    | _ -> None
 
-  static member TryParse(value, [<Out>] nanoId : outref<_>) =
-    NanoId.TryParse(value, UrlSafe, &nanoId)
+  member me.TryParse(value, [<Out>] nanoId : outref<_>) =
+    let result = me.Parse(value)
+    nanoId <- result |> Option.defaultValue NanoId.Empty
+    Option.isSome result
+
+  static member Alphanumeric = NanoIdParser(Alphanumeric)
+
+  static member HexadecimalLowercase = NanoIdParser(HexadecimalLowercase)
+
+  static member HexadecimalUppercase = NanoIdParser(HexadecimalUppercase)
+
+  static member Lowercase = NanoIdParser(Lowercase)
+
+  static member NoLookalikes = NanoIdParser(NoLookalikes)
+
+  static member NoLookalikesSafe = NanoIdParser(NoLookalikesSafe)
+
+  static member Numbers = NanoIdParser(Numbers)
+
+  static member Uppercase = NanoIdParser(Uppercase)
+
+  static member UrlSafe = NanoIdParser(UrlSafe)
+
+  static member Of(alphabet) =
+    alphabet |> Alphabet.Validate |> Result.map NanoIdParser
 
 
 [<Extension>]
@@ -329,7 +343,7 @@ type IAlphabetExtensions =
   static member ToNanoIdFactory(alphabet) =
     alphabet
     |> Alphabet.Validate
-    |> Result.map (fun a z -> NanoId.NewId(a, max 0 z))
+    |> Result.map (fun a size -> NanoId.NewId(a, max 0 size))
 
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<CompiledName("ToNanoIdFactory")>]

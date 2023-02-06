@@ -1,5 +1,6 @@
 module rec MulberryLabs.Ananoid.Tests.Scratch
 
+open System
 open FsCheck
 open FsCheck.Xunit
 

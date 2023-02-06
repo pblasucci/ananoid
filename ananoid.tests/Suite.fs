@@ -55,8 +55,8 @@ module rec NanoId =
   let ``Multiple instances are equal when their underlying values are equal``
     (RawNanoId input)
     =
-    let one = NanoId.Parse(input)
-    let two = NanoId.Parse(input)
+    let one = NanoIdParser.UrlSafe.Parse(input)
+    let two = NanoIdParser.UrlSafe.Parse(input)
     one = two |> Prop.label $"\nNot equal on '{input}'"
 
   [<Property(Arbitrary = [| typeof<Generation> |])>]
@@ -65,18 +65,16 @@ module rec NanoId =
     (RawNanoId input2)
     (RawNanoId input3)
     =
-    let value1 = NanoId.Parse(input1)
-    let value2 = NanoId.Parse(input2)
-    let value3 = NanoId.Parse(input3)
+    let value1 = NanoIdParser.UrlSafe.Parse(input1)
+    let value2 = NanoIdParser.UrlSafe.Parse(input2)
+    let value3 = NanoIdParser.UrlSafe.Parse(input3)
 
     let inputs = List.sort [ input1; input2; input3 ]
     let values =
       List.sort
-        [
-          yield! Result.toList value1
-          yield! Result.toList value2
-          yield! Result.toList value3
-        ]
+        [ yield! Option.toList value1
+          yield! Option.toList value2
+          yield! Option.toList value3 ]
 
     values
     |> List.zip inputs
@@ -85,25 +83,24 @@ module rec NanoId =
 
   [<Property(Arbitrary = [| typeof<Generation> |])>]
   let ``Parse and ToString are invertible`` nanoId =
-    match NanoId.Parse(string nanoId) with
-    | Ok nanoId' -> nanoId' = nanoId
-    | Error _err -> false
+    match NanoIdParser.UrlSafe.Parse(string nanoId) with
+    | Some nanoId' -> nanoId' = nanoId
+    | None -> false
     |> Prop.label $"\nNot invertible: %A{nanoId}"
 
   [<Property>]
   let ``Parse returns error on invalid letters`` (PositiveInt count) =
     let input = String.replicate count "*"
-    match NanoId.Parse(input, Alphanumeric) with
-    | Error IncompatibleAlphabet -> Prop.ofTestable true
-    | Error failure -> false |> Prop.label $"\nGot Error: '{failure.Message}'"
-    | Ok nanoId -> false |> Prop.label $"\nParse Ok: '{nanoId}'"
+    let parser =
+      NanoIdParser.Of(Alphanumeric)
+      |> Result.defaultWith (fun x -> failwith $"{x}")
+
+    match parser.Parse input with
+    | None -> Prop.ofTestable true
+    | Some nanoId -> false |> Prop.label $"\nParse Ok: '{nanoId}'"
 
 
 module rec Alphabet =
-
-  open FsCheck
-  open MulberryLabs.Ananoid
-
   [<Property(MaxTest = 1)>]
   let ``Custom alphabet fails if alphabet is null`` () =
     match Alphabet.Validate(Unchecked.defaultof<_>) with
@@ -118,8 +115,7 @@ module rec Alphabet =
     let incoherent =
       { new IAlphabet with
           member _.Letters = "abc123DoReMe"
-          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value)
-      }
+          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value) }
 
     match Alphabet.Validate(incoherent) with
     // ⮟ pass ⮟
@@ -133,8 +129,7 @@ module rec Alphabet =
     let tooShort =
       { new IAlphabet with
           member _.Letters = ""
-          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value)
-      }
+          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value) }
 
     match Alphabet.Validate(tooShort) with
     // ⮟ pass ⮟
@@ -148,8 +143,7 @@ module rec Alphabet =
     let tooLarge =
       { new IAlphabet with
           member _.Letters = "qwerty123" |> String.replicate 512
-          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value)
-      }
+          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value) }
 
     match Alphabet.Validate(tooLarge) with
     // ⮟ pass ⮟
@@ -162,17 +156,18 @@ module rec Alphabet =
   let ``All pre-defined alphabets produce comprehensible outputs`` options =
     let generated = NanoId.NewId options
     options.Alphabet.IncludesAll(string generated)
-    |> Prop.label $"%s{IncompatibleAlphabet.Message} (%A{generated})"
+    |> Prop.label $"Alphabet failed to validate given letters. (%A{generated})"
 
   [<Property>]
   let ``NanoIdFactory produces validatable output``
     (alphabet : Alphabet)
     (NonNegativeInt size)
     =
-    let expect =
-      alphabet.ToNanoIdFactory() |> Result.map (fun factory -> factory size)
+    let factory =
+      alphabet.ToNanoIdFactory()
+      |> Result.defaultWith (fun x -> failwith $"{x}")
 
-    let actual =
-      expect |> Result.bind (fun value -> NanoId.Parse(string value, alphabet))
+    let expect = factory size
+    let didParse, actual = NanoIdParser.UrlSafe.TryParse(string expect)
 
-    (expect = actual) |> Prop.label $"%A{expect} <> %A{actual}"
+    (didParse && expect = actual) |> Prop.label $"%A{expect} <> %A{actual}"

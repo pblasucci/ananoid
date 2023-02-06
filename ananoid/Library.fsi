@@ -39,13 +39,6 @@ type AlphabetError =
   /// Raised when an alphabet cannot validate its own letters.
   | IncoherentAlphabet
 
-  /// <summary>
-  /// Raised when a string contains letters from outside the alphabet in
-  /// question (typically, as part of parsing existing data into a
-  /// <see cref="T:MulberryLabs.Ananoid.NanoId"/>).
-  /// </summary>
-  | IncompatibleAlphabet
-
   /// A human-readable description of the error, suitable for printing.
   member Message : string
 
@@ -314,63 +307,109 @@ type NanoId =
   /// Creates a new instance using the default options.
   static member NewId : unit -> NanoId
 
-  /// <summary>
-  /// Attempts to convert the given <c>value</c> into a
-  /// <see cref="T:MulberryLabs.Ananoid.NanoId" />,
-  /// using the given <c>alphabet</c> to guide validation.
-  /// </summary>
-  /// <param name="value">The raw string to be converted.</param>
-  /// <param name="alphabet">
-  /// The set of letters from which <c>value</c> must be constituted.
-  /// </param>
-  /// <returns>
-  /// On successful parsing, returns an <c>NanoId</c> instance;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
-  /// </returns>
-  static member Parse :
-    value : string * alphabet : IAlphabet -> Result<NanoId, AlphabetError>
+
+/// <summary>
+/// Provides methods for validating and parsing strings into NanoId instances of
+/// <see cref="T:MulberryLabs.Ananoid.NanoId "/>, while using a specific
+/// <see cref="T:MulberryLabs.Ananoid.IAlphabet" /> to validate the inputs.
+/// </summary>
+[<Sealed>]
+type NanoIdParser =
+  /// The set of letters against which raw strings will be checked for validity.
+  member Alphabet : IAlphabet
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
   /// <see cref="T:MulberryLabs.Ananoid.NanoId" />,
-  /// using the default alphabet to guide validation.
+  /// using a known alphabet to guide validation.
   /// </summary>
   /// <param name="value">The raw string to be converted.</param>
   /// <returns>
-  /// On successful parsing, returns an <c>NanoId</c> instance;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
+  /// On successful parsing, returns a <c>NanoId</c> instance;
+  /// otherwise, returns <c>None</c>.
   /// </returns>
-  static member Parse : value : string -> Result<NanoId, AlphabetError>
+  member Parse : value : string -> Option<NanoId>
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
   /// <see cref="T:MulberryLabs.Ananoid.NanoId" />,
-  /// using the given <c>alphabet</c> to guide validation.
-  /// </summary>
-  /// <param name="value">The raw string to be converted.</param>
-  /// <param name="alphabet">
-  /// The set of letters from which <c>value</c> must be constituted.
-  /// </param>
-  /// <param name="nanoId">
-  /// On successful parsing, contains a non-empty <c>NanoId</c> instance.
-  /// </param>
-  /// <returns>true is parsing succeeded; false, otherwise.</returns>
-  static member TryParse :
-    value : string * alphabet : IAlphabet * nanoId : outref<NanoId> -> bool
-
-  /// <summary>
-  /// Attempts to convert the given <c>value</c> into a
-  /// <see cref="T:MulberryLabs.Ananoid.NanoId" />,
-  /// using the default alphabet to guide validation.
+  /// using a known alphabet to guide validation.
   /// </summary>
   /// <param name="value">The raw string to be converted.</param>
   /// <param name="nanoId">
   /// On successful parsing, contains a non-empty <c>NanoId</c> instance.
   /// </param>
   /// <returns>true is parsing succeeded; false, otherwise.</returns>
-  static member TryParse : value : string * nanoId : outref<NanoId> -> bool
+  member TryParse : value : string * nanoId : outref<NanoId> -> bool
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Alphanumeric" /> alphabet.
+  /// </summary>
+  static member Alphanumeric : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.HexadecimalLowercase" />
+  /// alphabet.
+  /// </summary>
+  static member HexadecimalLowercase : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.HexadecimalUppercase" />
+  /// alphabet.
+  /// </summary>
+  static member HexadecimalUppercase : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Lowercase" /> alphabet.
+  /// </summary>
+  static member Lowercase : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.NoLookalikes" /> alphabet.
+  /// </summary>
+  static member NoLookalikes : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.NoLookalikesSafe" /> alphabet.
+  /// </summary>
+  static member NoLookalikesSafe : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Numbers" /> alphabet.
+  /// </summary>
+  static member Numbers : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Uppercase" /> alphabet.
+  /// </summary>
+  static member Uppercase : NanoIdParser
+
+  /// <summary>
+  /// A validating parser based on the
+  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.UrlSafe" /> alphabet.
+  /// </summary>
+  static member UrlSafe : NanoIdParser
+
+  /// <summary>
+  /// Tries to create a new instance.
+  /// </summary>
+  /// <param name="alphabet">
+  /// The set of letters against which raw strings will be checked for validity.
+  /// </param>
+  /// <returns>
+  /// On successful creation, returns an <c>NanoIdParser</c> instance;
+  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// with further details about what went wrong.
+  /// </returns>
+  static member Of : alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
 
 
 [<Extension>]
