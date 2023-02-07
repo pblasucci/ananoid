@@ -1,5 +1,3 @@
-using Microsoft.FSharp.Core;
-
 namespace MulberryLabs.Ananoid.Compat;
 
 using static Console;
@@ -88,14 +86,4 @@ internal static class Basics
       WriteLine($"Parsed custom: {parsed3}");
     }
   }
-}
-
-internal static class FSharpResultExtensions
-{
-  public static T? GetValueOrDefault<T, TX>(this FSharpResult<T, TX> result) =>
-    result switch
-    {
-      { IsError: true } => default,
-      { ResultValue: var value } => value
-    };
 }
