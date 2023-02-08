@@ -11,12 +11,12 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>obj/Debug/net6.0/ananoid.xml</DocumentationFile>
+        <DocumentationFile>obj/Debug/net7.0/ananoid.xml</DocumentationFile>
         <VersionSuffix>debug</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>obj/Release/net6.0/ananoid.xml</DocumentationFile>
+        <DocumentationFile>obj/Release/net7.0/ananoid.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
