@@ -10,10 +10,10 @@ open LetterSets
 
 [<SimpleJob(RunStrategy.Throughput)>]
 type AnanoidVsNanoidNet() =
-  [<Benchmark>]
+  [<Benchmark(Baseline = true)>]
   member me.NanoidNet() = Nanoid.Generate()
 
-  [<Benchmark(Baseline = true)>]
+  [<Benchmark>]
   member me.Ananoid() = nanoId ()
 
 
