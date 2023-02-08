@@ -51,23 +51,25 @@ type DurationFormat =
       if me.Pluralize && 1 < value then $"%s{me.Label}s" else me.Label
     if value < 1 then $"Less than 1 %s{suffix}" else $"~{value} %s{suffix}"
 
-  static member Of(factor, label, ?pluralize) =
-    { Factor = factor; Label = label; Pluralize = defaultArg pluralize true }
+  static member Of(factor, label, ?pluralize) = {
+    Factor = factor
+    Label = label
+    Pluralize = defaultArg pluralize true
+  }
 
 let formatDuration seconds =
-  let timeNames =
-    [
-      DurationFormat.Of(60.0, "second")
-      DurationFormat.Of(60.0, "minute")
-      DurationFormat.Of(24.0, "hour")
-      DurationFormat.Of(365.26, "day")
-      DurationFormat.Of(1000, "year")
-      DurationFormat.Of(1000, "thousand years", pluralize = false)
-      DurationFormat.Of(1000, "million years", pluralize = false)
-      DurationFormat.Of(1000, "billion years", pluralize = false)
-      DurationFormat.Of(1000, "trillion years", pluralize = false)
-      DurationFormat.Of(1000, "Over 1 quadrillion years", pluralize = false)
-    ]
+  let timeNames = [
+    DurationFormat.Of(60.0, "second")
+    DurationFormat.Of(60.0, "minute")
+    DurationFormat.Of(24.0, "hour")
+    DurationFormat.Of(365.26, "day")
+    DurationFormat.Of(1000, "year")
+    DurationFormat.Of(1000, "thousand years", pluralize = false)
+    DurationFormat.Of(1000, "million years", pluralize = false)
+    DurationFormat.Of(1000, "billion years", pluralize = false)
+    DurationFormat.Of(1000, "trillion years", pluralize = false)
+    DurationFormat.Of(1000, "Over 1 quadrillion years", pluralize = false)
+  ]
 
   let rec loop current items =
     match items with

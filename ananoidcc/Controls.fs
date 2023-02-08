@@ -7,5 +7,3 @@ module Label =
   open Avalonia.FuncUI.Types
 
   let create (attrs : IAttr<_> list) = ViewBuilder.Create<Label>(attrs)
-
-//TODO figure out how to bind Label.TargetProperty

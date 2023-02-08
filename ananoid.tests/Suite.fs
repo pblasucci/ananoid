@@ -71,10 +71,11 @@ module rec NanoId =
 
     let inputs = List.sort [ input1; input2; input3 ]
     let values =
-      List.sort
-        [ yield! Option.toList value1
-          yield! Option.toList value2
-          yield! Option.toList value3 ]
+      List.sort [
+        yield! Option.toList value1
+        yield! Option.toList value2
+        yield! Option.toList value3
+      ]
 
     values
     |> List.zip inputs
@@ -115,7 +116,8 @@ module rec Alphabet =
     let incoherent =
       { new IAlphabet with
           member _.Letters = "abc123DoReMe"
-          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value) }
+          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value)
+      }
 
     match Alphabet.Validate(incoherent) with
     // ⮟ pass ⮟
@@ -129,7 +131,8 @@ module rec Alphabet =
     let tooShort =
       { new IAlphabet with
           member _.Letters = ""
-          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value) }
+          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value)
+      }
 
     match Alphabet.Validate(tooShort) with
     // ⮟ pass ⮟
@@ -143,7 +146,8 @@ module rec Alphabet =
     let tooLarge =
       { new IAlphabet with
           member _.Letters = "qwerty123" |> String.replicate 512
-          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value) }
+          member _.IncludesAll(value) = String.IsNullOrWhiteSpace(value)
+      }
 
     match Alphabet.Validate(tooLarge) with
     // ⮟ pass ⮟

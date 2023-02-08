@@ -14,18 +14,17 @@ type TaggedNanoId = TaggedNanoId of string<nanoid>
 type Generation() =
   static member NanoIdOptions =
     let generate =
-      Gen.elements
-        [
-          NanoIdOptions.Alphanumeric
-          NanoIdOptions.HexadecimalLowercase
-          NanoIdOptions.HexadecimalUppercase
-          NanoIdOptions.Lowercase
-          NanoIdOptions.NoLookalikes
-          NanoIdOptions.NoLookalikesSafe
-          NanoIdOptions.Numbers
-          NanoIdOptions.Uppercase
-          NanoIdOptions.UrlSafe
-        ]
+      Gen.elements [
+        NanoIdOptions.Alphanumeric
+        NanoIdOptions.HexadecimalLowercase
+        NanoIdOptions.HexadecimalUppercase
+        NanoIdOptions.Lowercase
+        NanoIdOptions.NoLookalikes
+        NanoIdOptions.NoLookalikesSafe
+        NanoIdOptions.Numbers
+        NanoIdOptions.Uppercase
+        NanoIdOptions.UrlSafe
+      ]
 
     let shrink (options : NanoIdOptions) =
       match options.Size with

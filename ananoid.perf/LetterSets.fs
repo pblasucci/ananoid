@@ -26,5 +26,4 @@ let Numbers = "0123456789"
 let Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 [<Literal>]
-let UrlSafe =
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
+let UrlSafe = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"

@@ -60,12 +60,11 @@ module Program =
 
   open BenchmarkDotNet.Running
 
-  let benchmarks =
-    [|
-      typeof<AnanoidVsNanoidNet>
-      typeof<FunctionVsStruct>
-      typeof<AllAlphabets>
-    |]
+  let benchmarks = [|
+    typeof<AnanoidVsNanoidNet>
+    typeof<FunctionVsStruct>
+    typeof<AllAlphabets>
+  |]
 
   [<EntryPoint>]
   let main args =
