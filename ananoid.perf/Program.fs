@@ -1,10 +1,10 @@
-﻿namespace MulberryLabs.Ananoid.Perf
+﻿namespace pblasucci.Ananoid.Perf
 
 open BenchmarkDotNet.Attributes
 open BenchmarkDotNet.Engines
 open Nanoid
-open MulberryLabs.Ananoid
-open MulberryLabs.Ananoid.Core
+open pblasucci.Ananoid
+open pblasucci.Ananoid.Core
 open LetterSets
 
 

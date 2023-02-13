@@ -1,4 +1,4 @@
-﻿namespace MulberryLabs.Ananoid
+﻿namespace pblasucci.Ananoid
 
 open Microsoft.FSharp.Core
 open System

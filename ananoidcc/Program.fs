@@ -1,4 +1,4 @@
-﻿namespace MulberryLabs.Ananoid
+﻿namespace pblasucci.Ananoid
 
 open System
 open Avalonia

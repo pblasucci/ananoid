@@ -1,4 +1,4 @@
-module MulberryLabs.Ananoid.Perf.LetterSets
+module pblasucci.Ananoid.Perf.LetterSets
 
 [<Literal>]
 let Alphanumeric =

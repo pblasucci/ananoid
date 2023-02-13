@@ -1,4 +1,4 @@
-﻿using MulberryLabs.Ananoid.Compat;
+﻿using pblasucci.Ananoid.Compat;
 
 Console.WriteLine("ananoid.compat");
 

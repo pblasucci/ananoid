@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-      <RootNamespace>MulberryLabs.Ananoid.Tests</RootNamespace>
+      <RootNamespace>pblasucci.Ananoid.Tests</RootNamespace>
       <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Compile Include="Support.fs" />
     <Compile Include="Suite.fs" />

@@ -24,7 +24,7 @@
         </NoWarn>
         <IsPackable>false</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <RootNamespace>MulberryLabs.Ananoid</RootNamespace>
+        <RootNamespace>pblasucci.Ananoid</RootNamespace>
         <Company>Mulberry Labs, BV</Company>
         <Product>Ananoid</Product>
     </PropertyGroup>

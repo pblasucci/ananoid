@@ -1,4 +1,4 @@
-namespace MulberryLabs.Ananoid.Compat;
+namespace pblasucci.Ananoid.Compat;
 
 using static Console;
 using static Alphabet; // defines all presets as static members.

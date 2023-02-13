@@ -1,13 +1,13 @@
-namespace MulberryLabs.Ananoid.Tests
+namespace pblasucci.Ananoid.Tests
 
 open System
 open FsCheck
 open FsCheck.Xunit
 
 (* ⮟ system under test ⮟ *)
-open MulberryLabs.Ananoid
-open MulberryLabs.Ananoid.Core
-open MulberryLabs.Ananoid.Core.Tagged
+open pblasucci.Ananoid
+open pblasucci.Ananoid.Core
+open pblasucci.Ananoid.Core.Tagged
 
 
 module rec Functions =

@@ -1,9 +1,9 @@
-namespace MulberryLabs.Ananoid.Tests
+namespace pblasucci.Ananoid.Tests
 
 open FsCheck
-open MulberryLabs.Ananoid
-open MulberryLabs.Ananoid.Core
-open MulberryLabs.Ananoid.Core.Tagged
+open pblasucci.Ananoid
+open pblasucci.Ananoid.Core
+open pblasucci.Ananoid.Core.Tagged
 
 
 type RawNanoId = RawNanoId of string

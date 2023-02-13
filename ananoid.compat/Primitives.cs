@@ -1,7 +1,7 @@
-namespace MulberryLabs.Ananoid.Compat;
+namespace pblasucci.Ananoid.Compat;
 
 using static Console;
-using static MulberryLabs.Ananoid.Core;
+using static pblasucci.Ananoid.Core;
 
 internal static class Primitives
 {

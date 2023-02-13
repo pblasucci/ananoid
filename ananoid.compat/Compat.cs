@@ -1,6 +1,6 @@
 using Microsoft.FSharp.Core;
 
-namespace MulberryLabs.Ananoid.Compat;
+namespace pblasucci.Ananoid.Compat;
 
 /// Some helpers for working with FSharpResult`2
 internal static class FSharpResultExtensions

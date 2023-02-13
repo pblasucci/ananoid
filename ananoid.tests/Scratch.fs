@@ -1,11 +1,11 @@
-module rec MulberryLabs.Ananoid.Tests.Scratch
+module rec pblasucci.Ananoid.Tests.Scratch
 
 open System
 open FsCheck
 open FsCheck.Xunit
 
 (* system under test *)
-open MulberryLabs.Ananoid
+open pblasucci.Ananoid
 
 [<Property(MaxTest = 1, Skip = "For messing around only!")>]
 let ``Do It!`` () = false |> Prop.label $"\n{nameof ``Do It!``}"

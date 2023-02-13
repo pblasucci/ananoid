@@ -1,4 +1,4 @@
-namespace MulberryLabs.Ananoid.Compat;
+namespace pblasucci.Ananoid.Compat;
 
 using static Console;
 using static NanoIdOptions; // has useful presets exposed as static members.

@@ -1,4 +1,4 @@
-namespace MulberryLabs.Ananoid
+namespace pblasucci.Ananoid
 
 open System
 open System.Runtime.CompilerServices
@@ -26,7 +26,7 @@ type IAlphabet =
 
 /// <summary>
 /// Details the potential failures which can occur when an
-/// <see cref="T:MulberryLabs.Ananoid.IAlphabet"/> is validated,
+/// <see cref="T:pblasucci.Ananoid.IAlphabet"/> is validated,
 /// or when an alphabet evaluates a string for compatability.
 /// </summary>
 type AlphabetError =
@@ -82,7 +82,7 @@ type Alphabet =
   interface IAlphabet
 
   /// <summary>
-  /// Checks that a given <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>
+  /// Checks that a given <see cref="T:pblasucci.Ananoid.IAlphabet"/>
   /// upholds certain invariants necessary for the algorithm to work well.
   /// </summary>
   /// <remarks>
@@ -97,7 +97,7 @@ type Alphabet =
   /// <param name="alphabet">An IAlphabet instance to be validated.</param>
   /// <returns>
   /// On successful validation, returns the given input (unmodified);
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
   static member Validate :
@@ -138,7 +138,7 @@ type NanoIdOptions =
   /// </param>
   /// <returns>
   /// On successful validation, returns a new <c>NanoIdOptions</c> instance;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
   static member Of :
@@ -146,63 +146,63 @@ type NanoIdOptions =
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Alphanumeric"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Alphanumeric"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member Alphanumeric : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.HexadecimalLowercase"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalLowercase"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member HexadecimalLowercase : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.HexadecimalUppercase"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalUppercase"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member HexadecimalUppercase : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Lowercase"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Lowercase"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member Lowercase : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Numbers"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Numbers"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member Numbers : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.NoLookalikes"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikes"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member NoLookalikes : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.NoLookalikesSafe"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikesSafe"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member NoLookalikesSafe : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Uppercase"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Uppercase"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member Uppercase : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.UrlSafe"/>
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.UrlSafe"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
   /// <remarks>These are defaults, used when no others are specified.</remarks>
@@ -211,7 +211,7 @@ type NanoIdOptions =
 
 /// <summary>
 /// Contains primitives for generating identifiers (as strings), which
-/// serve as the basis for <see cref="T:MulberryLabs.Ananoid.NanoId"/>,
+/// serve as the basis for <see cref="T:pblasucci.Ananoid.NanoId"/>,
 /// and which might be useful in some niche situations.
 /// </summary>
 module Core =
@@ -297,7 +297,7 @@ type NanoId =
 
   /// <summary>
   /// Creates a new instance from the given
-  /// <see cref="T:MulberryLabs.Ananoid.NanoIdOptions"/>.
+  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/>.
   /// </summary>
   /// <param name="options">
   /// The options to use in generating the identifier.
@@ -310,8 +310,8 @@ type NanoId =
 
 /// <summary>
 /// Provides methods for validating and parsing strings into NanoId instances of
-/// <see cref="T:MulberryLabs.Ananoid.NanoId "/>, while using a specific
-/// <see cref="T:MulberryLabs.Ananoid.IAlphabet" /> to validate the inputs.
+/// <see cref="T:pblasucci.Ananoid.NanoId "/>, while using a specific
+/// <see cref="T:pblasucci.Ananoid.IAlphabet" /> to validate the inputs.
 /// </summary>
 [<Sealed>]
 type NanoIdParser =
@@ -320,7 +320,7 @@ type NanoIdParser =
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
-  /// <see cref="T:MulberryLabs.Ananoid.NanoId" />,
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
   /// using a known alphabet to guide validation.
   /// </summary>
   /// <param name="value">The raw string to be converted.</param>
@@ -332,7 +332,7 @@ type NanoIdParser =
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
-  /// <see cref="T:MulberryLabs.Ananoid.NanoId" />,
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
   /// using a known alphabet to guide validation.
   /// </summary>
   /// <param name="value">The raw string to be converted.</param>
@@ -344,57 +344,57 @@ type NanoIdParser =
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Alphanumeric" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Alphanumeric" /> alphabet.
   /// </summary>
   static member Alphanumeric : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.HexadecimalLowercase" />
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalLowercase" />
   /// alphabet.
   /// </summary>
   static member HexadecimalLowercase : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.HexadecimalUppercase" />
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalUppercase" />
   /// alphabet.
   /// </summary>
   static member HexadecimalUppercase : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Lowercase" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Lowercase" /> alphabet.
   /// </summary>
   static member Lowercase : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.NoLookalikes" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikes" /> alphabet.
   /// </summary>
   static member NoLookalikes : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.NoLookalikesSafe" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikesSafe" /> alphabet.
   /// </summary>
   static member NoLookalikesSafe : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Numbers" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Numbers" /> alphabet.
   /// </summary>
   static member Numbers : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.Uppercase" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Uppercase" /> alphabet.
   /// </summary>
   static member Uppercase : NanoIdParser
 
   /// <summary>
   /// A validating parser based on the
-  /// <see cref="M:MulberryLabs.Ananoid.Alphabet.UrlSafe" /> alphabet.
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.UrlSafe" /> alphabet.
   /// </summary>
   static member UrlSafe : NanoIdParser
 
@@ -406,7 +406,7 @@ type NanoIdParser =
   /// </param>
   /// <returns>
   /// On successful creation, returns an <c>NanoIdParser</c> instance;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
   static member Of : alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
@@ -417,14 +417,14 @@ type NanoIdParser =
 type IAlphabetExtensions =
   /// <summary>
   /// Produces a function for generating NanoId instances of varying sizes
-  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
+  /// (note: requires a valid <see cref="T:pblasucci.Ananoid.IAlphabet"/>).
   /// </summary>
   /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
   /// <returns>
   /// On successful validation, returns a "factory function" which will produce
-  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
+  /// a <see cref="T:pblasucci.Ananoid.NanoId"/> of the given size,
   /// constituted from the input given alphabet;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
   [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
@@ -434,14 +434,14 @@ type IAlphabetExtensions =
 
   /// <summary>
   /// Produces a function for generating NanoId instances of varying sizes
-  /// (note: requires a valid <see cref="T:MulberryLabs.Ananoid.IAlphabet"/>).
+  /// (note: requires a valid <see cref="T:pblasucci.Ananoid.IAlphabet"/>).
   /// </summary>
   /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
   /// <returns>
   /// On successful validation, returns a "factory function" which will produce
-  /// a <see cref="T:MulberryLabs.Ananoid.NanoId"/> of the given size,
+  /// a <see cref="T:pblasucci.Ananoid.NanoId"/> of the given size,
   /// constituted from the input given alphabet;
-  /// otherwise, returns a <see cref="T:MulberryLabs.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]

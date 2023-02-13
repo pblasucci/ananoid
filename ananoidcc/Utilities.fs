@@ -1,4 +1,4 @@
-module MulberryLabs.Ananoid.Utilities
+module pblasucci.Ananoid.Utilities
 
 open System
 

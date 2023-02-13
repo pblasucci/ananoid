@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MulberryLabs.Ananoid.Perf</RootNamespace>
+    <RootNamespace>pblasucci.Ananoid.Perf</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
