@@ -4,6 +4,26 @@ using static Console;
 
 internal static class Advanced
 {
+  public static void DecomposingNanoIdOptions()
+  {
+    // We can access the data in a NanoIdOptions instance several ways.
+    WriteLine("NanoId options for 'NoLookalikes' by:");
+
+    var alphabet1 = NanoIdOptions.NoLookalikes.Alphabet;
+    var targetSize1 = NanoIdOptions.NoLookalikes.Size;
+    WriteLine($"\t...Member access = ({alphabet1}, {targetSize1})");
+
+    var (alphabet2, targetSize2) = NanoIdOptions.NoLookalikes;
+    WriteLine($"\t...Decomposition = ({alphabet2}, {targetSize2})");
+
+    switch (NanoIdOptions.NoLookalikes)
+    {
+      case { Alphabet: var alphabet3, Size: var targetSize3 }:
+        WriteLine($"\t...Pattern matching = ({alphabet3}, {targetSize3})");
+        break;
+    }
+  }
+
   public static void BypassingNanoIdOptions()
   {
     // We can provide the alphabet now, and the size later.

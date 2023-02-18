@@ -209,6 +209,40 @@ type NanoIdOptions =
   static member UrlSafe : NanoIdOptions
 
 
+/// Provided utilities for working with
+/// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
+[<AutoOpen>]
+[<Extension>]
+module NanoIdOptions =
+  /// <summary>
+  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
+  /// from a <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance,
+  /// or from a <see cref="T:pblasucci.Ananoid.NanoIdParser"/> instance.
+  /// </summary>
+  val inline (|SourceAlphabet|) :
+    source : 'Source -> IAlphabet when 'Source : (member Alphabet : IAlphabet)
+
+  /// <summary>
+  /// Extracts the <c>TargetSize</c> value from a
+  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
+  /// </summary>
+  val (|TargetSize|) : source : NanoIdOptions -> int
+
+
+  /// <summary>
+  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
+  /// and the <c>TargetSize</c> value from a
+  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
+  /// </summary>
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<Extension>]
+  val Deconstruct :
+    options : NanoIdOptions ->
+    alphabet : outref<IAlphabet> ->
+    targetSize : outref<int> ->
+      unit
+
+
 /// <summary>
 /// Contains primitives for generating identifiers (as strings), which
 /// serve as the basis for <see cref="T:pblasucci.Ananoid.NanoId"/>,

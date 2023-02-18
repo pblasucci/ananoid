@@ -335,6 +335,27 @@ type NanoIdParser(alphabet : IAlphabet) =
     alphabet |> Alphabet.Validate |> Result.map NanoIdParser
 
 
+[<AutoOpen>]
+[<Extension>]
+module NanoIdOptions =
+  let inline (|SourceAlphabet|)
+    (source : 'Source when 'Source : (member Alphabet : IAlphabet))
+    =
+    SourceAlphabet(source.Alphabet)
+
+  let (|TargetSize|) { Size' = size } = TargetSize(size)
+
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<Extension>]
+  let Deconstruct
+    { Alphabet' = alphabet'; Size' = size' }
+    (alphabet : outref<IAlphabet>)
+    (targetSize : outref<int>)
+    =
+    alphabet <- alphabet'
+    targetSize <- size'
+
+
 [<Extension>]
 [<Sealed>]
 type IAlphabetExtensions =

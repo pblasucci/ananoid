@@ -26,11 +26,22 @@ module rec Functions =
     lazy (nanoIdOf (String.replicate 1024 "-") 21)
     |> Prop.throws<ArgumentOutOfRangeException, _>
 
+  [<Property(MaxTest = 1)>]
+  let ``Default is UrlSafe alphabet of size 21`` () =
+    let SourceAlphabet alphabet & TargetSize size = NanoIdOptions.UrlSafe
+    let value = nanoId ()
+    value.Length = size && alphabet.IncludesAll(value)
+
   [<Property(Arbitrary = [| typeof<Generation> |])>]
   let ``Tagged output equals untagged output`` (TaggedNanoId tagged) =
     let untagged = string tagged
     tagged = nanoid.tag untagged
 
+  [<Property(MaxTest = 1)>]
+  let ``Tagged default is UrlSafe alphabet of size 21`` () =
+    let SourceAlphabet alphabet & TargetSize size = NanoIdOptions.UrlSafe
+    let value = string (nanoId' ())
+    value.Length = size && alphabet.IncludesAll(value)
 
 module rec NanoId =
   [<Property(MaxTest = 1)>]
