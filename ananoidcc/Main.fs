@@ -17,19 +17,22 @@ open type TextWrapping
 
 
 module Main =
+  let alphabets =
+    Map [
+      for info in FSharpType.GetUnionCases typeof<Alphabet> do
+        let letters =
+          FSharpValue.MakeUnion(info, null) |> unbox<Alphabet> |> string
+        (info.Name, letters)
+    ]
+
   let alphabetMenuItems (state : IWritable<_>) =
     MenuItem.create [
       MenuItem.header "Pre-defined..."
       MenuItem.viewItems [
-        for info in FSharpType.GetUnionCases typeof<Alphabet> do
+        for KeyValue(name, letters) in alphabets do
           MenuItem.create [
-            MenuItem.header info.Name
-            MenuItem.onClick (fun _ ->
-              FSharpValue.MakeUnion(info, null)
-              |> unbox<Alphabet>
-              |> string
-              |> state.Set
-            )
+            MenuItem.header name
+            MenuItem.onClick (fun _ -> state.Set letters)
           ]
       ]
     ]
@@ -237,7 +240,6 @@ module Main =
 type MainHost() as me =
   inherit
     HostWindow(
-
       CanResize = false,
       Content = Main.view (),
       Height = 320.0,

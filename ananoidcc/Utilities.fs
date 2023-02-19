@@ -58,6 +58,8 @@ type DurationFormat =
   }
 
 let formatDuration seconds =
+  let infinity = "\u221E"
+
   let timeNames = [
     DurationFormat.Of(60.0, "second")
     DurationFormat.Of(60.0, "minute")
@@ -73,14 +75,11 @@ let formatDuration seconds =
 
   let rec loop current items =
     match items with
-    | [] -> "\u221E" (* ⮜ infinity *)
+    | [] -> infinity
     | h :: t ->
       let next = current / h.Factor
       if List.isEmpty t then h.Label
       elif next < 1.0 then h.Render(int (round current))
       else loop next t
 
-  if Double.IsNaN seconds then
-    "\u221E" (* ⮜ infinity *)
-  else
-    loop seconds timeNames
+  if Double.IsNaN seconds then infinity else loop seconds timeNames

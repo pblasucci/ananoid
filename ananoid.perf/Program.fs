@@ -19,32 +19,34 @@ type AnanoidVsNanoidNet() =
 
 [<SimpleJob(RunStrategy.Throughput)>]
 type AllAlphabets() =
-  [<Benchmark>]
-  member me.Alphanumeric() = nanoIdOf Alphanumeric 21
+  let (TargetSize size) = NanoIdOptions.UrlSafe
 
   [<Benchmark>]
-  member me.HexadecimalLowercase() = nanoIdOf HexadecimalLowercase 21
+  member me.Alphanumeric() = nanoIdOf Alphanumeric size
 
   [<Benchmark>]
-  member me.HexadecimalUppercase() = nanoIdOf HexadecimalUppercase 21
+  member me.HexadecimalLowercase() = nanoIdOf HexadecimalLowercase size
 
   [<Benchmark>]
-  member me.Lowercase() = nanoIdOf Lowercase 21
+  member me.HexadecimalUppercase() = nanoIdOf HexadecimalUppercase size
 
   [<Benchmark>]
-  member me.NoLookalikes() = nanoIdOf NoLookalikes 21
+  member me.Lowercase() = nanoIdOf Lowercase size
 
   [<Benchmark>]
-  member me.NoLookalikesSafe() = nanoIdOf NoLookalikesSafe 21
+  member me.NoLookalikes() = nanoIdOf NoLookalikes size
 
   [<Benchmark>]
-  member me.Numbers() = nanoIdOf Numbers 21
+  member me.NoLookalikesSafe() = nanoIdOf NoLookalikesSafe size
 
   [<Benchmark>]
-  member me.Uppercase() = nanoIdOf Uppercase 21
+  member me.Numbers() = nanoIdOf Numbers size
+
+  [<Benchmark>]
+  member me.Uppercase() = nanoIdOf Uppercase size
 
   [<Benchmark(Baseline = true)>]
-  member me.UrlSafe() = nanoIdOf UrlSafe 21
+  member me.UrlSafe() = nanoIdOf UrlSafe size
 
 
 [<SimpleJob(RunStrategy.Throughput)>]
