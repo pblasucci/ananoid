@@ -5,22 +5,22 @@
         <LangVersion>preview</LangVersion>
         <WarningLevel>5</WarningLevel>
         <WarnOn>
-            $(WarnOn);  <!-- include warning set elsewhere -->
             1182;       <!-- unused bindings -->
             3218;       <!-- signature / implementation argument mismatch -->
             3366;       <!-- OCaml-style indexer notation -->
             3390;       <!-- invalid XMLDoc comments -->
+            $(WarnOn);  <!-- include warning set elsewhere -->
             <!--
             ⮟⮟⮟ These are useful for advanced debugging ⮟⮟⮟
-
+            3180;   ... implicit heap allocation: mutable promoted to ref cell
             3388;   ... additional implicit upcasts (subsumption)
             3389;   ... implicit numeric widening
             3395;   ... method argument implicit conversion
             -->
         </WarnOn>
         <NoWarn>
-            $(NoWarn);  <!-- include suppressions set elsewhere -->
             0052;       <!-- implicit copies of structs -->
+            $(NoWarn);  <!-- include suppressions set elsewhere -->
         </NoWarn>
         <IsPackable>false</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
