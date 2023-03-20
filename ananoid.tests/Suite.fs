@@ -43,6 +43,7 @@ module rec Functions =
     let value = string (nanoId' ())
     value.Length = size && alphabet.IncludesAll(value)
 
+
 module rec NanoId =
   [<Property(MaxTest = 1)>]
   let ``Input size zero produces empty NanoId`` () =
