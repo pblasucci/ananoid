@@ -23,7 +23,7 @@ internal static class Customization
   {
     IAlphabet alphabet1 = Numbers;
     // NOTE `(IAlphabet) Alphabet.Numbers` will always be "safe".
-    var isCoherent = alphabet1.IncludesAll(alphabet1.Letters);
+    var isCoherent = alphabet1.WillPermit(alphabet1.Letters);
     WriteLine($"{nameof(Numbers)} [0-9] okay? {isCoherent}");
 
     if (NoLookalikesSafe is IAlphabet alphabet2)
@@ -73,7 +73,7 @@ internal static class Customization
 internal class CustomAlphabet1 : IAlphabet
 {
   /// <inheritdoc />
-  public bool IncludesAll(string value) => value.All(Letters.Contains);
+  public bool WillPermit(string value) => value.All(Letters.Contains);
 
   /// <inheritdoc />
   public string Letters => "qwerty123";
@@ -82,7 +82,7 @@ internal class CustomAlphabet1 : IAlphabet
 internal class TooShortAlphabet : IAlphabet
 {
   /// <inheritdoc />
-  public bool IncludesAll(string value) => value is { Length: 0 };
+  public bool WillPermit(string value) => value is { Length: 0 };
 
   /// <inheritdoc />
   public string Letters => "";
@@ -91,7 +91,7 @@ internal class TooShortAlphabet : IAlphabet
 internal class TooLongAlphabet : IAlphabet
 {
   /// <inheritdoc />
-  public bool IncludesAll(string value) => value is { Length: 0 };
+  public bool WillPermit(string value) => value is { Length: 0 };
 
   /// <inheritdoc />
   public string Letters => new('$', 386);

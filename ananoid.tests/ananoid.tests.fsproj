@@ -7,7 +7,9 @@
 
   <ItemGroup>
     <Compile Include="Support.fs" />
-    <Compile Include="Suite.fs" />
+    <Compile Include="FunctionsTests.fs" />
+    <Compile Include="NanoIdTests.fs" />
+    <Compile Include="AlphabetTests.fs" />
     <Compile Include="Scratch.fs" />
   </ItemGroup>
 

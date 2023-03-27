@@ -14,15 +14,6 @@ open System.Text.RegularExpressions
 module Library =
   open Microsoft.FSharp.NativeInterop
 
-  [<Literal>]
-  let Unreachable =
-    "The program executed an instruction that was thought to be unreachable."
-
-  let inline unreachable (dataKey, dataValue) =
-    let failure = InvalidProgramException Unreachable
-    failure.Data[dataKey] <- dataValue
-    raise failure
-
   let inline outOfRange paramName =
     raise (ArgumentOutOfRangeException paramName)
 
@@ -40,7 +31,7 @@ module Library =
 
 type IAlphabet =
   abstract Letters : string
-  abstract IncludesAll : value : string -> bool
+  abstract WillPermit : value : string -> bool
 
 
 module CharSets =
@@ -147,7 +138,7 @@ type Alphabet =
       | Numbers -> CharSets.Numbers
       | Uppercase -> CharSets.Uppercase
 
-    member me.IncludesAll(value) =
+    member me.WillPermit(value) =
       match value with
       | Empty -> true
       | Trimmed raw ->
@@ -167,11 +158,11 @@ type Alphabet =
   static member Validate(alphabet : IAlphabet) =
     if isNull (alphabet :> obj) then
       Error AlphabetTooSmall
-    elif alphabet.Letters.Length <= 0 then
+    elif alphabet.Letters.Length < 1 then
       Error AlphabetTooSmall
-    elif 256 <= alphabet.Letters.Length then
+    elif 255 < alphabet.Letters.Length then
       Error AlphabetTooLarge
-    elif not (alphabet.IncludesAll alphabet.Letters) then
+    elif not (alphabet.WillPermit alphabet.Letters) then
       Error IncoherentAlphabet
     else
       Ok alphabet
@@ -249,8 +240,8 @@ module Core =
 
   [<CompiledName("NewNanoId")>]
   let nanoIdOf (alphabet & Length length) size =
-    if size <= 0 then ""
-    elif length <= 0u || 256u <= length then outOfRange (nameof alphabet)
+    if size < 1 then ""
+    elif length < 1u || 255u < length then outOfRange (nameof alphabet)
     else generate alphabet size
 
   [<CompiledName("NewNanoId")>]
@@ -287,11 +278,11 @@ type NanoId(value : string, length : uint32) =
     match Alphabet.Validate alphabet with
     | Ok _ when size < 1 -> NanoId.Empty
     | Ok a ->
-      match Core.generate a.Letters size with
-      | Empty -> NanoId.Empty
-      | Trimmed t & Length n -> NanoId(t, n)
-
-    | Error reason -> unreachable (nameof AlphabetError, reason)
+      let Trimmed t & Length n = Core.generate a.Letters size
+      NanoId(t, n)
+    //NOTE Since this overload of NewId is never publicly exposed,
+    // ... this exception is only possible to encounter via reflection!
+    | Error reason -> invalidArg (nameof alphabet) (string reason)
 
   static member NewId(options) = NanoId.NewId(options.Alphabet', options.Size')
 
@@ -304,8 +295,8 @@ type NanoIdParser(alphabet : IAlphabet) =
 
   member me.Parse(value) =
     match value with
-    | Empty when alphabet.IncludesAll("") -> Some NanoId.Empty
-    | Trimmed t & Length n when alphabet.IncludesAll(t) -> Some(NanoId(t, n))
+    | Empty when alphabet.WillPermit("") -> Some NanoId.Empty
+    | Trimmed t & Length n when alphabet.WillPermit(t) -> Some(NanoId(t, n))
     | _ -> None
 
   member me.TryParse(value, [<Out>] nanoId : outref<_>) =

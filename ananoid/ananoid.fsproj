@@ -3,7 +3,7 @@
     <PropertyGroup>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <VersionPrefix>0.7.0</VersionPrefix>
+        <VersionPrefix>0.8.0</VersionPrefix>
         <Title>Ananoid</Title>
         <Authors>Mulberry Labs, BV</Authors>
         <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>

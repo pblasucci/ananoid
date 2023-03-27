@@ -21,7 +21,7 @@ type IAlphabet =
   /// <returns>
   /// true when the input is composed solely of this alphabet; false otherwise.
   /// </returns>
-  abstract IncludesAll : value : string -> bool
+  abstract WillPermit : value : string -> bool
 
 
 /// <summary>
