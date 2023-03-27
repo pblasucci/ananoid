@@ -3,6 +3,7 @@ ananoid
 
 ### TO DO
 
+- [ ] **icon!**
 - [ ] README
 - [ ] CONTRIBUTE
 - [ ] CHANGELOG
@@ -14,14 +15,8 @@ ananoid
 - [ ] narrative docs
   - [ ] docs template
   - [ ] getting started
-    - [ ] F#
-    - [ ] C#
-  - [ ] customization
-    - [ ] F#
-    - [ ] C#
   - [ ] lower-level APIs
-    - [ ] F#
-    - [ ] C#
+  - [ ] customization
 - [ ] api docs
   - [ ] docs template
   - [ ] source link
