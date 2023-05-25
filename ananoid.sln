@@ -4,11 +4,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ananoid", "ananoid\ananoid.
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ananoid.tests", "ananoid.tests\ananoid.tests.fsproj", "{06E4D12E-FDF8-444E-920B-F0D5A7FB70AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ananoid.compat", "ananoid.compat\ananoid.compat.csproj", "{8E683BBB-F244-4BAA-BA71-26885F04B133}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ananoid.perf", "ananoid.perf\ananoid.perf.fsproj", "{B9C82520-31D1-42ED-BF4B-D669CE5442BF}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ananoidcc", "ananoidcc\ananoidcc.fsproj", "{F66DCB13-AC2A-4EEA-9670-86BD67B91103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ananoid.compat", "ananoid.compat\ananoid.compat.csproj", "{2B3BC295-8444-4BE3-8D41-A260C9426020}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,6 @@ Global
 		{06E4D12E-FDF8-444E-920B-F0D5A7FB70AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06E4D12E-FDF8-444E-920B-F0D5A7FB70AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06E4D12E-FDF8-444E-920B-F0D5A7FB70AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E683BBB-F244-4BAA-BA71-26885F04B133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E683BBB-F244-4BAA-BA71-26885F04B133}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E683BBB-F244-4BAA-BA71-26885F04B133}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E683BBB-F244-4BAA-BA71-26885F04B133}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9C82520-31D1-42ED-BF4B-D669CE5442BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9C82520-31D1-42ED-BF4B-D669CE5442BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9C82520-31D1-42ED-BF4B-D669CE5442BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +32,9 @@ Global
 		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66DCB13-AC2A-4EEA-9670-86BD67B91103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B3BC295-8444-4BE3-8D41-A260C9426020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3BC295-8444-4BE3-8D41-A260C9426020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3BC295-8444-4BE3-8D41-A260C9426020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3BC295-8444-4BE3-8D41-A260C9426020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

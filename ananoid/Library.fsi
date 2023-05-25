@@ -174,13 +174,6 @@ type NanoIdOptions =
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Numbers"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member Numbers : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
   /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikes"/>
   /// alphabet and a default output size (21 characters).
   /// </summary>
@@ -192,6 +185,13 @@ type NanoIdOptions =
   /// alphabet and a default output size (21 characters).
   /// </summary>
   static member NoLookalikesSafe : NanoIdOptions
+
+  /// <summary>
+  /// A <c>NanoIdOptions</c> instance with a
+  /// <see cref="M:pblasucci.Ananoid.Alphabet.Numbers"/>
+  /// alphabet and a default output size (21 characters).
+  /// </summary>
+  static member Numbers : NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
@@ -207,40 +207,6 @@ type NanoIdOptions =
   /// </summary>
   /// <remarks>These are defaults, used when no others are specified.</remarks>
   static member UrlSafe : NanoIdOptions
-
-
-/// Provided utilities for working with
-/// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
-[<AutoOpen>]
-[<Extension>]
-module NanoIdOptions =
-  /// <summary>
-  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
-  /// from a <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance,
-  /// or from a <see cref="T:pblasucci.Ananoid.NanoIdParser"/> instance.
-  /// </summary>
-  val inline (|SourceAlphabet|) :
-    source : 'Source -> IAlphabet when 'Source : (member Alphabet : IAlphabet)
-
-  /// <summary>
-  /// Extracts the <c>TargetSize</c> value from a
-  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
-  /// </summary>
-  val (|TargetSize|) : source : NanoIdOptions -> int
-
-
-  /// <summary>
-  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
-  /// and the <c>TargetSize</c> value from a
-  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
-  /// </summary>
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  [<Extension>]
-  val Deconstruct :
-    options : NanoIdOptions ->
-    alphabet : outref<IAlphabet> ->
-    targetSize : outref<int> ->
-      unit
 
 
 /// <summary>
@@ -328,6 +294,9 @@ type NanoId =
 
   /// Returns true, when the given nanoId is zero-valued; otherwise, false.
   static member IsEmpty : nanoId : NanoId -> bool
+
+  /// Implicitly converts a NanoId into its string representation.
+  static member op_Implicit : nanoId : NanoId -> string
 
   /// <summary>
   /// Creates a new instance from the given
@@ -444,6 +413,39 @@ type NanoIdParser =
   /// with further details about what went wrong.
   /// </returns>
   static member Of : alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
+
+
+/// Provided utilities for working with
+/// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
+[<AutoOpen>]
+[<Extension>]
+module NanoIdOptions =
+  /// <summary>
+  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
+  /// from a <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance,
+  /// or from a <see cref="T:pblasucci.Ananoid.NanoIdParser"/> instance.
+  /// </summary>
+  val inline (|SourceAlphabet|) :
+    source : 'Source -> IAlphabet when 'Source : (member Alphabet : IAlphabet)
+
+  /// <summary>
+  /// Extracts the <c>TargetSize</c> value from a
+  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
+  /// </summary>
+  val (|TargetSize|) : source : NanoIdOptions -> int
+
+  /// <summary>
+  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
+  /// and the <c>TargetSize</c> value from a
+  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
+  /// </summary>
+  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  [<Extension>]
+  val Deconstruct :
+    options : NanoIdOptions ->
+    alphabet : outref<IAlphabet> ->
+    targetSize : outref<int> ->
+      unit
 
 
 [<Extension>]

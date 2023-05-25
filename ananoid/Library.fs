@@ -270,6 +270,8 @@ type NanoId(value : string, length : uint32) =
 
   override _.ToString() = let (Trimmed value') = value in value'
 
+  static member op_Implicit(nanoId : NanoId) = string nanoId
+
   static member IsEmpty(nanoId : NanoId) = (nanoId.Length = 0u)
 
   static member Empty = NanoId()

@@ -3,15 +3,15 @@ ananoid
 
 ### TO DO
 
+- [x] convert compat project as unit tests
+- [ ] upgrade/review Fantomas
 - [ ] **icon!**
-- [ ] README
-- [ ] CONTRIBUTE
-- [ ] CHANGELOG
-- [ ] LICENSE
-  - [ ] For source: MIT
-  - [ ] For docs: CC-BY-4.0
-  - [ ] header for each file
-- [x] upgrade/review Fantomas
+  - [x] design / fabricate
+  - [ ] use in NuGet package
+  - [ ] use in documentation
+- [ ] build project (CLI)
+  - [ ] ???
+- [ ] Source Link
 - [ ] narrative docs
   - [ ] docs template
   - [ ] getting started
@@ -20,4 +20,10 @@ ananoid
 - [ ] api docs
   - [ ] docs template
   - [ ] source link
-- [ ] build project (CLI)
+- [ ] LICENSE
+  - [ ] For source: MIT
+  - [ ] For docs: CC-BY-4.0
+  - [ ] header for each file
+- [ ] CHANGELOG
+- [ ] CONTRIBUTE
+- [ ] README
