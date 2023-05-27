@@ -1,9 +1,15 @@
-using pblasucci.Ananoid.Compat.Support;
+/*
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+namespace pblasucci.Ananoid.Compat.Customization;
 
 // ⮟⮟⮟ missing XMLDoc comments
 #pragma warning disable CS1591
 
-namespace pblasucci.Ananoid.Compat.Customization;
+using pblasucci.Ananoid.Compat.Support;
+
 
 public class BringYourOwnAlphabets
 {

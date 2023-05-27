@@ -1,12 +1,18 @@
-using System.Text.RegularExpressions;
-
-// ⮟⮟⮟ missing XMLDoc comments
-#pragma warning disable CS1591
-
+/*
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
 namespace pblasucci.Ananoid.Compat.Primitives;
 
-// ⮟⮟⮟ primitive functions are in the `Core` module
+#pragma warning disable CS1591
+// ⮝⮝⮝ missing XMLDoc comments
+
+using System.Text.RegularExpressions;
+
 using static pblasucci.Ananoid.Core;
+// ⮝⮝⮝ primitive functions are in the `Core` module
+
 
 public class Basics
 {

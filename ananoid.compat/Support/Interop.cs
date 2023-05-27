@@ -1,6 +1,12 @@
+/*
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+namespace pblasucci.Ananoid.Compat.Support;
+
 using Microsoft.FSharp.Core;
 
-namespace pblasucci.Ananoid.Compat.Support;
 
 /// <summary>
 /// Simplifies working with instances of <c>FSharpResult</c>.

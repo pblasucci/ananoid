@@ -10,7 +10,6 @@
     <Compile Include="FunctionsTests.fs" />
     <Compile Include="NanoIdTests.fs" />
     <Compile Include="AlphabetTests.fs" />
-    <Compile Include="Scratch.fs" />
   </ItemGroup>
 
   <ItemGroup>

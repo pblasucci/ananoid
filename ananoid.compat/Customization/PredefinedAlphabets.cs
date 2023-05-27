@@ -1,11 +1,16 @@
-// ⮟⮟⮟ missing XMLDoc comments
+/*
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+namespace pblasucci.Ananoid.Compat.Customization;
 
 #pragma warning disable CS1591
-
-namespace pblasucci.Ananoid.Compat.Customization;
+// ⮝⮝⮝ missing XMLDoc comments
 
 using static pblasucci.Ananoid.Alphabet;
 // ⮝⮝⮝ defines many known alphabets as static members
+
 
 public class PredefinedAlphabets
 {

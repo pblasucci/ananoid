@@ -1,15 +1,20 @@
-using pblasucci.Ananoid.Compat.Customization;
-using pblasucci.Ananoid.Compat.Support;
-using Xunit.Sdk;
-
-// ⮟⮟⮟ missing XMLDoc comments
-#pragma warning disable CS1591
-
+/*
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
 namespace pblasucci.Ananoid.Compat.Basics;
 
-using static pblasucci.Ananoid.NanoIdParser;
+#pragma warning disable CS1591
+// ⮝⮝⮝ missing XMLDoc comments
 
+using Xunit.Sdk;
+using pblasucci.Ananoid.Compat.Customization;
+using pblasucci.Ananoid.Compat.Support;
+
+using static pblasucci.Ananoid.NanoIdParser;
 // ⮝⮝⮝ defines parsers for many known alphabets as static members
+
 
 [Properties(Arbitrary = new[] { typeof(Generation) })]
 public class Rehydrating

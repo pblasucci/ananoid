@@ -3,7 +3,6 @@ ananoid
 
 ### TO DO
 
-- [x] convert compat project as unit tests
 - [ ] upgrade/review Fantomas
 - [ ] **icon!**
   - [x] design / fabricate
@@ -20,10 +19,9 @@ ananoid
 - [ ] api docs
   - [ ] docs template
   - [ ] source link
-- [ ] LICENSE
-  - [ ] For source: MIT
-  - [ ] For docs: CC-BY-4.0
-  - [ ] header for each file
+- [x] LICENSE
+  - [x] For source: MPL
+  - [x] header for each file
 - [ ] CHANGELOG
 - [ ] CONTRIBUTE
 - [ ] README
