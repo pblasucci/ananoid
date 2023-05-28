@@ -5,9 +5,11 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <VersionPrefix>0.8.0</VersionPrefix>
         <Title>Ananoid</Title>
-        <Authors>Mulberry Labs, BV</Authors>
+        <Authors>Paul Blasucci</Authors>
         <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
-        <Copyright>2023 © Mulberry Labs, BV. All rights reserved.</Copyright>
+        <Copyright>2023 © Paul Blasucci. All rights reserved.</Copyright>
+        <PackageProjectUrl>https://github.com/pblasucci/ananoid</PackageProjectUrl>
+        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -26,6 +28,10 @@
 
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="7.0.200" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Include="assets\ananoid.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>

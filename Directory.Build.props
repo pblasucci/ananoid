@@ -25,8 +25,14 @@
         <IsPackable>false</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RootNamespace>pblasucci.Ananoid</RootNamespace>
-        <Company>Mulberry Labs, BV</Company>
+        <Company>Paul Blasucci</Company>
         <Product>Ananoid</Product>
+        <RepositoryUrl>https://github.com/pblasucci/ananoid</RepositoryUrl>
+        <RepositoryBranch>main</RepositoryBranch>
+        <RepositoryType>git</RepositoryType>
+        <FsDocsLicenseLink>https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt</FsDocsLicenseLink>
+        <FsDocsLogoLink>index.html</FsDocsLogoLink>
+        <FsDocsLogoSource>content/img/ananoid.png</FsDocsLogoSource>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

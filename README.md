@@ -3,25 +3,22 @@ ananoid
 
 ### TO DO
 
-- [ ] upgrade/review Fantomas
 - [ ] **icon!**
   - [x] design / fabricate
   - [ ] use in NuGet package
   - [ ] use in documentation
-- [ ] build project (CLI)
-  - [ ] ???
-- [ ] Source Link
+- [ ] api docs
+  - [ ] docs template
+  - [ ] cross-link
 - [ ] narrative docs
   - [ ] docs template
   - [ ] getting started
   - [ ] lower-level APIs
   - [ ] customization
-- [ ] api docs
-  - [ ] docs template
-  - [ ] source link
-- [x] LICENSE
-  - [x] For source: MPL
-  - [x] header for each file
-- [ ] CHANGELOG
+- [ ] build project (CLI)
+  - [ ] ???
+- [ ] Source Link
 - [ ] CONTRIBUTE
+- [ ] CHANGELOG
 - [ ] README
+- [ ] upgrade/review Fantomas
