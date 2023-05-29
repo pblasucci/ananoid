@@ -22,8 +22,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Library.fsi" />
+        <Compile Include="Core.fsi" />
+        <Compile Include="Core.fs" />
         <Compile Include="Library.fs" />
+        <Compile Include="Alphabet.fsi" />
+        <Compile Include="Alphabet.fs" />
+        <Compile Include="NanoId.fsi" />
+        <Compile Include="NanoId.fs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,7 +36,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <None Include="assets\ananoid.png" Pack="true" PackagePath="\"/>
+      <None Include="assets\ananoid.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>

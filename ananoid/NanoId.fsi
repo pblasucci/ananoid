@@ -9,107 +9,10 @@ open System
 open System.Runtime.CompilerServices
 
 
-/// Represents a set of 'letters' from which an identifier is made.
-type IAlphabet =
-  /// The set of 'letters' constituting this alphabet.
-  abstract Letters : string
-
-  /// <summary>
-  /// Tests if the given value could be constituted from this alphabet.
-  /// </summary>
-  /// <remarks>
-  /// All predefined alphabets are considered to include inputs which are
-  /// <c>null</c> or consist entirely of whitespace characters. It is
-  /// recommended, but not required, that any custom alphabets do the same.
-  /// </remarks>
-  /// <param name="value">a string of letters to be evaluated.</param>
-  /// <returns>
-  /// true when the input is composed solely of this alphabet; false otherwise.
-  /// </returns>
-  abstract WillPermit : value : string -> bool
-
-
 /// <summary>
-/// Details the potential failures which can occur when an
-/// <see cref="T:pblasucci.Ananoid.IAlphabet"/> is validated,
-/// or when an alphabet evaluates a string for compatability.
+/// Details the values which can be changed to alter the generation of
+/// <see cref="T:pblasucci.Ananoid.NanoId" /> identifiers.
 /// </summary>
-type AlphabetError =
-  /// Raised when an alphabet contains more than 255 letters.
-  | AlphabetTooLarge
-
-  /// Raised when an alphabet contains no letters.
-  | AlphabetTooSmall
-
-  /// Raised when an alphabet cannot validate its own letters.
-  | IncoherentAlphabet
-
-  /// A human-readable description of the error, suitable for printing.
-  member Message : string
-
-
-/// Pre-defined alphabets commonly used to generation identities.
-type Alphabet =
-  /// Combination of all the lowercase, uppercase characters and numbers
-  /// from 0 to 9, not including any symbols or special characters.
-  | Alphanumeric
-
-  /// English hexadecimal lowercase characters: 0123456789abcdef.
-  | HexadecimalLowercase
-
-  /// English hexadecimal uppercase characters: 0123456789ABCDEF
-  | HexadecimalUppercase
-
-  /// Lowercase English letters: abcdefghijklmnopqrstuvwxyz.
-  | Lowercase
-
-  /// Numbers, Uppercase, and Lowercase without "lookalikes":
-  /// 1, l, I, 0, O, o, u, v, 5, S, s, 2, Z.
-  /// Complete set: 346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz.
-  | NoLookalikes
-
-  /// Same as Nolookalikes -- but having removed vowels and: 3, 4, x, X, V.
-  /// Complete set: 6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz
-  | NoLookalikesSafe
-
-  /// Numbers from 0 to 9.
-  | Numbers
-
-  /// Uppercase English letters: ABCDEFGHIJKLMNOPQRSTUVWXYZ.
-  | Uppercase
-
-  /// <summary>
-  /// URL-friendly numbers, English letters, and symbols: <c>A-Za-z0-9_-</c>.
-  /// This is the default alphabet if one is not explicitly specified.
-  /// </summary>
-  | UrlSafe
-
-  interface IAlphabet
-
-  /// <summary>
-  /// Checks that a given <see cref="T:pblasucci.Ananoid.IAlphabet"/>
-  /// upholds certain invariants necessary for the algorithm to work well.
-  /// </summary>
-  /// <remarks>
-  /// An IAlphabet instance MUST uphold the following invariants:
-  /// <list type="bullet">
-  /// <item>Is not <c>null</c></item>
-  /// <item>Contains at least one (1) letter</item>
-  /// <item>Contains no more then 255 letters.</item>
-  /// <item>Is able to successfully validate its own set of letters.</item>
-  /// </list>
-  /// </remarks>
-  /// <param name="alphabet">An IAlphabet instance to be validated.</param>
-  /// <returns>
-  /// On successful validation, returns the given input (unmodified);
-  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
-  /// </returns>
-  static member Validate :
-    alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
-
-
-/// Details the values which can be changed to alter the generated identifiers.
 [<NoComparison>]
 [<Sealed>]
 type NanoIdOptions =
@@ -214,78 +117,6 @@ type NanoIdOptions =
   static member UrlSafe : NanoIdOptions
 
 
-/// <summary>
-/// Contains primitives for generating identifiers (as strings), which
-/// serve as the basis for <see cref="T:pblasucci.Ananoid.NanoId"/>,
-/// and which might be useful in some niche situations.
-/// </summary>
-module Core =
-  /// <summary>
-  /// Generates a new identifier, <c>size</c> characters in length,
-  /// derived from the letters of the given alphabet
-  /// (note: a size of less than zero will result in an empty string).
-  /// </summary>
-  /// <exception cref="T:System.ArgumentOutOfRangeException">
-  /// Thrown when <c>alphabet</c> contains &lt; 1 letter, or &gt; 255 letters.
-  /// </exception>
-  [<CompiledName("NewNanoId")>]
-  val nanoIdOf : alphabet : string -> size : int -> string
-
-  /// Generates a new identifier with the default alphabet and size.
-  [<CompiledName("NewNanoId")>]
-  val nanoId : unit -> string
-
-
-  /// Contains primitives for generating identifiers which are "tagged"
-  /// with a discriminator (useful for managing lots of string which have
-  /// different purposes, but where using a full CLR type is undesirable).
-  module Tagged =
-    /// <summary>
-    /// An abbreviation for the CLI type System.String.
-    /// </summary>
-    /// <remarks>
-    /// <b>This alias is not usable from languages other than F#.</b>
-    /// </remarks>
-    [<CompiledName("string@measurealias")>]
-    [<MeasureAnnotatedAbbreviation>]
-    type string<[<Measure>] 'Tag> = string
-
-    /// <summary>
-    /// A "tag", which can be used as a discriminator.
-    /// </summary>
-    /// <remarks>
-    /// <b>This tag is not usable from languages other than F#.</b>
-    /// </remarks>
-    [<CompiledName("nanoid@measure")>]
-    [<Measure>]
-    type nanoid =
-      /// <summary>
-      /// Applies the <c>nanoid</c> "tag" to a string.
-      /// </summary>
-      /// <remarks>
-      /// <b>This function is not usable from languages other than F#.</b>
-      /// </remarks>
-      static member tag : value : string -> string<nanoid>
-
-    /// <summary>
-    /// Generates a new tagged identifier, <c>size</c> characters in length,
-    /// derived from the letters of the given alphabet
-    /// (note: a size of less than zero will result in an empty string).
-    /// </summary>
-    /// <remarks>
-    /// <b>This function is not usable from languages other than F#.</b>
-    /// </remarks>
-    val nanoIdOf' : alphabet : string -> size : int -> string<nanoid>
-
-    /// <summary>
-    /// Generates a new tagged identifier with the default alphabet and size.
-    /// </summary>
-    /// /// <remarks>
-    /// <b>This function is not usable from languages other than F#.</b>
-    /// </remarks>
-    val nanoId' : unit -> string<nanoid>
-
-
 /// Represents a unique textual identifier, with a known length,
 /// based on a particular alphabet (i.e. a set of letters).
 [<IsReadOnly>]
@@ -300,7 +131,7 @@ type NanoId =
   /// Returns true, when the given nanoId is zero-valued; otherwise, false.
   static member IsEmpty : nanoId : NanoId -> bool
 
-  /// Implicitly converts a NanoId into its string representation.
+  /// <exclude />
   static member op_Implicit : nanoId : NanoId -> string
 
   /// <summary>
@@ -318,7 +149,7 @@ type NanoId =
 
 /// <summary>
 /// Provides methods for validating and parsing strings into NanoId instances of
-/// <see cref="T:pblasucci.Ananoid.NanoId "/>, while using a specific
+/// <see cref="T:pblasucci.Ananoid.NanoId" />, while using a specific
 /// <see cref="T:pblasucci.Ananoid.IAlphabet" /> to validate the inputs.
 /// </summary>
 [<Sealed>]
@@ -453,6 +284,12 @@ module NanoIdOptions =
       unit
 
 
+/// <summary>
+/// Provides tools for generating <see cref="T:pblasucci.Ananoid.NanoId"/>
+/// instances directly from <see cref="T:pblasucci.Ananoid.IAlphabet"/>
+/// instances (i.e. by-passing the explicit use of
+/// <see cref="T:pblasucci.Ananoid.NanoIdOptions "/>).
+/// </summary>
 [<Extension>]
 [<Sealed>]
 type IAlphabetExtensions =
