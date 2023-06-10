@@ -31,8 +31,6 @@
         <RepositoryBranch>main</RepositoryBranch>
         <RepositoryType>git</RepositoryType>
         <FsDocsLicenseLink>https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt</FsDocsLicenseLink>
-        <FsDocsLogoLink>index.html</FsDocsLogoLink>
-        <FsDocsLogoSource>content/img/ananoid.png</FsDocsLogoSource>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

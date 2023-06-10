@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <AssemblyName>pblasucci.ananoid</AssemblyName>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <VersionPrefix>0.8.0</VersionPrefix>
@@ -10,15 +11,16 @@
         <Copyright>2023 © Paul Blasucci. All rights reserved.</Copyright>
         <PackageProjectUrl>https://github.com/pblasucci/ananoid</PackageProjectUrl>
         <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+        <PackageIcon>ananoid.png</PackageIcon>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>obj/Debug/net7.0/ananoid.xml</DocumentationFile>
+        <DocumentationFile>obj/Debug/net7.0/pblasucci.ananoid.xml</DocumentationFile>
         <VersionSuffix>debug</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>obj/Release/net7.0/ananoid.xml</DocumentationFile>
+        <DocumentationFile>obj/Release/net7.0/pblasucci.ananoid.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,7 +35,7 @@
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="7.0.200" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <None Include="assets\ananoid.png" Pack="true" PackagePath="\" />
     </ItemGroup>

@@ -5,20 +5,31 @@ ananoid
 
 - [ ] **icon!**
   - [x] design / fabricate
-  - [ ] use in NuGet package
+  - [x] use in NuGet package
   - [ ] use in documentation
-- [ ] api docs
+- [x] add "generate" option to `ananoidcc`
+- [-] api docs
   - [ ] docs template
   - [ ] cross-link
 - [ ] narrative docs
   - [ ] docs template
-  - [ ] getting started
+  - [-] getting started
+    - [-] F#
+    - [ ] C#
   - [ ] lower-level APIs
+    - [ ] F#
+    - [ ] C#
   - [ ] customization
+    - [ ] F#
+    - [ ] C#
+  - [ ] performance
+  - [ ] ananoidcc
+- [ ] Source Link
 - [ ] build project (CLI)
   - [ ] ???
-- [ ] Source Link
 - [ ] CONTRIBUTE
 - [ ] CHANGELOG
 - [ ] README
+  - [ ] package
+  - [ ] repo
 - [ ] upgrade/review Fantomas

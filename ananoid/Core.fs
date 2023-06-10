@@ -2,6 +2,10 @@
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  This Source Code Form maybe be re-used independent of other parts of
+  the Ananoid project (https://github.com/pblasucci/ananoid), provided this
+  disclaimer is maintained and the terms of the above license are respected.
 *)
 
 /// <summary>
