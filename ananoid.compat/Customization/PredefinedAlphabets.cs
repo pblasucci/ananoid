@@ -8,7 +8,7 @@ namespace pblasucci.Ananoid.Compat.Customization;
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
 
-using static pblasucci.Ananoid.Alphabet;
+using static Alphabet;
 // ⮝⮝⮝ defines many known alphabets as static members
 
 

@@ -3,18 +3,17 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
+
 namespace pblasucci.Ananoid.Compat.Basics;
 
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
-
 using Xunit.Sdk;
-using pblasucci.Ananoid.Compat.Customization;
-using pblasucci.Ananoid.Compat.Support;
+using Customization;
+using Support;
+using static NanoIdParser;
 
-using static pblasucci.Ananoid.NanoIdParser;
 // ⮝⮝⮝ defines parsers for many known alphabets as static members
-
 
 [Properties(Arbitrary = new[] { typeof(Generation) })]
 public class Rehydrating
@@ -71,11 +70,28 @@ public class Rehydrating
   {
     Qwerty12345Alphabet alphabet = new();
 
-    var options = NanoIdOptions.Of(alphabet, size: 6).GetValueOrThrow(Failed);
-    var parser = NanoIdParser.Of(alphabet).GetValueOrThrow(Failed);
+    var hasOptions = NanoIdOptions.TryCreate(
+      alphabet,
+      size: 6,
+      out var options,
+      out var optionsError
+    );
 
-    return TestParser(options, parser);
+    var hasParser = NanoIdParser.TryCreate(
+      alphabet,
+      out var parser,
+      out var parserError
+    );
+
+    return (hasOptions, hasParser) switch
+    {
+      (true, true) => TestParser(options, parser),
+
+      (_, false) => false.Label(optionsError.ToString()),
+      (false, _) => false.Label(parserError.ToString())
+    };
   }
+
 
   [Property(MaxTest = 1)]
   public Property Custom_parser_fails_against_known_incorrect_value()

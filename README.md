@@ -7,7 +7,6 @@ ananoid
   - [x] design / fabricate
   - [x] use in NuGet package
   - [ ] use in documentation
-- [x] add "generate" option to `ananoidcc`
 - [-] api docs
   - [ ] docs template
   - [ ] cross-link
@@ -15,7 +14,7 @@ ananoid
   - [ ] docs template
   - [-] getting started
     - [-] F#
-    - [ ] C#
+    - [-] C#
   - [ ] lower-level APIs
     - [ ] F#
     - [ ] C#

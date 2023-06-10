@@ -5,6 +5,7 @@
 *)
 namespace pblasucci.Ananoid
 
+open FSharp.Core.Operators.Unchecked
 open System
 open System.Text.RegularExpressions
 
@@ -145,3 +146,16 @@ type Alphabet =
       Error IncoherentAlphabet
     else
       Ok alphabet
+
+  static member TryInvalidate
+    (
+      alphabet : IAlphabet,
+      error : outref<AlphabetError>
+    )
+    =
+    let result = Alphabet.Validate(alphabet)
+    error <-
+      match result with
+      | Error e -> e
+      | Ok _ -> defaultof<_>
+    Result.isError result

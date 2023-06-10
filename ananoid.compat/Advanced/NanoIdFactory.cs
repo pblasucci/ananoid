@@ -8,8 +8,7 @@ namespace pblasucci.Ananoid.Compat.Advanced;
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
 
-using pblasucci.Ananoid.Compat.Customization;
-using pblasucci.Ananoid.Compat.Support;
+using Customization;
 
 
 public class NanoIdFactory
@@ -26,7 +25,7 @@ public class NanoIdFactory
     IAlphabet alphabet = Alphabet.UrlSafe;
     // If you know the alphabet, but not the desired size, you can
     // partially compute a function for creating NanoId instances.
-    var maker = alphabet.ToNanoIdFactory().GetValueOrDefault()!;
+    var maker = alphabet.ToNanoIdFactory();
     // The desired size can be specified -- and varied -- later!
     return alphabet.WillPermit(maker(size1)) &&
            alphabet.WillPermit(maker(size2));
@@ -34,10 +33,13 @@ public class NanoIdFactory
 
   [Property(MaxTest = 1)]
   public bool Factory_validates_alphabets_passing()
-    => new Qwerty12345Alphabet().ToNanoIdFactory() is { IsOk: true };
+    => new Qwerty12345Alphabet().ToNanoIdFactory() is not null;
 
-  [Property(MaxTest = 1)]
-  public bool Factory_validates_alphabets_failing()
-    => new IncoherentAlphabet().ToNanoIdFactory() is { IsOk: false };
-
+  [Fact]
+  public void Factory_validates_alphabets_failing()
+  {
+    Assert.Throws<ArgumentException>(
+      () => new IncoherentAlphabet().ToNanoIdFactory() is not null
+    );
+  }
 }

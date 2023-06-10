@@ -8,7 +8,7 @@ namespace pblasucci.Ananoid.Compat.Basics;
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
 
-using pblasucci.Ananoid.Compat.Support;
+using Support;
 
 
 [Properties(Arbitrary = new[] { typeof(Generation) })]

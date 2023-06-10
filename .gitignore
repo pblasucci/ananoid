@@ -9,3 +9,5 @@ riderModule.iml
 *.DotSettings
 *.DotSettings.*
 **/tmp/
+.fake/
+.ionide/

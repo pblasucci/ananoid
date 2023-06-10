@@ -103,3 +103,27 @@ type Alphabet =
   /// </returns>
   static member Validate :
     alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
+
+  /// <summary>
+  /// Checks that a given <see cref="T:pblasucci.Ananoid.IAlphabet"/>
+  /// upholds certain invariants necessary for the algorithm to work well.
+  /// </summary>
+  /// <remarks>
+  /// An IAlphabet instance MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) letter</item>
+  /// <item>Contains no more then 255 letters.</item>
+  /// <item>Is able to successfully validate its own set of letters.</item>
+  /// </list>
+  /// </remarks>
+  /// <param name="alphabet">An IAlphabet instance to be validated.</param>
+  /// <param name="error">When the given alphabet is invalidated, this
+  /// argument will contain more information about the failure.</param>
+  /// <returns>
+  /// <c>true</c> when the given alphabet fails to uphold invariants (nb: in
+  /// this case, <c>error</c> will contain more information about the failure);
+  /// when all invariants are upheld, this method returns <c>false</c>.
+  /// </returns>
+  static member TryInvalidate :
+    alphabet : IAlphabet * error : outref<AlphabetError> -> bool

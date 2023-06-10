@@ -3,13 +3,12 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
+
 namespace pblasucci.Ananoid.Compat.Customization;
 
 // ⮟⮟⮟ missing XMLDoc comments
 #pragma warning disable CS1591
-
-using pblasucci.Ananoid.Compat.Support;
-
+using Support;
 
 public class BringYourOwnAlphabets
 {
@@ -33,13 +32,8 @@ public class BringYourOwnAlphabets
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_at_least_one_letter()
   {
-    var result = Alphabet.Validate(new TooShortAlphabet());
-    // We can use pattern matching to extract data from an `FSharpResult`.
-    return result switch
-    {
-      { IsOk: false, ErrorValue: var error } => error.IsAlphabetTooSmall,
-      _ => false
-    };
+    return Alphabet.TryInvalidate(new TooShortAlphabet(), out var error) &&
+           error.IsAlphabetTooSmall;
   }
 
   [Property(MaxTest = 1)]

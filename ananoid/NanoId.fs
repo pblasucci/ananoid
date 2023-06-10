@@ -5,6 +5,7 @@
 *)
 namespace pblasucci.Ananoid
 
+open FSharp.Core.Operators.Unchecked
 open System
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
@@ -25,6 +26,24 @@ type NanoIdOptions =
     alphabet
     |> Alphabet.Validate
     |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
+
+  static member TryCreate
+    (
+      alphabet,
+      size,
+      value : outref<_>,
+      error : outref<_>
+    )
+    =
+    match NanoIdOptions.Of(alphabet, size) with
+    | Error error' ->
+      error <- error'
+      value <- defaultof<_>
+      false
+    | Ok value' ->
+      error <- defaultof<_>
+      value <- value'
+      true
 
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
 
@@ -114,6 +133,17 @@ type NanoIdParser(alphabet : IAlphabet) =
   static member Of(alphabet) =
     alphabet |> Alphabet.Validate |> Result.map NanoIdParser
 
+  static member TryCreate(alphabet, value : outref<_>, error : outref<_>) =
+    match NanoIdParser.Of(alphabet) with
+    | Error error' ->
+      error <- error'
+      value <- defaultof<_>
+      false
+    | Ok value' ->
+      error <- defaultof<_>
+      value <- value'
+      true
+
 
 [<AutoOpen>]
 [<Extension>]
@@ -150,4 +180,6 @@ type IAlphabetExtensions =
   [<CompiledName("ToNanoIdFactory")>]
   [<Extension>]
   static member ToNanoIdFactoryDelegate(alphabet) =
-    alphabet.ToNanoIdFactory() |> Result.map (fun func -> Func<_, _> func)
+    match alphabet.ToNanoIdFactory() with
+    | Error error -> invalidArg (nameof alphabet) (string error)
+    | Ok func -> Func<_, _> func

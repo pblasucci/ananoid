@@ -8,7 +8,7 @@ namespace pblasucci.Ananoid.Compat.Primitives;
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
 
-using static pblasucci.Ananoid.Core;
+using static Core;
 // ⮝⮝⮝ primitive functions are in the `Core` module
 
 

@@ -53,6 +53,36 @@ type NanoIdOptions =
     alphabet : IAlphabet * size : int -> Result<NanoIdOptions, AlphabetError>
 
   /// <summary>
+  /// Creates a new instance from the given inputs, after checking the
+  /// validity of <c>alphabet</c> and, if necessary, adjusting <c>size</c>.
+  /// </summary>
+  /// <param name="alphabet">
+  /// The IAlphabet to use for generation and validation.
+  /// </param>
+  /// <param name="size">
+  /// The length of a generated identifier, in number of characters
+  /// (note: negative values are changed to zero).
+  /// </param>
+  /// <param name="value">
+  /// On success, this argument contains the newly created options instance.
+  /// </param>
+  /// <param name="error">
+  /// On failure, this argument contains further details.
+  /// </param>
+  /// <returns>
+  /// On successful creation, returns <c>true</c> (nb: in this case, the
+  /// <c>value</c> argument will contain the newly created instance);
+  /// otherwise, returns <c>false</c> (nb: in this case, <c>error</c> will
+  /// contain more information about the failure).
+  /// </returns>
+  static member TryCreate :
+    alphabet : IAlphabet *
+    size : int *
+    value : outref<NanoIdOptions> *
+    error : outref<AlphabetError> ->
+      bool
+
+  /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
   /// <see cref="M:pblasucci.Ananoid.Alphabet.Alphanumeric"/>
   /// alphabet and a default output size (21 characters).
@@ -250,6 +280,30 @@ type NanoIdParser =
   /// </returns>
   static member Of : alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
 
+  /// <summary>
+  /// Tries to create a new instance.
+  /// </summary>
+  /// <param name="alphabet">
+  /// The set of letters against which raw strings will be checked for validity.
+  /// </param>
+  /// <param name="value">
+  /// On success, this argument contains the newly created parser instance.
+  /// </param>
+  /// <param name="error">
+  /// On failure, this argument contains further details.
+  /// </param>
+  /// <returns>
+  /// On successful creation, returns <c>true</c> (nb: in this case, the
+  /// <c>value</c> argument will contain the newly created instance);
+  /// otherwise, returns <c>false</c> (nb: in this case, <c>error</c> will
+  /// contain more information about the failure).
+  /// </returns>
+  static member TryCreate :
+    alphabet : IAlphabet *
+    value : outref<NanoIdParser> *
+    error : outref<AlphabetError> ->
+      bool
+
 
 /// Provided utilities for working with
 /// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
@@ -322,8 +376,11 @@ type IAlphabetExtensions =
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
+  /// <exception cref="T:System.ArgumentException">
+  /// Raised when given <c>alphabet</c> fails validation.
+  /// </exception>
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<CompiledName("ToNanoIdFactory")>]
   [<Extension>]
   static member ToNanoIdFactoryDelegate :
-    alphabet : IAlphabet -> Result<Func<int, NanoId>, AlphabetError>
+    alphabet : IAlphabet -> Func<int, NanoId>
