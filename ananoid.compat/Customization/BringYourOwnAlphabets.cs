@@ -3,12 +3,12 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-
 namespace pblasucci.Ananoid.Compat.Customization;
 
 // ⮟⮟⮟ missing XMLDoc comments
 #pragma warning disable CS1591
-using Support;
+
+using Xunit.Sdk;
 
 public class BringYourOwnAlphabets
 {
@@ -19,9 +19,12 @@ public class BringYourOwnAlphabets
   {
     var options =
       NanoIdOptions
-        .Of(new Qwerty12345Alphabet(), size: (int)input)
-        // ⮝⮝⮝ In addition to known alphabets, you can provide your own.
-        .GetValueOrThrow(fail => new InvalidProgramException(fail.ToString()));
+        .New(
+          new Qwerty12345Alphabet(),
+          size: (int)input,
+          ok: it => it,
+          error => throw new XunitException(error.ToString())
+        );
 
     var nanoId = NanoId.NewId(options);
 
@@ -32,25 +35,32 @@ public class BringYourOwnAlphabets
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_at_least_one_letter()
   {
-    return Alphabet.TryInvalidate(new TooShortAlphabet(), out var error) &&
-           error.IsAlphabetTooSmall;
+    return Alphabet.Validate(
+      new TooShortAlphabet(),
+      ok: _ => false,
+      error => error.IsAlphabetTooSmall
+    );
   }
 
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_less_then_256_letters()
   {
-    var result = Alphabet.Validate(new TooLongAlphabet());
-    // `FSharpResult` can be easily decomposed as a three-tuple.
-    return result is (false, _, var error) && error!.IsAlphabetTooLarge;
+    return Alphabet.Validate(
+      new TooLongAlphabet(),
+      ok: _ => false,
+      error => error.IsAlphabetTooLarge
+    );
   }
 
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_coherent()
   {
     //NOTE 'coherent' means an alphabet can validate its own letters
-    var result = Alphabet.Validate(new IncoherentAlphabet());
-    // `.Match` can be a very concise way to work with `FSharpResult`.
-    return result.Match(okay: _ => false, error: x => x.IsIncoherentAlphabet);
+    return Alphabet.Validate(
+      new IncoherentAlphabet(),
+      ok: _ => false,
+      error => error.IsIncoherentAlphabet
+    );
   }
 }
 

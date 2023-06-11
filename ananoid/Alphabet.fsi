@@ -5,6 +5,8 @@
 *)
 namespace pblasucci.Ananoid
 
+open System
+
 /// Represents a set of 'letters' from which an identifier is made.
 type IAlphabet =
   /// The set of 'letters' constituting this alphabet.
@@ -118,12 +120,22 @@ type Alphabet =
   /// </list>
   /// </remarks>
   /// <param name="alphabet">An IAlphabet instance to be validated.</param>
-  /// <param name="error">When the given alphabet is invalidated, this
-  /// argument will contain more information about the failure.</param>
+  /// <param name="ok">
+  /// This callback will be invoked to signal successful alphabet validation.
+  /// </param>
+  /// <param name="error">
+  /// When the given alphabet is invalidated, this
+  /// callback will be invoked with more information about the failure.
+  /// </param>
   /// <returns>
-  /// <c>true</c> when the given alphabet fails to uphold invariants (nb: in
-  /// this case, <c>error</c> will contain more information about the failure);
-  /// when all invariants are upheld, this method returns <c>false</c>.
+  /// The result of invoking one of the given delegates,
+  /// based on the validity of the given alphabet.
   /// </returns>
-  static member TryInvalidate :
-    alphabet : IAlphabet * error : outref<AlphabetError> -> bool
+  /// <exception cref="T:System.ArgumentNullException">
+  /// Raise if the given alphabet or either callback are null.
+  /// </exception>
+  static member Validate :
+    alphabet : IAlphabet *
+    ok : Func<IAlphabet, 'T> *
+    error : Func<AlphabetError, 'T> ->
+      'T

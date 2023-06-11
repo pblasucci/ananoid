@@ -5,7 +5,6 @@
 *)
 namespace pblasucci.Ananoid
 
-open FSharp.Core.Operators.Unchecked
 open System
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
@@ -27,23 +26,8 @@ type NanoIdOptions =
     |> Alphabet.Validate
     |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
 
-  static member TryCreate
-    (
-      alphabet,
-      size,
-      value : outref<_>,
-      error : outref<_>
-    )
-    =
-    match NanoIdOptions.Of(alphabet, size) with
-    | Error error' ->
-      error <- error'
-      value <- defaultof<_>
-      false
-    | Ok value' ->
-      error <- defaultof<_>
-      value <- value'
-      true
+  static member New(alphabet, size, ok : Func<_,_>, error : Func<_,_>) =
+    NanoIdOptions.Of(alphabet, size) |> Result.either ok.Invoke error.Invoke
 
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
 
@@ -133,16 +117,8 @@ type NanoIdParser(alphabet : IAlphabet) =
   static member Of(alphabet) =
     alphabet |> Alphabet.Validate |> Result.map NanoIdParser
 
-  static member TryCreate(alphabet, value : outref<_>, error : outref<_>) =
-    match NanoIdParser.Of(alphabet) with
-    | Error error' ->
-      error <- error'
-      value <- defaultof<_>
-      false
-    | Ok value' ->
-      error <- defaultof<_>
-      value <- value'
-      true
+  static member New(alphabet, ok : Func<_,_>, error : Func<_,_>) =
+    alphabet |> NanoIdParser.Of |> Result.either ok.Invoke error.Invoke
 
 
 [<AutoOpen>]

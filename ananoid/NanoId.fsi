@@ -63,24 +63,24 @@ type NanoIdOptions =
   /// The length of a generated identifier, in number of characters
   /// (note: negative values are changed to zero).
   /// </param>
-  /// <param name="value">
-  /// On success, this argument contains the newly created options instance.
+  /// <param name="ok">
+  /// On success, this delegate is called with the newly created instance.
   /// </param>
   /// <param name="error">
-  /// On failure, this argument contains further details.
+  /// On failure, this delegate is called with further failure details.
   /// </param>
   /// <returns>
-  /// On successful creation, returns <c>true</c> (nb: in this case, the
-  /// <c>value</c> argument will contain the newly created instance);
-  /// otherwise, returns <c>false</c> (nb: in this case, <c>error</c> will
-  /// contain more information about the failure).
+  /// The result of invoking one of the given delegates.
   /// </returns>
-  static member TryCreate :
+  /// <exception cref="T:System.ArgumentNullException">
+  /// Raise if the given alphabet or either callback are null.
+  /// </exception>
+  static member New :
     alphabet : IAlphabet *
     size : int *
-    value : outref<NanoIdOptions> *
-    error : outref<AlphabetError> ->
-      bool
+    ok : Func<NanoIdOptions, 'T> *
+    error : Func<AlphabetError, 'T> ->
+      'T
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
@@ -286,23 +286,23 @@ type NanoIdParser =
   /// <param name="alphabet">
   /// The set of letters against which raw strings will be checked for validity.
   /// </param>
-  /// <param name="value">
-  /// On success, this argument contains the newly created parser instance.
+  /// <param name="ok">
+  /// On success, this delegate is called with the newly created instance.
   /// </param>
   /// <param name="error">
-  /// On failure, this argument contains further details.
+  /// On failure, this delegate is called with further failure details.
   /// </param>
   /// <returns>
-  /// On successful creation, returns <c>true</c> (nb: in this case, the
-  /// <c>value</c> argument will contain the newly created instance);
-  /// otherwise, returns <c>false</c> (nb: in this case, <c>error</c> will
-  /// contain more information about the failure).
+  /// The result of invoking one of the given delegates.
   /// </returns>
-  static member TryCreate :
+  /// <exception cref="T:System.ArgumentNullException">
+  /// Raise if the given alphabet or either callback are null.
+  /// </exception>
+  static member New :
     alphabet : IAlphabet *
-    value : outref<NanoIdParser> *
-    error : outref<AlphabetError> ->
-      bool
+    ok : Func<NanoIdParser, 'T> *
+    error : Func<AlphabetError, 'T> ->
+      'T
 
 
 /// Provided utilities for working with

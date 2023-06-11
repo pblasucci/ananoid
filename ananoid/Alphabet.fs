@@ -5,9 +5,9 @@
 *)
 namespace pblasucci.Ananoid
 
-open FSharp.Core.Operators.Unchecked
 open System
 open System.Text.RegularExpressions
+open pblasucci.Ananoid
 
 
 type IAlphabet =
@@ -147,15 +147,20 @@ type Alphabet =
     else
       Ok alphabet
 
-  static member TryInvalidate
+  static member Validate
     (
       alphabet : IAlphabet,
-      error : outref<AlphabetError>
+      ok : Func<_, _>,
+      error : Func<_, _>
     )
     =
-    let result = Alphabet.Validate(alphabet)
-    error <-
-      match result with
-      | Error e -> e
-      | Ok _ -> defaultof<_>
-    Result.isError result
+    if isNull (box alphabet) then
+      nullArg (nameof alphabet)
+
+    if isNull ok then
+      nullArg (nameof ok)
+
+    if isNull error then
+      nullArg (nameof error)
+
+    alphabet |> Alphabet.Validate |> Result.either ok.Invoke error.Invoke

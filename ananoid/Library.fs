@@ -11,3 +11,11 @@ module private StringPatterns =
     Trimmed(if String.IsNullOrWhiteSpace value then "" else value.Trim())
 
   let inline (|Length|) (Trimmed trimmed) = Length(uint32 trimmed.Length)
+
+
+[<RequireQualifiedAccess>]
+module private Result =
+  let inline either ok error result =
+    match result with
+    | Error ex -> error ex
+    | Ok value -> ok value
