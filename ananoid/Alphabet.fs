@@ -146,21 +146,3 @@ type Alphabet =
       Error IncoherentAlphabet
     else
       Ok alphabet
-
-  static member Validate
-    (
-      alphabet : IAlphabet,
-      ok : Func<_, _>,
-      error : Func<_, _>
-    )
-    =
-    if isNull (box alphabet) then
-      nullArg (nameof alphabet)
-
-    if isNull ok then
-      nullArg (nameof ok)
-
-    if isNull error then
-      nullArg (nameof error)
-
-    alphabet |> Alphabet.Validate |> Result.either ok.Invoke error.Invoke

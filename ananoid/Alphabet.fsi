@@ -105,37 +105,3 @@ type Alphabet =
   /// </returns>
   static member Validate :
     alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
-
-  /// <summary>
-  /// Checks that a given <see cref="T:pblasucci.Ananoid.IAlphabet"/>
-  /// upholds certain invariants necessary for the algorithm to work well.
-  /// </summary>
-  /// <remarks>
-  /// An IAlphabet instance MUST uphold the following invariants:
-  /// <list type="bullet">
-  /// <item>Is not <c>null</c></item>
-  /// <item>Contains at least one (1) letter</item>
-  /// <item>Contains no more then 255 letters.</item>
-  /// <item>Is able to successfully validate its own set of letters.</item>
-  /// </list>
-  /// </remarks>
-  /// <param name="alphabet">An IAlphabet instance to be validated.</param>
-  /// <param name="ok">
-  /// This callback will be invoked to signal successful alphabet validation.
-  /// </param>
-  /// <param name="error">
-  /// When the given alphabet is invalidated, this
-  /// callback will be invoked with more information about the failure.
-  /// </param>
-  /// <returns>
-  /// The result of invoking one of the given delegates,
-  /// based on the validity of the given alphabet.
-  /// </returns>
-  /// <exception cref="T:System.ArgumentNullException">
-  /// Raise if the given alphabet or either callback are null.
-  /// </exception>
-  static member Validate :
-    alphabet : IAlphabet *
-    ok : Func<IAlphabet, 'T> *
-    error : Func<AlphabetError, 'T> ->
-      'T

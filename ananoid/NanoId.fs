@@ -26,9 +26,6 @@ type NanoIdOptions =
     |> Alphabet.Validate
     |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
 
-  static member New(alphabet, size, ok : Func<_,_>, error : Func<_,_>) =
-    NanoIdOptions.Of(alphabet, size) |> Result.either ok.Invoke error.Invoke
-
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
 
   static member Numbers = { NanoIdOptions.UrlSafe with Alphabet' = Numbers }
@@ -116,9 +113,6 @@ type NanoIdParser(alphabet : IAlphabet) =
 
   static member Of(alphabet) =
     alphabet |> Alphabet.Validate |> Result.map NanoIdParser
-
-  static member New(alphabet, ok : Func<_,_>, error : Func<_,_>) =
-    alphabet |> NanoIdParser.Of |> Result.either ok.Invoke error.Invoke
 
 
 [<AutoOpen>]

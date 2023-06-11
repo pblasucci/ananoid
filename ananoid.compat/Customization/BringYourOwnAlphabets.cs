@@ -18,13 +18,8 @@ public class BringYourOwnAlphabets
   )
   {
     var options =
-      NanoIdOptions
-        .New(
-          new Qwerty12345Alphabet(),
-          size: (int)input,
-          ok: it => it,
-          error => throw new XunitException(error.ToString())
-        );
+      NanoIdOptions.Of(new Qwerty12345Alphabet(), size: (int)input)
+        .GetValueOrDefault(error => throw new XunitException(error.Message));
 
     var nanoId = NanoId.NewId(options);
 
@@ -35,32 +30,23 @@ public class BringYourOwnAlphabets
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_at_least_one_letter()
   {
-    return Alphabet.Validate(
-      new TooShortAlphabet(),
-      ok: _ => false,
-      error => error.IsAlphabetTooSmall
-    );
+    return Alphabet.Validate(new TooShortAlphabet())
+      .Match(ok: _ => false, error => error.IsAlphabetTooSmall);
   }
 
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_less_then_256_letters()
   {
-    return Alphabet.Validate(
-      new TooLongAlphabet(),
-      ok: _ => false,
-      error => error.IsAlphabetTooLarge
-    );
+    return Alphabet.Validate(new TooLongAlphabet())
+      .Match(ok: _ => false, error => error.IsAlphabetTooLarge);
   }
 
   [Property(MaxTest = 1)]
   public bool Custom_alphabet_must_be_coherent()
   {
     //NOTE 'coherent' means an alphabet can validate its own letters
-    return Alphabet.Validate(
-      new IncoherentAlphabet(),
-      ok: _ => false,
-      error => error.IsIncoherentAlphabet
-    );
+    return Alphabet.Validate(new IncoherentAlphabet())
+      .Match(ok: _ => false, error => error.IsIncoherentAlphabet);
   }
 }
 

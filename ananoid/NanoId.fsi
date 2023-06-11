@@ -52,35 +52,6 @@ type NanoIdOptions =
   static member Of :
     alphabet : IAlphabet * size : int -> Result<NanoIdOptions, AlphabetError>
 
-  /// <summary>
-  /// Creates a new instance from the given inputs, after checking the
-  /// validity of <c>alphabet</c> and, if necessary, adjusting <c>size</c>.
-  /// </summary>
-  /// <param name="alphabet">
-  /// The IAlphabet to use for generation and validation.
-  /// </param>
-  /// <param name="size">
-  /// The length of a generated identifier, in number of characters
-  /// (note: negative values are changed to zero).
-  /// </param>
-  /// <param name="ok">
-  /// On success, this delegate is called with the newly created instance.
-  /// </param>
-  /// <param name="error">
-  /// On failure, this delegate is called with further failure details.
-  /// </param>
-  /// <returns>
-  /// The result of invoking one of the given delegates.
-  /// </returns>
-  /// <exception cref="T:System.ArgumentNullException">
-  /// Raise if the given alphabet or either callback are null.
-  /// </exception>
-  static member New :
-    alphabet : IAlphabet *
-    size : int *
-    ok : Func<NanoIdOptions, 'T> *
-    error : Func<AlphabetError, 'T> ->
-      'T
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
@@ -279,30 +250,6 @@ type NanoIdParser =
   /// with further details about what went wrong.
   /// </returns>
   static member Of : alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
-
-  /// <summary>
-  /// Tries to create a new instance.
-  /// </summary>
-  /// <param name="alphabet">
-  /// The set of letters against which raw strings will be checked for validity.
-  /// </param>
-  /// <param name="ok">
-  /// On success, this delegate is called with the newly created instance.
-  /// </param>
-  /// <param name="error">
-  /// On failure, this delegate is called with further failure details.
-  /// </param>
-  /// <returns>
-  /// The result of invoking one of the given delegates.
-  /// </returns>
-  /// <exception cref="T:System.ArgumentNullException">
-  /// Raise if the given alphabet or either callback are null.
-  /// </exception>
-  static member New :
-    alphabet : IAlphabet *
-    ok : Func<NanoIdParser, 'T> *
-    error : Func<AlphabetError, 'T> ->
-      'T
 
 
 /// Provided utilities for working with

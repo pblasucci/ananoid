@@ -68,18 +68,11 @@ public class Rehydrating
   {
     Qwerty12345Alphabet alphabet = new();
 
-    var options = NanoIdOptions.New(
-      alphabet,
-      size: 6,
-      ok: it => it,
-      error => throw new XunitException(error.Message)
-    );
+    var options = NanoIdOptions.Of(alphabet, size: 6)
+      .GetValueOrDefault(error => throw new XunitException(error.Message));
 
-    var parser = NanoIdParser.New(
-      alphabet,
-      ok: it => it,
-      error => throw new XunitException(error.Message)
-    );
+    var parser = NanoIdParser.Of(alphabet)
+      .GetValueOrDefault(error => throw new XunitException(error.Message));
 
     return TestParser(options, parser);
   }
@@ -89,12 +82,8 @@ public class Rehydrating
   {
     Qwerty12345Alphabet alphabet = new();
 
-    var options = NanoIdOptions.New(
-      alphabet,
-      size: 6,
-      ok: it => it,
-      error => throw new XunitException(error.Message)
-    );
+    var options = NanoIdOptions.Of(alphabet, size: 6)
+      .GetValueOrDefault(error => throw new XunitException(error.Message));
 
     var didParse = Numbers.TryParse(NanoId.NewId(options), out var parsed);
 
@@ -107,11 +96,8 @@ public class Rehydrating
   )
   {
     var (options, nanoId) = input;
-    var parser = NanoIdParser.New(
-      options.Alphabet,
-      ok: it => it,
-      error => throw new XunitException(error.Message)
-    );
+    var parser = NanoIdParser.Of(options.Alphabet)
+      .GetValueOrDefault(error => throw new XunitException(error.Message));
 
     var didParse = parser.TryParse(nanoId, out var parsed);
     return (didParse && parsed.Equals(nanoId)).Label($"{nanoId} != {parsed}");
