@@ -21,14 +21,14 @@ type NanoIdOptions =
 
   member me.Resize(size) = { me with Size' = max 0 size }
 
-  static member TryCreate(alphabet : IAlphabet, size) =
+  static member Create(alphabet : IAlphabet, size) =
     alphabet
     |> Alphabet.Validate
     |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
 
   [<CompiledName("CreateOrThrow")>]
   static member CreateOrRaise(alphabet, size) =
-    NanoIdOptions.TryCreate(alphabet, size)
+    NanoIdOptions.Create(alphabet, size)
     |> Result.defaultWith (fun e -> e.Promote alphabet)
 
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
@@ -116,12 +116,12 @@ type NanoIdParser(alphabet : IAlphabet) =
 
   static member UrlSafe = NanoIdParser(UrlSafe)
 
-  static member TryCreate(alphabet) =
+  static member Create(alphabet) =
     alphabet |> Alphabet.Validate |> Result.map NanoIdParser
 
   [<CompiledName("CreateOrThrow")>]
   static member CreateOrRaise(alphabet) =
-    NanoIdParser.TryCreate(alphabet)
+    NanoIdParser.Create(alphabet)
     |> Result.defaultWith (fun e -> e.Promote alphabet)
 
 

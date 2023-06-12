@@ -49,7 +49,7 @@ type NanoIdOptions =
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  static member TryCreate :
+  static member Create :
     alphabet : IAlphabet * size : int -> Result<NanoIdOptions, AlphabetError>
 
   /// <summary>
@@ -266,7 +266,7 @@ type NanoIdParser =
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  static member TryCreate :
+  static member Create :
     alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
 
   /// <summary>
