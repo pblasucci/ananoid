@@ -21,10 +21,15 @@ type NanoIdOptions =
 
   member me.Resize(size) = { me with Size' = max 0 size }
 
-  static member Of(alphabet : IAlphabet, size) =
+  static member TryCreate(alphabet : IAlphabet, size) =
     alphabet
     |> Alphabet.Validate
     |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
+
+  [<CompiledName("CreateOrThrow")>]
+  static member CreateOrRaise(alphabet, size) =
+    NanoIdOptions.TryCreate(alphabet, size)
+    |> Result.defaultWith (fun e -> e.Promote alphabet)
 
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
 
@@ -111,8 +116,13 @@ type NanoIdParser(alphabet : IAlphabet) =
 
   static member UrlSafe = NanoIdParser(UrlSafe)
 
-  static member Of(alphabet) =
+  static member TryCreate(alphabet) =
     alphabet |> Alphabet.Validate |> Result.map NanoIdParser
+
+  [<CompiledName("CreateOrThrow")>]
+  static member CreateOrRaise(alphabet) =
+    NanoIdParser.TryCreate(alphabet)
+    |> Result.defaultWith (fun e -> e.Promote alphabet)
 
 
 [<AutoOpen>]
@@ -142,8 +152,7 @@ type IAlphabetExtensions =
   [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
   [<Extension>]
   static member ToNanoIdFactory(alphabet) =
-    alphabet
-    |> Alphabet.Validate
+    Alphabet.Validate(alphabet)
     |> Result.map (fun a size -> NanoId.NewId(a, max 0 size))
 
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
@@ -151,5 +160,5 @@ type IAlphabetExtensions =
   [<Extension>]
   static member ToNanoIdFactoryDelegate(alphabet) =
     match alphabet.ToNanoIdFactory() with
-    | Error error -> invalidArg (nameof alphabet) (string error)
+    | Error e -> e.Promote(alphabet)
     | Ok func -> Func<_, _> func

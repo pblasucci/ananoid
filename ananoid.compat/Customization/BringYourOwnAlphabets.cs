@@ -8,45 +8,50 @@ namespace pblasucci.Ananoid.Compat.Customization;
 // ⮟⮟⮟ missing XMLDoc comments
 #pragma warning disable CS1591
 
-using Xunit.Sdk;
+using Xunit;
 
 public class BringYourOwnAlphabets
 {
   [Property]
-  public Property Custom_alphabet_permits_any_value_it_creates(
-    NonNegativeInt input
-  )
+  public Property Custom_alphabet_permits_value_it_creates(NonNegativeInt input)
   {
-    var options =
-      NanoIdOptions.Of(new Qwerty12345Alphabet(), size: (int)input)
-        .GetValueOrDefault(error => throw new XunitException(error.Message));
-
+    var options = NanoIdOptions.CreateOrThrow(
+      new Qwerty12345Alphabet(),
+      size: (int)input
+    );
     var nanoId = NanoId.NewId(options);
 
-    return options.Alphabet.WillPermit(nanoId.ToString())
-      .Collect(nanoId);
+    return options.Alphabet.WillPermit(nanoId.ToString()).Collect(nanoId);
   }
 
-  [Property(MaxTest = 1)]
-  public bool Custom_alphabet_must_be_at_least_one_letter()
+  [Fact]
+  public void Custom_alphabet_must_be_at_least_one_letter()
   {
-    return Alphabet.Validate(new TooShortAlphabet())
-      .Match(ok: _ => false, error => error.IsAlphabetTooSmall);
+    var x = Assert.Throws<AlphabetException>(
+      () => Alphabet.ValidateOrThrow(new TooShortAlphabet())
+    );
+
+    Assert.True(x.Reason.IsAlphabetTooSmall);
   }
 
-  [Property(MaxTest = 1)]
-  public bool Custom_alphabet_must_be_less_then_256_letters()
+  [Fact]
+  public void Custom_alphabet_must_be_less_then_256_letters()
   {
-    return Alphabet.Validate(new TooLongAlphabet())
-      .Match(ok: _ => false, error => error.IsAlphabetTooLarge);
+    var x = Assert.Throws<AlphabetException>(
+      () => Alphabet.ValidateOrThrow(new TooLongAlphabet())
+    );
+
+    Assert.True(x.Reason.IsAlphabetTooLarge);
   }
 
-  [Property(MaxTest = 1)]
-  public bool Custom_alphabet_must_be_coherent()
+  [Fact]
+  public void Custom_alphabet_must_be_coherent()
   {
-    //NOTE 'coherent' means an alphabet can validate its own letters
-    return Alphabet.Validate(new IncoherentAlphabet())
-      .Match(ok: _ => false, error => error.IsIncoherentAlphabet);
+    var x = Assert.Throws<AlphabetException>(
+      () => Alphabet.ValidateOrThrow(new IncoherentAlphabet())
+    );
+
+    Assert.True(x.Reason.IsIncoherentAlphabet);
   }
 }
 

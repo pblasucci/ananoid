@@ -38,8 +38,8 @@ public class NanoIdFactory
   [Fact]
   public void Factory_validates_alphabets_failing()
   {
-    Assert.Throws<ArgumentException>(
-      () => new IncoherentAlphabet().ToNanoIdFactory() is not null
+    Assert.Throws<AlphabetException>(
+      () => new IncoherentAlphabet().ToNanoIdFactory()
     );
   }
 }

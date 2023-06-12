@@ -5,7 +5,6 @@
 *)
 namespace pblasucci.Ananoid
 
-open System
 
 /// Represents a set of 'letters' from which an identifier is made.
 type IAlphabet =
@@ -44,6 +43,29 @@ type AlphabetError =
 
   /// A human-readable description of the error, suitable for printing.
   member Message : string
+
+  /// <summary>
+  /// Creates an <see cref="T:pblasucci.Ananoid.AlphabetException"/> from the
+  /// current <c>AlphabetError</c> and the given <c>IAlphabet</c>.
+  /// The newly created exception is then raised.
+  /// </summary>
+  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
+  /// Raised as the intended consequence of invoking this method.
+  /// </exception>
+  member Promote : alphabet : IAlphabet -> 'T
+
+
+/// Encapsulates data for the point-in-time failure of an operation involving
+/// an <see cref="pblasucci.Ananoid.IAlphabet"/> instance
+[<Sealed; Class>]
+type AlphabetException =
+  inherit System.Exception
+
+  /// The alphabet which lead to the exception.
+  member Source : IAlphabet
+
+  /// Further details about the actual failure.
+  member Reason : AlphabetError
 
 
 /// Pre-defined alphabets commonly used to generation identities.
@@ -105,3 +127,23 @@ type Alphabet =
   /// </returns>
   static member Validate :
     alphabet : IAlphabet -> Result<IAlphabet, AlphabetError>
+
+  /// <summary>
+  /// Checks that a given <see cref="T:pblasucci.Ananoid.IAlphabet"/>
+  /// upholds certain invariants necessary for the algorithm to work well.
+  /// </summary>
+  /// <remarks>
+  /// An IAlphabet instance MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) letter</item>
+  /// <item>Contains no more then 255 letters.</item>
+  /// <item>Is able to successfully validate its own set of letters.</item>
+  /// </list>
+  /// </remarks>
+  /// <param name="alphabet">An IAlphabet instance to be validated.</param>
+  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
+  /// Raised when the given alphabet fails to uphold an invariant.
+  /// </exception>
+  [<CompiledName("ValidateOrThrow")>]
+  static member ValidateOrRaise : alphabet : IAlphabet -> unit

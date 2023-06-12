@@ -8,7 +8,6 @@ namespace pblasucci.Ananoid.Compat.Basics;
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
 
-using Xunit.Sdk;
 using Customization;
 using Support;
 
@@ -68,11 +67,8 @@ public class Rehydrating
   {
     Qwerty12345Alphabet alphabet = new();
 
-    var options = NanoIdOptions.Of(alphabet, size: 6)
-      .GetValueOrDefault(error => throw new XunitException(error.Message));
-
-    var parser = NanoIdParser.Of(alphabet)
-      .GetValueOrDefault(error => throw new XunitException(error.Message));
+    var options = NanoIdOptions.CreateOrThrow(alphabet, size: 6);
+    var parser = NanoIdParser.CreateOrThrow(alphabet);
 
     return TestParser(options, parser);
   }
@@ -82,9 +78,7 @@ public class Rehydrating
   {
     Qwerty12345Alphabet alphabet = new();
 
-    var options = NanoIdOptions.Of(alphabet, size: 6)
-      .GetValueOrDefault(error => throw new XunitException(error.Message));
-
+    var options = NanoIdOptions.CreateOrThrow(alphabet, size: 6);
     var didParse = Numbers.TryParse(NanoId.NewId(options), out var parsed);
 
     return (didParse == false).Label($"Parsed: {parsed}");
@@ -96,10 +90,10 @@ public class Rehydrating
   )
   {
     var (options, nanoId) = input;
-    var parser = NanoIdParser.Of(options.Alphabet)
-      .GetValueOrDefault(error => throw new XunitException(error.Message));
 
+    var parser = NanoIdParser.CreateOrThrow(options.Alphabet);
     var didParse = parser.TryParse(nanoId, out var parsed);
+
     return (didParse && parsed.Equals(nanoId)).Label($"{nanoId} != {parsed}");
   }
 }

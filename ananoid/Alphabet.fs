@@ -92,6 +92,18 @@ type AlphabetError =
     $"{nameof AlphabetError}.{case} '{me.Message}'"
 
 
+[<Sealed>]
+type AlphabetException(source : IAlphabet, reason : AlphabetError) =
+  inherit Exception($"Invalid alphabet, reason: %s{reason.Message}")
+
+  member me.Source = source
+  member me.Reason = reason
+
+
+type AlphabetError with
+  member me.Promote(alphabet) = raise (AlphabetException(alphabet, me))
+
+
 type Alphabet =
   | Alphanumeric
   | HexadecimalLowercase
@@ -146,3 +158,9 @@ type Alphabet =
       Error IncoherentAlphabet
     else
       Ok alphabet
+
+  [<CompiledName("ValidateOrThrow")>]
+  static member ValidateOrRaise(alphabet) =
+    Alphabet.Validate(alphabet)
+    |> Result.defaultWith (fun e -> e.Promote alphabet)
+    |> ignore

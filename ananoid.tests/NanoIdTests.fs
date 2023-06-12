@@ -99,7 +99,7 @@ let ``Parse and ToString are invertible`` nanoId =
 let ``Parse returns error on invalid letters`` (PositiveInt count) =
   let input = String.replicate count "*"
   let parser =
-    NanoIdParser.Of(Numbers)
+    NanoIdParser.TryCreate(Numbers)
     |> Result.defaultWith (fun x -> failwith $"{x}")
 
   match parser.Parse input with

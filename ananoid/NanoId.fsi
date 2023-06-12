@@ -49,9 +49,26 @@ type NanoIdOptions =
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  static member Of :
+  static member TryCreate :
     alphabet : IAlphabet * size : int -> Result<NanoIdOptions, AlphabetError>
 
+  /// <summary>
+  /// Creates a new instance from the given inputs, after checking the
+  /// validity of <c>alphabet</c> and, if necessary, adjusting <c>size</c>.
+  /// </summary>
+  /// <param name="alphabet">
+  /// The IAlphabet to use for generation and validation.
+  /// </param>
+  /// <param name="size">
+  /// The length of a generated identifier, in number of characters
+  /// (note: negative values are changed to zero).
+  /// </param>
+  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
+  /// Raised if the given alphabet cannot be validated.
+  /// </exception>
+  [<CompiledName("CreateOrThrow")>]
+  static member CreateOrRaise :
+    alphabet : IAlphabet * size : int -> NanoIdOptions
 
   /// <summary>
   /// A <c>NanoIdOptions</c> instance with a
@@ -249,7 +266,23 @@ type NanoIdParser =
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  static member Of : alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
+  static member TryCreate :
+    alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
+
+  /// <summary>
+  /// Tries to create a new instance.
+  /// </summary>
+  /// <param name="alphabet">
+  /// The set of letters against which raw strings will be checked for validity.
+  /// </param>
+  /// <returns>
+  /// On successful creation, returns an <c>NanoIdParser</c> instance.
+  /// </returns>
+  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
+  /// Raised if the given alphabet cannot be validated.
+  /// </exception>
+  [<CompiledName("CreateOrThrow")>]
+  static member CreateOrRaise : alphabet : IAlphabet -> NanoIdParser
 
 
 /// Provided utilities for working with
@@ -323,7 +356,7 @@ type IAlphabetExtensions =
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  /// <exception cref="T:System.ArgumentException">
+  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
   /// Raised when given <c>alphabet</c> fails validation.
   /// </exception>
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
