@@ -13,16 +13,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Utilities.fs" />
-        <Compile Include="Controls.fs" />
+        <Compile Include="Support.fs" />
         <Compile Include="Main.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia.Diagnostics" Version="0.10.19" />
+      <PackageReference Include="Avalonia.Diagnostics" Version="0.10.21" />
       <PackageReference Include="JaggerJo.Avalonia.FuncUI.DSL" Version="0.5.3" />
-      <PackageReference Update="FSharp.Core" Version="7.0.200" />
+      <PackageReference Update="FSharp.Core" Version="7.0.300" />
     </ItemGroup>
 
     <ItemGroup>

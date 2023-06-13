@@ -16,16 +16,13 @@ open Avalonia.FuncUI.DSL
 open Avalonia.FuncUI.Hosts
 
 open Core
-open Utilities
+open Support
 
 open type WindowStartupLocation
 open type TextWrapping
 
 
 module Main =
-
-  open Avalonia.Layout
-
   let alphabets =
     Map [
       for info in FSharpType.GetUnionCases typeof<Alphabet> do
