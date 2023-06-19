@@ -9,26 +9,31 @@ ananoid
   - [ ] use in documentation
 - [-] api docs
   - [ ] docs template
-  - [ ] cross-link
+  - [-] cross-link
 - [ ] narrative docs
   - [ ] docs template
   - [-] getting started
     - [-] F#
     - [-] C#
-  - [ ] lower-level APIs
-    - [ ] F#
-    - [ ] C#
-  - [ ] customization
-    - [ ] F#
-    - [ ] C#
+        - [ ] screen grabs
+  - [-] lower-level APIs
+    - [-] F#
+    - [-] C#
+  - [-] customization
+    - [-] F#
+    - [-] C#
   - [ ] performance
   - [ ] ananoidcc
 - [ ] Source Link
-- [ ] build project (CLI)
-  - [ ] ???
-- [ ] CONTRIBUTE
+- [ ] build script (ps1)
+  - [ ] clean
+  - [ ] package release
+  - [ ] deploy release
+  - [ ] run benchmarks
+  - [ ] clean docs
+  - [ ] watch docs
+  - [ ] build docs
 - [ ] CHANGELOG
+- [ ] CONTRIBUTE
 - [ ] README
-  - [ ] package
-  - [ ] repo
 - [ ] upgrade/review Fantomas

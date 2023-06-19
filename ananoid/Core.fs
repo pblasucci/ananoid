@@ -38,7 +38,7 @@ let inline private outOfRange paramName =
 let inline private stackspan<'T when 'T : unmanaged> size =
   Span<'T>(size |> NativePtr.stackalloc<'T> |> NativePtr.toVoidPtr, size)
 
-let inline (|Length|) value =
+let inline private (|Length|) value =
   if String.IsNullOrWhiteSpace value then
     Length(0ul)
   else
@@ -90,7 +90,7 @@ module Defaults =
 /// <summary>
 /// Generates a new identifier, <c>size</c> characters in length,
 /// derived from the letters of the given alphabet
-/// (note: a size of less than zero will result in an empty string).
+/// (note: a size of less than one will result in an empty string).
 /// </summary>
 /// <exception cref="T:System.ArgumentOutOfRangeException">
 /// Thrown when <c>alphabet</c> contains &lt; 1 letter, or &gt; 255 letters.
@@ -119,7 +119,7 @@ module Tagged =
   /// An abbreviation for the CLI type System.String.
   /// </summary>
   /// <remarks>
-  /// <b>This alias is not usable from languages other than F#.</b>
+  /// <b>This alias is not intended for languages other than F#.</b>
   /// </remarks>
   [<CompiledName("string@measurealias")>]
   [<MeasureAnnotatedAbbreviation>]
@@ -129,7 +129,7 @@ module Tagged =
   /// A "tag", which can be used as a discriminator.
   /// </summary>
   /// <remarks>
-  /// <b>This tag is not usable from languages other than F#.</b>
+  /// <b>This tag is not intended for languages other than F#.</b>
   /// </remarks>
   [<CompiledName("nanoid@measure")>]
   [<Measure>]
@@ -138,24 +138,27 @@ module Tagged =
     /// Applies the <c>nanoid</c> "tag" to a string.
     /// </summary>
     /// <remarks>
-    /// <b>This function is not usable from languages other than F#.</b>
+    /// <b>This function is not intended for languages other than F#.</b>
     /// </remarks>
     static member tag value = (# "" (value : string) : string<nanoid> #)
 
   /// <summary>
   /// Generates a new tagged identifier, <c>size</c> characters in length,
   /// derived from the letters of the given alphabet
-  /// (note: a size of less than zero will result in an empty string).
+  /// (note: a size of less than one will result in an empty string).
   /// </summary>
   /// <remarks>
-  /// <b>This function is not usable from languages other than F#.</b>
+  /// <b>This function is not intended for languages other than F#.</b>
   /// </remarks>
+  /// <exception cref="T:System.ArgumentOutOfRangeException">
+  /// Thrown when <c>alphabet</c> contains &lt; 1 letter, or &gt; 255 letters.
+  /// </exception>
   let nanoIdOf' alphabet size = nanoid.tag (nanoIdOf alphabet size)
 
   /// <summary>
   /// Generates a new tagged identifier with the default alphabet and size.
   /// </summary>
   /// <remarks>
-  /// <b>This function is not usable from languages other than F#.</b>
+  /// <b>This function is not intended for languages other than F#.</b>
   /// </remarks>
   let nanoId' () = nanoIdOf' Defaults.Alphabet Defaults.Size
