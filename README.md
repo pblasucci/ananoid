@@ -15,7 +15,6 @@ ananoid
   - [-] getting started
     - [-] F#
     - [-] C#
-        - [ ] screen grabs
   - [-] lower-level APIs
     - [-] F#
     - [-] C#

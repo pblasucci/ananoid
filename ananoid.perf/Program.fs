@@ -13,6 +13,7 @@ open pblasucci.Ananoid.Core
 open LetterSets
 
 
+[<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
 type AnanoidVsNanoidNet() =
   [<Benchmark(Baseline = true)>]
@@ -22,6 +23,7 @@ type AnanoidVsNanoidNet() =
   member me.Ananoid() = nanoId ()
 
 
+[<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
 type AllAlphabets() =
   let (TargetSize size) = NanoIdOptions.UrlSafe
@@ -54,6 +56,7 @@ type AllAlphabets() =
   member me.UrlSafe() = nanoIdOf UrlSafe size
 
 
+[<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
 type FunctionVsStruct() =
   [<Benchmark(Baseline = true)>]
