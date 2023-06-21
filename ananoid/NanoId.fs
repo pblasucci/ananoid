@@ -127,7 +127,7 @@ type NanoIdParser(alphabet : IAlphabet) =
 
 [<AutoOpen>]
 [<Extension>]
-module NanoIdOptions =
+module NanoIdOptionsExtensions =
   let inline (|SourceAlphabet|)
     (source : 'Source when 'Source : (member Alphabet : IAlphabet))
     =
@@ -153,7 +153,7 @@ type IAlphabetExtensions =
   [<Extension>]
   static member ToNanoIdFactory(alphabet) =
     Alphabet.Validate(alphabet)
-    |> Result.map (fun a size -> NanoId.NewId(a, max 0 size))
+    |> Result.map (fun a size -> NanoId.NewId(a, size))
 
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<CompiledName("ToNanoIdFactory")>]
@@ -162,3 +162,6 @@ type IAlphabetExtensions =
     match alphabet.ToNanoIdFactory() with
     | Error e -> e.Promote(alphabet)
     | Ok func -> Func<_, _> func
+
+[<assembly: Extension>]
+do()

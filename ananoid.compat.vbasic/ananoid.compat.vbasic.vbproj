@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>ananoid.compat.vbasic</RootNamespace>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <OptionStrict>On</OptionStrict>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <NoWarn>;0052;BC42108;BC42109</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <NoWarn>;0052;BC42108;BC42109</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="pblasucci.ananoid" Version="0.8.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Import Include="System.Console"/>
+      <Import Include="System.Environment"/>
+      <Import Include="pblasucci.Ananoid"/>
+    </ItemGroup>
+    
+</Project>

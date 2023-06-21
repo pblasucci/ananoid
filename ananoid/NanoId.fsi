@@ -289,7 +289,7 @@ type NanoIdParser =
 /// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
 [<AutoOpen>]
 [<Extension>]
-module NanoIdOptions =
+module NanoIdOptionsExtensions =
   /// <summary>
   /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
   /// from a <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance,
