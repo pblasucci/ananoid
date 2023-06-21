@@ -12,9 +12,7 @@ Public Module Advanced
 
     ' Alphabet validity still applies
     Try
-      With new TooLongAlphabet()
-        .ToNanoIdFactory()
-      End With
+      Call new TooLongAlphabet().ToNanoIdFactory()
     Catch x As AlphabetException When x.Reason.IsAlphabetTooLarge
       WriteLine($"Failure! {x.Message}")
     End Try

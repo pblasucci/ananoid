@@ -4,24 +4,24 @@ Module Program
 
     ':: Basics ::
     WriteLine($"{NewLine}::{NameOf(Basics)}::")
-    Call NanoIdsCanBeEmpty
-    Call NonEmptyNanoIds
-    Call RehydrateExistingValues
+    NanoIdsCanBeEmpty()
+    NonEmptyNanoIds()
+    RehydrateExistingValues()
 
     ':: Customization ::
     WriteLine($"{NewLine}::{NameOf(Customization)}::")
-    Call PredefinedAlphabets
-    Call AlphabetIsReallyIAlphabet
-    Call BringYourOwnAlphabet
-    Call CustomAlphabetRequirements
+    PredefinedAlphabets()
+    AlphabetIsReallyIAlphabet()
+    BringYourOwnAlphabet()
+    CustomAlphabetRequirements()
 
     ':: Advanced ::
     WriteLine($"{NewLine}::{NameOf(Advanced)}::")
-    Call BypassingNanoIdOptions
+    BypassingNanoIdOptions()
 
     ':: Primitives ::
     WriteLine($"{NewLine}::{NameOf(Primitives)}::")
-    Call BasicFunctions
-    Call BadInputsCauseArgumentOutOfRangeExceptions
+    BasicFunctions()
+    BadInputsCauseArgumentOutOfRangeExceptions()
   End Sub
 End Module
