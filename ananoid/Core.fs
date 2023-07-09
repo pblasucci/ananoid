@@ -82,7 +82,7 @@ module Defaults =
   let Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
 
   /// Twenty-one (21) single-byte characters.
-  /// This is the default output lenght if one is not explicitly specified.
+  /// This is the default output length if one is not explicitly specified.
   [<Literal>]
   let Size = 21
 
@@ -92,6 +92,9 @@ module Defaults =
 /// derived from the letters of the given alphabet
 /// (note: a size of less than one will result in an empty string).
 /// </summary>
+/// <remarks>
+/// When viewed from other languages, this function is named <c>NewNanoId</c>.
+/// </remarks>
 /// <exception cref="T:System.ArgumentOutOfRangeException">
 /// Thrown when <c>alphabet</c> contains &lt; 1 letter, or &gt; 255 letters.
 /// </exception>
@@ -101,7 +104,12 @@ let nanoIdOf (Length length as alphabet) size =
   elif length < 1u || 255u < length then outOfRange (nameof alphabet)
   else generate alphabet size
 
+/// <summary>
 /// Generates a new identifier with the default alphabet and size.
+/// </summary>
+/// <remarks>
+/// When viewed from other languages, this function is named <c>NewNanoId</c>.
+/// </remarks>
 [<CompiledName("NewNanoId")>]
 let nanoId () : string = nanoIdOf Defaults.Alphabet Defaults.Size
 
@@ -112,14 +120,14 @@ let nanoId () : string = nanoIdOf Defaults.Alphabet Defaults.Size
 /// different purposes, but where using a full CLR type is undesirable).
 /// </summary>
 /// <remarks>
-/// <b>This module is not intended for languages other than F#.</b>
+/// <strong>This module is not intended for languages other than F#.</strong>
 /// </remarks>
 module Tagged =
   /// <summary>
   /// An abbreviation for the CLI type System.String.
   /// </summary>
   /// <remarks>
-  /// <b>This alias is not intended for languages other than F#.</b>
+  /// <strong>This alias is not intended for languages other than F#.</strong>
   /// </remarks>
   [<CompiledName("string@measurealias")>]
   [<MeasureAnnotatedAbbreviation>]
@@ -129,7 +137,7 @@ module Tagged =
   /// A "tag", which can be used as a discriminator.
   /// </summary>
   /// <remarks>
-  /// <b>This tag is not intended for languages other than F#.</b>
+  /// <strong>This tag is not intended for languages other than F#.</strong>
   /// </remarks>
   [<CompiledName("nanoid@measure")>]
   [<Measure>]

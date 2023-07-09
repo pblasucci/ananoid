@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>pblasucci.ananoid</AssemblyName>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <VersionPrefix>0.8.2</VersionPrefix>
+        <VersionPrefix>0.8.3</VersionPrefix>
         <Title>Ananoid</Title>
         <Authors>Paul Blasucci</Authors>
         <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
@@ -15,12 +16,12 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>obj/Debug/net7.0/pblasucci.ananoid.xml</DocumentationFile>
+        <DocumentationFile>obj/Debug/net6.0/pblasucci.ananoid.xml</DocumentationFile>
         <VersionSuffix>debug</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>obj/Release/net7.0/pblasucci.ananoid.xml</DocumentationFile>
+        <DocumentationFile>obj/Release/net6.0/pblasucci.ananoid.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
