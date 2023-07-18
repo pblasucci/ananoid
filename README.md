@@ -3,35 +3,22 @@ ananoid
 
 ### TO DO
 
-- [ ] **icon!**
+- [x] **icon!**
   - [x] design / fabricate
   - [x] use in NuGet package
-  - [ ] use in documentation
+  - [x] use in documentation
 - [-] api docs
-  - [ ] docs template
+  - [-] docs template
   - [-] cross-link
-- [ ] narrative docs
-  - [ ] docs template
+- [-] narrative docs
+  - [-] docs template
   - [-] getting started
-    - [-] F#
-    - [-] C#
   - [-] lower-level APIs
-    - [-] F#
-    - [-] C#
   - [-] customization
-    - [-] F#
-    - [-] C#
   - [ ] performance
   - [ ] ananoidcc
 - [ ] Source Link
-- [ ] build script (ps1)
-  - [ ] clean
-  - [ ] package release
-  - [ ] deploy release
-  - [ ] run benchmarks
-  - [ ] clean docs
-  - [ ] watch docs
-  - [ ] build docs
+- [ ] ?? build script ??
 - [ ] CHANGELOG
 - [ ] CONTRIBUTE
 - [ ] README
