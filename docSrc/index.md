@@ -15,15 +15,18 @@ API, and a simpler, more memory-efficient, low-level API.
 
 ### Installation via NuGet
 
-The latest version of this package can be installed from [NuGet][3] via the
+The latest version of this package can be installed from [NuGet][2] via the
 following command:
 
-<details open class="lang-block">
+<div class="lang-bar">
+<details open class="lang-block console">
 <summary>CLI</summary>
+
 ```sh
 > dotnet add package pblasucci.ananoid --version 0.8.2
 ```
 </details>
+</div>
 
 ### A simple example
 
@@ -76,19 +79,33 @@ WriteLine($"nano identifier as string: {nanoId}");
 WriteLine($"nano identifier length: {nanoId.Length}");
 ```
 </details>
-</div>
 
-![TODO: output of last snippet](/path/to.img)
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/index.fsx
+
+nano identifier as string: KJzJ41XFLlV-eh-nfxCnA
+nano identifier length: 21
+```
+</details>
+</div>
 
 ### Further reading
 
-???
++ [How-To: Customize NanoId Creation][3]
++ [Utilities: Complexity Calculator][4]
++ [Performance: Select Highlights][5]
 
 ### Copyright
 The library is available under the Mozilla Public License, Version 2.0.
-For more information see the project's [License][2] file.
+For more information see the project's [License][0] file.
 
 
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/ai/nanoid
-[2]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[3]: https://www.nuget.org/packages/pblasucci.ananoid
+[2]: https://www.nuget.org/packages/pblasucci.ananoid
+[3]: /guides/basics/nanoidoptions.html
+[4]: /explanations/utilities/complexity.html
+[5]: /explanations/performance/highlights.html

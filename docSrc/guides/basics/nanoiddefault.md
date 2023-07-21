@@ -33,8 +33,8 @@ printfn $"%s{nameof nanoId}, length: %i{nanoId.Length}"
 ```vb
 Dim nanoId = NanoId.NewId()
 
-WriteLine($"{nameof(nanoId)}, as string: {nanoId.ToString()})"
-WriteLine($"{nameof(nanoId)}, length: {nanoId.Length})"
+WriteLine($"{NameOf(nanoId)}, as string: {nanoId.ToString()})"
+WriteLine($"{NameOf(nanoId)}, length: {nanoId.Length})"
 ```
 </details>
 
@@ -48,9 +48,18 @@ WriteLine($"{nameof(nanoId)}, as string: {nanoId.ToString()})";
 WriteLine($"{nameof(nanoId)}, length: {nanoId.Length})";
 ```
 </details>
-</div>
 
-![TODO: output of last snippet](/path/to.img)
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoiddefault.fsx
+
+nano identifier as string: 6aWPM2MNoB_xnAt9ZCyL0
+nano identifier length: 21
+```
+</details>
+</div>
 
 ### The zeroed instance
 
@@ -81,8 +90,8 @@ Dim zeroedId As New NanoId()
 // ⮝⮝⮝ These two values are identical. ⮟⮟⮟
 Dim emptyId = NanoId.Empty
 
-WriteLine($"{nameof(zeroedId)}, length: {zeroedId.Length}")
-WriteLine($"{nameof(emptyId)}, length: {emptyId.Length}")
+WriteLine($"{NameOf(zeroedId)}, length: {zeroedId.Length}")
+WriteLine($"{NameOf(emptyId)}, length: {emptyId.Length}")
 ```
 </details>
 
@@ -98,13 +107,30 @@ WriteLine($"{nameof(zeroedId)}, length: {zeroedId.Length}");
 WriteLine($"{nameof(emptyId)}, length: {emptyId.Length}");
 ```
 </details>
+
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoiddefault.fsx
+
+zeroedId, length: 0
+emptyId, length: 0
+```
+</details>
 </div>
 
-![TODO: output of last snippet](/path/to.img)
+### Further Reading
 
-### Related Reading
++ [How-To: Customize NanoId Creation][2]
++ [How-To: Work with NanoId strings][3]
 
-+ API reference: `cref:T:pblasucci.Ananoid.NanoId`
+### Copyright
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
 
 
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://learn.microsoft.com/en-us/dotnet/standard/base-types/common-type-system#structures
+[2]: /guides/basics/nanoidoptions.html
+[3]: /guides/primitives/nanoidstring.html

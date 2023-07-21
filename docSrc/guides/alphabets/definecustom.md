@@ -20,14 +20,15 @@ The only requirement for any alphabet is that it implement the `IAlphabet`
 interface. This simple contract provides everything needed to generate new
  `NanoId` instances. Its contract specifies two members:
 
-<div class="lang-strip">
+<div id="lang-strip">
 <details open class="lang-block">
 <summary>F#</summary>
 
 ```fsharp
 type IAlphabet =
+  /// Constituent characters.
   abstract Letters : string with get
-
+  /// True, if alphabet could emit this value.
   abstract WillPermit : string -> bool
 ```
 </details>
@@ -37,8 +38,9 @@ type IAlphabet =
 
 ```vb
 Interface IAlphabet
+  ' Constituent characters.
   ReadOnly Property Letters As String
-
+  ' True, if alphabet could emit this value.
   Function WillPermit(String) As Boolean
 End Interface
 ```
@@ -50,8 +52,9 @@ End Interface
 ```csharp
 interface IAlphabet
 {
+  /// Constituent characters.
   string Letters { get; }
-
+  /// True, if alphabet could emit this value.
   bool WillPermit(string);
 }
 ```
@@ -70,11 +73,13 @@ be (näively) implemented like so:
 
 ```fsharp
 [<Struct>]
-type Numbers() =
+type Numbers =
   interface IAlphabet with
-    member _.Letters = "0123456789"
-
+    /// <inheritdoc />
     member _.WillPermit(value) = value |> String.forall Char.IsAsciiDigit
+
+    /// <inheritdoc />
+    member _.Letters = "0123456789"
 ```
 </details>
 
@@ -83,10 +88,12 @@ type Numbers() =
 
 ```vb
 NotInheritable Class Numbers : Implements IAlphabet
+  ''' <inheritdoc />
   Public Function WillPermit(value As String) As Boolean Implements IAlphabet.WillPermit
     Return value.All(Char.IsAsciiDigit)
   End Function
 
+  ''' <inheritdoc />
   ReadOnly Property Letters As String = "0123456789" Implements IAlphabet.Letters
 End Class
 ```
@@ -98,16 +105,15 @@ End Class
 ```csharp
 struct Numbers : IAlphabet
 {
-  bool IAlphabet.WillPermit(string value)
-      => value.All(Char.IsAsciiDigit)
+  /// <inheritdoc />
+  bool IAlphabet.WillPermit(string value) => value.All(Char.IsAsciiDigit);
 
+  /// <inheritdoc />
   string IAlphabet.Letters => "0123456789";
 }
 ```
 </details>
 </div>
-
-![TODO: output of last snippet](/path/to.img)
 
 However, an alphabet is more than just a string. There are certain _invariants_
 which any alphabet must uphold. They are:
@@ -154,10 +160,27 @@ var valid = Alphabet.ValidateOrThrow(new Numbers());
 WriteLine($"Alphabet validated: {valid.Letters}");
 ```
 </details>
+
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoidparser.fsx
+
+Alphabet validated: 0123456789
+```
+</details>
 </div>
 
-![TODO: output of last snippet](/path/to.img)
+### Related Reading
 
-### Next steps
++ [Utilities: Complexity Calculator][1]
++ API Reference: `cref:M:pblasucci.Ananoid.NanoIdOptions.Create`
 
-// TODO ???
+### Copyright
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
+
+
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
+[1]: /explanations/utilities/complexity.html

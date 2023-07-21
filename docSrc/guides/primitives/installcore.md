@@ -30,11 +30,25 @@ module in your library/application/et cetera.
 >
 > ---
 
-![TODO: picture of source tree](/path/to.img)
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>OUT</summary>
 
-### Next steps
+<img alt="project overview" src="/img/installcore.png"/>
+</details>
+</div>
 
-// TODO ???
+### Related Reading
+
++ [How-To: Work with Tagged NanoId strings][2]
++ [Performance: Select Highlights][3]
+
+### Copyright
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
 
 
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/pblasucci/ananoid/blob/c7b6f7a5e38a38f651af267107ab18b1d00c050d/ananoid/Core.fs
+[2]: /guides/primitives/taggednanoid.html
+[3]: /explanations/performance/highlights.html

@@ -20,6 +20,10 @@ body .navbar .dropdown-menu .active .bi {
     display: block !important;
 }
 
+details.lang-block summary {
+  pointer-events: none;
+}
+
 nav.navbar {
   background: linear-gradient(to top, var(--fsdocs-pre-background-color), var(--fsdocs-pre-background-color));
 }
@@ -32,7 +36,7 @@ nav.navbar .dropdown-item img.fsharp-icon-logo {
     margin-right: 0px;
 }
 
-div.lang-strip {
+div#lang-strip {
   display: flex;
   align-content: stretch;
   align-items: stretch;
@@ -40,18 +44,18 @@ div.lang-strip {
   gap: 5px 20px;
 }
 
-div.lang-strip details.lang-block {
+div#lang-strip details.lang-block {
   width: max-content;
   flex-grow: 1;
   flex-basis: 125px;
 }
 
-div.lang-strip details.lang-block pre {
-  height: 143px;
+div#lang-strip details.lang-block pre {
+  height: 159px;
 }
 
-div.lang-strip details.lang-block table.pre pre {
-  height: 120px;
+div#lang-strip details.lang-block table.pre pre {
+  height: 135px;
 }
 
 div.lang-bar {
@@ -71,11 +75,27 @@ div.lang-bar details.lang-block:first-child {
   width: 100%;
 }
 
-div.lang-bar details.lang-block table.pre {
-}
-
 div.lang-bar details.lang-block td {
   vertical-align: top;
+}
+
+div.lang-bar details.lang-block:last-of-type {
+  flex-grow: 2;
+}
+
+div.lang-bar details.lang-block.console table.pre {
+  border: 1px solid var(--fsdocs-pre-border-color) !important;
+  border-right-width: 20px !important;
+  border-radius: 5px !important;
+  background-color: var(--ananoid-console-field-color) !important;
+}
+
+div.lang-bar details.lang-block.console table.pre pre {
+  background-color: var(--ananoid-console-field-color) !important;
+}
+
+div.lang-bar details.lang-block img {
+  padding: 10px 0;
 }
 
 blockquote {

@@ -67,9 +67,17 @@ var msg = NanoIdParser.UrlSafe.TryParse(rawId, out var parsedId) switch
 WriteLine(msg);
 ```
 </details>
-</div>
 
-![TODO: output of last snippet](/path/to.img)
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoidparser.fsx
+
+raw: ZoCRoGew6hVWYIIimu-p4, parsed: ZoCRoGew6hVWYIIimu-p4
+```
+</details>
+</div>
 
 In the same way that we can build a `NanoIdOptions` instance from any alphabet,
 we can also use an arbitrary alphabet to create a new `NanoIdParser` instance.
@@ -139,13 +147,28 @@ var msg = parser.TryParse(originalId, out var noLookalikeId) switch
 WriteLine(msg);
 ```
 </details>
+
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoidparser.fsx
+
+raw: BEC7biEHCUDwRihgFCExa, parsed: BEC7biEHCUDwRihgFCExa
+```
+</details>
 </div>
 
-![TODO: output of last snippet](/path/to.img)
+### Related Reading
 
-### Next steps
++ [How-To: Work with NanoId strings][2]
++ API Reference: `cref:T:pblasucci.Ananoid.NanoId`
 
-// TODO ???
+### Copyright
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
 
 
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: /reference/pblasucci-ananoid-nanoidparser.html
+[2]: /guides/primitives/nanoidstring.html

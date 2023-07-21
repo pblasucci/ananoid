@@ -140,6 +140,9 @@ type Alphabet =
   /// <item>Contains no more then 255 letters.</item>
   /// <item>Is able to successfully validate its own set of letters.</item>
   /// </list>
+  /// F# callers should use the name <c>ValidateOrRaise</c>; however, callers
+  /// in other languages (eg: C#, Visual Basic) should use the name
+  /// <c>ValidateOrThrow</c> to refer to this method.
   /// </remarks>
   /// <param name="alphabet">An IAlphabet instance to be validated.</param>
   /// <exception cref="T:pblasucci.Ananoid.AlphabetException">

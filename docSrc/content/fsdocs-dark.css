@@ -43,4 +43,9 @@
     --fsdocs-code-tooltip-color: #d1d1d1;
 
     --ananoid-logo-field-color: #c9fd63;
+    --ananoid-console-field-color: #303030;
+}
+
+div.lang-bar img, .fsdocs-member-xmldoc img {
+  filter: grayscale(0) brightness(1) invert(1);
 }

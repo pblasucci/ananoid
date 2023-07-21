@@ -120,14 +120,14 @@ let nanoId () : string = nanoIdOf Defaults.Alphabet Defaults.Size
 /// different purposes, but where using a full CLR type is undesirable).
 /// </summary>
 /// <remarks>
-/// <strong>This module is not intended for languages other than F#.</strong>
+/// <b>This module is not intended for languages other than F#.</b>
 /// </remarks>
 module Tagged =
   /// <summary>
   /// An abbreviation for the CLI type System.String.
   /// </summary>
   /// <remarks>
-  /// <strong>This alias is not intended for languages other than F#.</strong>
+  /// <b>This alias is not intended for languages other than F#.</b>
   /// </remarks>
   [<CompiledName("string@measurealias")>]
   [<MeasureAnnotatedAbbreviation>]
@@ -137,7 +137,7 @@ module Tagged =
   /// A "tag", which can be used as a discriminator.
   /// </summary>
   /// <remarks>
-  /// <strong>This tag is not intended for languages other than F#.</strong>
+  /// <b>This tag is not intended for languages other than F#.</b>
   /// </remarks>
   [<CompiledName("nanoid@measure")>]
   [<Measure>]

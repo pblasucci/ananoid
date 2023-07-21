@@ -2,7 +2,7 @@
 title: Work with Tagged NanoId strings
 category: Primitives
 categoryindex: 3
-index: 2
+index: 1
 ---
 
 How-To: Work with Tagged NanoId strings
@@ -16,8 +16,8 @@ is just too much, Ananoid also provides its core functionality --
 cryptographically-secure randomly-generated identifiers -- as functions which
 take simple inputs and just produce strings ([as seen here][1]). And, for F#
 consumers, there is one more option: tagged identifiers. This feature attempts
-to strike a balance between the performance string and safety of more robust
-types.
+to strike a balance between the performance of raw strings and safety of more
+robust types.
 
 > ---
 > ##Attention!!!
@@ -34,6 +34,7 @@ them to be typed-checked separately from ordinary string. However, as they are
 erased at run-time, they pose none of the overhead of full types (like
 `cref:T:pblasucci.Ananoid.NanoId`). Usage can be as simple as:
 
+<div class="lang-bar">
 <details open class="lang-block">
 <summary>F#</summary>
 
@@ -45,13 +46,27 @@ let taggedNumericId = nanoIdOf' "0123456789" 12
 ```
 </details>
 
-![TODO: output of last snippet](/path/to.img)
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi
+> open pblasucci.Ananoid.Core.Taggd;;
+
+> let taggeedDefaultId = nanoId' ();;
+    taggedDefaultId: string<nanoid> = "SG0vBABewIRQxruwugpTD"
+
+> let taggedNumericId = nanoIdOf' "0123456789" 12;;
+    taggedNumericIdL string<nanoid> = "387443539896"
+```
+</div>
 
 Ananoid further provides the `tag` function for converting simple strings into
 tagged strings. For converting in the opposite direction (from a tagged string
 into a simple string), simply use the built-in `string` function. The follow
 example helps to demonstrate the usage of `tag` and `string`:
 
+<div class="lang-bar">
 <details open class="lang-block">
 <summary>F#</summary>
 
@@ -64,12 +79,29 @@ printfn $"%s{nameof simpleId} = %s{nameof simpleId'}? %b{simpleId = simpleId'}"
 ```
 </details>
 
-![TODO: output of last snippet](/path/to.img)
+<details open class="lang-block console">
+<summary>OUT</summary>
 
-### Next steps
+```sh
+> dotnet fsi ~/scratches/taggednanoid.fsx
 
-// TODO ???
+simpleId = simpleId'? true
+```
+</details>
+</div>
+
+### Related Reading
+
++ [Performance: Select Highlights][3]
++ [How-To: Install the Core Module from Source][4]
+
+### Copyright
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
 
 
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: /guides/primitives/nanoidstring.html
 [2]: https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure
+[3]: /explanations/performance/highlights.html
+[4]: /guides/primitives/installcore.html

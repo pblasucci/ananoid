@@ -2,7 +2,7 @@
 title: Work with NanoId strings
 category: Primitives
 categoryindex: 3
-index: 1
+index: 2
 ---
 
 How-To: Work with NanoId strings
@@ -31,8 +31,13 @@ let defaultId = nanoId ()
 // ⮝⮝⮝ These two call do the same thing. ⮟⮟⮟
 let urlSafeId = nanoIdOf Defaults.Alphabet Defaults.Size
 
+printfn $"%s{nameof defaultId}: %s{defaultId}"
+printfn $"%s{nameof urlSafeId}: %s{urlSafeId}"
+
 let alphabet, size = ("0123456789", 42)
 let numericId = nanoIdOf alphabet size
+
+printfn $"%s{nameof numericId}: %s{numericId}"
 ```
 </details>
 
@@ -46,7 +51,12 @@ Dim defaultId = NewNanoId()
 ' ⮝⮝⮝ These two call do the same thing. ⮟⮟⮟
 Dim urlSafeId = NewNanoId(Defaults.Alphabet, Defaults.Size)
 
+WriteLine($"{NameOf(defaultId)}: {defaultId}")
+WriteLine($"{NameOf(urlSafeId)}: {urlSafeId}")
+
 Dim numericId = NewNanoId(alphabet:="0123456789", size:=42)
+
+WriteLine($"{NameOf(numericId)}: {numericId}")
 ```
 </details>
 
@@ -60,13 +70,38 @@ val defaultId = NewNanoId();
 // ⮝⮝⮝ These two call do the same thing. ⮟⮟⮟
 val urlSafeId = NewNanoId(Defaults.Alphabet, Defaults.Size);
 
+WriteLine($"{nameof(defaultId)}: {defaultId}");
+WriteLine($"{nameof(urlSafeId)}: {urlSafeId}");
+
 val numericId = NewNanoId(alphabet: "0123456789", size: 42);
+
+WriteLine($"{nameof(numericId)}: {numericId}");
+```
+</details>
+
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoidstring.fsx
+
+defaultId: StsrpEEfFWnoSSUqB0IyM
+urlSafeId: Yg6PLr0_l2P6IsWgsMh3w
+numericId: 176645656821584823660920061658558763998443
 ```
 </details>
 </div>
 
-![TODO: output of last snippet](/path/to.img)
+### Related Reading
 
-### Next steps
++ [Performance: Select Highlights][2]
++ [Utilities: Complexity Calculator][3]
 
-// TODO ???
+### Copyright
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
+
+
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
+[2]: /explanations/performance/highlights.html
+[3]: /explanations/utilities/complexity.html

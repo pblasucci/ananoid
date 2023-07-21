@@ -126,8 +126,7 @@ type NanoIdParser(alphabet : IAlphabet) =
 
 
 [<AutoOpen>]
-[<Extension>]
-module NanoIdOptionsExtensions =
+module NanoIdOptionsPatterns =
   let inline (|SourceAlphabet|)
     (source : 'Source when 'Source : (member Alphabet : IAlphabet))
     =
@@ -135,15 +134,21 @@ module NanoIdOptionsExtensions =
 
   let (|TargetSize|) { Size' = size } = TargetSize(size)
 
+
+[<Extension>]
+[<Sealed>]
+type NanoIdOptionsExtensions =
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<Extension>]
-  let Deconstruct
-    { Alphabet' = alphabet'; Size' = size' }
-    (alphabet : outref<IAlphabet>)
-    (targetSize : outref<int>)
+  static member Deconstruct
+    (
+      options : NanoIdOptions,
+      alphabet : outref<IAlphabet>,
+      targetSize : outref<int>
+    )
     =
-    alphabet <- alphabet'
-    targetSize <- size'
+    alphabet <- options.Alphabet
+    targetSize <- options.Size
 
 
 [<Extension>]
@@ -163,5 +168,5 @@ type IAlphabetExtensions =
     | Error e -> e.Promote(alphabet)
     | Ok func -> Func<_, _> func
 
-[<assembly: Extension>]
-do()
+[<assembly : Extension>]
+do ()

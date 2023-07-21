@@ -56,6 +56,11 @@ type NanoIdOptions =
   /// Creates a new instance from the given inputs, after checking the
   /// validity of <c>alphabet</c> and, if necessary, adjusting <c>size</c>.
   /// </summary>
+  /// <remarks>
+  /// F# callers should use the name <c>CreateOrRaise</c>; however, callers
+  /// in other languages (eg: C#, Visual Basic) should use the name
+  /// <c>CreateOrThrow</c> to refer to this method.
+  /// </remarks>
   /// <param name="alphabet">
   /// The IAlphabet to use for generation and validation.
   /// </param>
@@ -272,6 +277,11 @@ type NanoIdParser =
   /// <summary>
   /// Tries to create a new instance.
   /// </summary>
+  /// <remarks>
+  /// F# callers should use the name <c>CreateOrRaise</c>; however, callers
+  /// in other languages (eg: C#, Visual Basic) should use the name
+  /// <c>CreateOrThrow</c> to refer to this method.
+  /// </remarks>
   /// <param name="alphabet">
   /// The set of letters against which raw strings will be checked for validity.
   /// </param>
@@ -288,13 +298,15 @@ type NanoIdParser =
 /// Provided utilities for working with
 /// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
 [<AutoOpen>]
-[<Extension>]
-module NanoIdOptionsExtensions =
+module NanoIdOptionsPatterns =
   /// <summary>
   /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
   /// from a <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance,
   /// or from a <see cref="T:pblasucci.Ananoid.NanoIdParser"/> instance.
   /// </summary>
+  /// <remarks>
+  /// <b>This active pattern is not intended for languages other than F#.</b>
+  /// </remarks>
   val inline (|SourceAlphabet|) :
     source : 'Source -> IAlphabet when 'Source : (member Alphabet : IAlphabet)
 
@@ -302,8 +314,17 @@ module NanoIdOptionsExtensions =
   /// Extracts the <c>TargetSize</c> value from a
   /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
   /// </summary>
+  /// <remarks>
+  /// <b>This active pattern is not intended for languages other than F#.</b>
+  /// </remarks>
   val (|TargetSize|) : source : NanoIdOptions -> int
 
+
+/// Provided utilities for working with
+/// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
+[<Extension>]
+[<Sealed>]
+type NanoIdOptionsExtensions =
   /// <summary>
   /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
   /// and the <c>TargetSize</c> value from a
@@ -311,9 +332,9 @@ module NanoIdOptionsExtensions =
   /// </summary>
   [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<Extension>]
-  val Deconstruct :
-    options : NanoIdOptions ->
-    alphabet : outref<IAlphabet> ->
+  static member Deconstruct :
+    options : NanoIdOptions *
+    alphabet : outref<IAlphabet> *
     targetSize : outref<int> ->
       unit
 
@@ -331,6 +352,11 @@ type IAlphabetExtensions =
   /// Produces a function for generating NanoId instances of varying sizes
   /// (note: requires a valid <see cref="T:pblasucci.Ananoid.IAlphabet"/>).
   /// </summary>
+  /// <remarks>
+  /// <b>This method is not intended for languages other than F#.</b> Further,
+  /// it should be referenced via its compiled name,
+  /// <c>ToNanoIdFactory@FSharpFunc</c> (eg: during reflection).
+  /// </remarks>
   /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
   /// <returns>
   /// On successful validation, returns a "factory function" which will produce
@@ -348,6 +374,11 @@ type IAlphabetExtensions =
   /// Produces a function for generating NanoId instances of varying sizes
   /// (note: requires a valid <see cref="T:pblasucci.Ananoid.IAlphabet"/>).
   /// </summary>
+  /// <remarks>
+  /// <b>This method is NOT intended for use from F#.</b> Further, it should
+  /// be referenced via its compiled name, <c>ToNanoIdFactory</c> (in C# or
+  /// Visual Basic, during reflection, et cetera).
+  /// </remarks>
   /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
   /// <returns>
   /// On successful validation, returns a "factory function" which will produce
