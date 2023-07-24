@@ -10,7 +10,7 @@ ananoid
 - [x] api docs
   - [x] docs template
   - [x] cross-link
-  - [ ] !!fix toggle bug!!
+  - [x] fix toggle bug
 - [x] narrative docs
   - [x] docs template
   - [x] getting started
@@ -18,13 +18,15 @@ ananoid
   - [x] customization
   - [ ] performance
   - [ ] ananoidcc
-- [ ] Source Link
+- [-] Source Link
 - [ ] ?? build script ??
-- [ ] CHANGELOG
 - [ ] CONTRIBUTE
-- [ ] README
-- [ ] upgrade/review Fantomas
+- [ ] CHANGELOG
+- [-] README
+- [-] upgrade/review Fantomas
 
 ```sh
-dotnet fsdocs watch --port 2023 --input ./docSrc/ --parameters fsdocs-license-link https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt fsdocs-readme-link https://github.com/pblasucci/ananoid/blob/main/README.md
+dotnet fsdocs watch --port 2023 --input ./docSrc/ --parameters \
+    fsdocs-license-link https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt \
+    fsdocs-readme-link https://github.com/pblasucci/ananoid/blob/main/README.md
 ```

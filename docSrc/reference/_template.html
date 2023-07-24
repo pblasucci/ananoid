@@ -158,6 +158,16 @@
 
     <!-- END SEARCH BOX: this adds support for the search box -->
     </div>
+    <script type="text/javascript">
+      function handleClick(div) {
+        if (div) {
+          div.addEventListener("click", e => e.preventDefault());
+        }
+      }
+      const iconDivsSelector = 'DIV.fsdocs-summary DIV.fsdocs-source-link';
+      const iconDivs = document.querySelectorAll(iconDivsSelector);
+      iconDivs.forEach(handleClick);
+    </script>
 </body>
 
 </html>
