@@ -29,7 +29,7 @@ module Support =
       | PerHour amount
       | PerSecond amount -> amount
 
-    member me.TotalSeconds : float =
+    member me.TotalSeconds =
       match me with
       | PerSecond amount -> amount
       | PerHour amount -> amount / 3600.0
@@ -55,13 +55,11 @@ module Support =
     else
       nan
 
-  type DurationFormat =
-    {
-      Factor : float
-      Label : string
-      Pluralize : bool
-    }
-
+  type DurationFormat = {
+    Factor : float
+    Label : string
+    Pluralize : bool
+  } with
     member me.Render(value) =
       let suffix =
         if me.Pluralize && 1 < value then $"%s{me.Label}s" else me.Label

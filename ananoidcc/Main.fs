@@ -8,7 +8,6 @@ namespace pblasucci.Ananoid
 open Microsoft.FSharp.Reflection
 open System
 open System.Globalization
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.FuncUI
@@ -205,32 +204,34 @@ module Main =
     )
 
   let generatorView ((alphabet, length) as generate) =
-    Component.create(nameof generate, fun context ->
-      let alphabet = context.usePassedRead alphabet
-      let length = context.usePassedRead length
-      let nanoId = context.useState ""
+    Component.create (
+      nameof generate,
+      fun context ->
+        let alphabet = context.usePassedRead alphabet
+        let length = context.usePassedRead length
+        let nanoId = context.useState ""
 
-      Grid.create [
-        Grid.columnDefinitions "Auto, *"
-        Grid.rowDefinitions "Auto"
-        Grid.classes [ nameof generate ]
-        Grid.children [
-          Button.create [
-            Grid.column 0
-            Grid.row 0
-            Button.content "Generate Identifier"
-            Button.onClick (fun _ ->
-              nanoId.Set(nanoIdOf alphabet.Current (int length.Current))
-            )
-          ]
-          TextBox.create [
-            Grid.column 1
-            Grid.row 0
-            TextBox.isReadOnly true
-            TextBox.text nanoId.Current
+        Grid.create [
+          Grid.columnDefinitions "Auto, *"
+          Grid.rowDefinitions "Auto"
+          Grid.classes [ nameof generate ]
+          Grid.children [
+            Button.create [
+              Grid.column 0
+              Grid.row 0
+              Button.content "Generate Identifier"
+              Button.onClick (fun _ ->
+                nanoId.Set(nanoIdOf alphabet.Current (int length.Current))
+              )
+            ]
+            TextBox.create [
+              Grid.column 1
+              Grid.row 0
+              TextBox.isReadOnly true
+              TextBox.text nanoId.Current
+            ]
           ]
         ]
-      ]
     )
 
   let view () =

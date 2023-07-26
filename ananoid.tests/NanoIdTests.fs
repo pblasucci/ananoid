@@ -7,7 +7,6 @@ module pblasucci.Ananoid.Tests.NanoIdTests
 
 open System
 open System.Reflection
-open Xunit
 open FsCheck
 open FsCheck.Xunit
 
@@ -32,8 +31,8 @@ let ``By-passing safety checks caused run-time failure`` () =
   let bypassWithBadInput () =
     let badAlphabet =
       { new IAlphabet with
-         member _.Letters = "123"
-         member me.WillPermit(value) = (value <> me.Letters)
+          member _.Letters = "123"
+          member me.WillPermit(value) = (value <> me.Letters)
       }
 
     try

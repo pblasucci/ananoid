@@ -11,11 +11,10 @@ open System.Runtime.InteropServices
 
 
 [<NoComparison>]
-type NanoIdOptions =
-  {
-    Alphabet' : IAlphabet
-    Size' : int
-  }
+type NanoIdOptions = {
+  Alphabet' : IAlphabet
+  Size' : int
+} with
   member me.Alphabet = me.Alphabet'
   member me.Size = me.Size'
 
@@ -35,24 +34,34 @@ type NanoIdOptions =
 
   static member Numbers = { NanoIdOptions.UrlSafe with Alphabet' = Numbers }
 
-  static member HexadecimalLowercase =
-    { NanoIdOptions.UrlSafe with Alphabet' = HexadecimalLowercase }
+  static member HexadecimalLowercase = {
+    NanoIdOptions.UrlSafe with
+        Alphabet' = HexadecimalLowercase
+  }
 
-  static member HexadecimalUppercase =
-    { NanoIdOptions.UrlSafe with Alphabet' = HexadecimalUppercase }
+  static member HexadecimalUppercase = {
+    NanoIdOptions.UrlSafe with
+        Alphabet' = HexadecimalUppercase
+  }
 
   static member Lowercase = { NanoIdOptions.UrlSafe with Alphabet' = Lowercase }
 
   static member Uppercase = { NanoIdOptions.UrlSafe with Alphabet' = Uppercase }
 
-  static member Alphanumeric =
-    { NanoIdOptions.UrlSafe with Alphabet' = Alphanumeric }
+  static member Alphanumeric = {
+    NanoIdOptions.UrlSafe with
+        Alphabet' = Alphanumeric
+  }
 
-  static member NoLookalikes =
-    { NanoIdOptions.UrlSafe with Alphabet' = NoLookalikes }
+  static member NoLookalikes = {
+    NanoIdOptions.UrlSafe with
+        Alphabet' = NoLookalikes
+  }
 
-  static member NoLookalikesSafe =
-    { NanoIdOptions.UrlSafe with Alphabet' = NoLookalikesSafe }
+  static member NoLookalikesSafe = {
+    NanoIdOptions.UrlSafe with
+        Alphabet' = NoLookalikesSafe
+  }
 
 
 [<IsReadOnly>]
@@ -167,6 +176,7 @@ type IAlphabetExtensions =
     match alphabet.ToNanoIdFactory() with
     | Error e -> e.Promote(alphabet)
     | Ok func -> Func<_, _> func
+
 
 [<assembly : Extension>]
 do ()

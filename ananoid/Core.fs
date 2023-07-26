@@ -79,7 +79,8 @@ module Defaults =
   /// This is the default alphabet if one is not explicitly specified.
   /// </summary>
   [<Literal>]
-  let Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
+  let Alphabet =
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
 
   /// Twenty-one (21) single-byte characters.
   /// This is the default output length if one is not explicitly specified.

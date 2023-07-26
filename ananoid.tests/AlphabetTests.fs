@@ -78,9 +78,7 @@ let ``NanoIdFactory produces validatable output``
   (alphabet : Alphabet)
   (NonNegativeInt size)
   =
-  let factory =
-    alphabet.ToNanoIdFactory()
-    |> Result.defaultWith (fun x -> failwith $"{x}")
+  let factory = alphabet.ToNanoIdFactory() |> Result.defaultWith (failwith "%A")
 
   let expect = factory size
   let didParse, actual = NanoIdParser.UrlSafe.TryParse(string expect)

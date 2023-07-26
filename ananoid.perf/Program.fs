@@ -7,6 +7,7 @@ namespace pblasucci.Ananoid.Perf
 
 open BenchmarkDotNet.Attributes
 open BenchmarkDotNet.Engines
+open BenchmarkDotNet.Running
 open Nanoid
 open pblasucci.Ananoid
 open pblasucci.Ananoid.Core
@@ -67,9 +68,6 @@ type FunctionVsStruct() =
 
 
 module Program =
-
-  open BenchmarkDotNet.Running
-
   let benchmarks = [|
     typeof<AnanoidVsNanoidNet>
     typeof<FunctionVsStruct>

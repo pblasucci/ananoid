@@ -9,13 +9,13 @@
       ]
     },
     "fantomas": {
-      "version": "5.2.2",
+      "version": "6.1.2",
       "commands": [
         "fantomas"
       ]
     },
     "powershell": {
-      "version": "7.3.4",
+      "version": "7.3.6",
       "commands": [
         "pwsh"
       ]
