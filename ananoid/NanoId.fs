@@ -147,7 +147,6 @@ module NanoIdOptionsPatterns =
 [<Extension>]
 [<Sealed>]
 type NanoIdOptionsExtensions =
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
   [<Extension>]
   static member Deconstruct
     (

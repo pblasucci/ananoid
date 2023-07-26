@@ -330,7 +330,9 @@ type NanoIdOptionsExtensions =
   /// and the <c>TargetSize</c> value from a
   /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
   /// </summary>
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
+  /// <remarks>
+  /// This method is primarily intended for interoperability with C#.
+  /// </remarks>
   [<Extension>]
   static member Deconstruct :
     options : NanoIdOptions *

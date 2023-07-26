@@ -11,6 +11,7 @@ ananoid
   - [x] docs template
   - [x] cross-link
   - [x] fix toggle bug
+- [x] upgrade/review Fantomas
 - [x] narrative docs
   - [x] docs template
   - [x] getting started
@@ -23,7 +24,6 @@ ananoid
 - [ ] CONTRIBUTE
 - [ ] CHANGELOG
 - [-] README
-- [-] upgrade/review Fantomas
 
 ```sh
 dotnet fsdocs watch --port 2023 --input ./docSrc/ --parameters \
