@@ -17,6 +17,25 @@ type TaggedNanoId = TaggedNanoId of string<nanoid>
 
 
 type Generation() =
+  static member IAlphabet =
+    let generate =
+      Gen.elements (
+        [
+          Alphabet.Alphanumeric
+          Alphabet.HexadecimalLowercase
+          Alphabet.HexadecimalUppercase
+          Alphabet.Lowercase
+          Alphabet.NoLookalikes
+          Alphabet.NoLookalikesSafe
+          Alphabet.Numbers
+          Alphabet.Uppercase
+          Alphabet.UrlSafe
+        ]
+        : IAlphabet list
+      )
+
+    Arb.fromGen generate
+
   static member NanoIdOptions =
     let generate =
       Gen.elements [

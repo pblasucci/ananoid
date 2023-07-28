@@ -28,7 +28,7 @@ type NanoIdOptions = {
   [<CompiledName("CreateOrThrow")>]
   static member CreateOrRaise(alphabet, size) =
     NanoIdOptions.Create(alphabet, size)
-    |> Result.defaultWith (fun e -> e.Promote alphabet)
+    |> Result.defaultWith (fun e -> e.Promote())
 
   static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
 
@@ -130,8 +130,7 @@ type NanoIdParser(alphabet : IAlphabet) =
 
   [<CompiledName("CreateOrThrow")>]
   static member CreateOrRaise(alphabet) =
-    NanoIdParser.Create(alphabet)
-    |> Result.defaultWith (fun e -> e.Promote alphabet)
+    NanoIdParser.Create(alphabet) |> Result.defaultWith (fun e -> e.Promote())
 
 
 [<AutoOpen>]
@@ -173,7 +172,7 @@ type IAlphabetExtensions =
   [<Extension>]
   static member ToNanoIdFactoryDelegate(alphabet) =
     match alphabet.ToNanoIdFactory() with
-    | Error e -> e.Promote(alphabet)
+    | Error e -> e.Promote()
     | Ok func -> Func<_, _> func
 
 

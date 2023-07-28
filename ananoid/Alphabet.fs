@@ -74,34 +74,43 @@ module Patterns =
   let NoLookalikesSafe = "^[6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz]+$"
 
 
+[<NoComparison>]
 type AlphabetError =
-  | AlphabetTooLarge
-  | AlphabetTooSmall
-  | IncoherentAlphabet
+  | AlphabetTooLarge of Alphabet : IAlphabet
+  | AlphabetTooSmall of Alphabet : IAlphabet
+  | IncoherentAlphabet of Alphabet : IAlphabet
+
+  member me.Source =
+    match me with
+    | AlphabetTooLarge alphabet
+    | AlphabetTooSmall alphabet
+    | IncoherentAlphabet alphabet -> alphabet
+
   member me.Message =
     match me with
-    | AlphabetTooLarge -> "Alphabet may not contain more than 255 letters."
-    | AlphabetTooSmall -> "Alphabet must contain at least one letter."
-    | IncoherentAlphabet -> "Alphabet cannot validate its own letters."
+    | AlphabetTooLarge _ -> "Alphabet may not contain more than 255 letters."
+    | AlphabetTooSmall _ -> "Alphabet must contain at least one letter."
+    | IncoherentAlphabet _ -> "Alphabet cannot validate its own letters."
+
   override me.ToString() =
     let case =
       match me with
-      | AlphabetTooLarge -> nameof AlphabetTooLarge
-      | AlphabetTooSmall -> nameof AlphabetTooSmall
-      | IncoherentAlphabet -> nameof IncoherentAlphabet
+      | AlphabetTooLarge _ -> nameof AlphabetTooLarge
+      | AlphabetTooSmall _ -> nameof AlphabetTooSmall
+      | IncoherentAlphabet _ -> nameof IncoherentAlphabet
     $"{nameof AlphabetError}.{case} '{me.Message}'"
 
 
 [<Sealed>]
-type AlphabetException(source : IAlphabet, reason : AlphabetError) =
+type AlphabetException(reason : AlphabetError) =
   inherit Exception($"Invalid alphabet, reason: %s{reason.Message}")
 
-  member me.Source = source
+  member me.Source = reason.Source
   member me.Reason = reason
 
 
 type AlphabetError with
-  member me.Promote(alphabet) = raise (AlphabetException(alphabet, me))
+  member me.Promote() = raise (AlphabetException me)
 
 
 type Alphabet =
@@ -149,18 +158,18 @@ type Alphabet =
 
   static member Validate(alphabet : IAlphabet) =
     if isNull (alphabet :> obj) then
-      Error AlphabetTooSmall
+      Error(AlphabetTooSmall alphabet)
     elif alphabet.Letters.Length < 1 then
-      Error AlphabetTooSmall
+      Error(AlphabetTooSmall alphabet)
     elif 255 < alphabet.Letters.Length then
-      Error AlphabetTooLarge
+      Error(AlphabetTooLarge alphabet)
     elif not (alphabet.WillPermit alphabet.Letters) then
-      Error IncoherentAlphabet
+      Error(IncoherentAlphabet alphabet)
     else
       Ok alphabet
 
   [<CompiledName("ValidateOrThrow")>]
   static member ValidateOrRaise(alphabet) =
     Alphabet.Validate(alphabet)
-    |> Result.defaultWith (fun e -> e.Promote alphabet)
+    |> Result.defaultWith (fun e -> e.Promote())
     |> ignore

@@ -17,7 +17,7 @@ open pblasucci.Ananoid
 let ``Custom alphabet fails if alphabet is null`` () =
   match Alphabet.Validate(Unchecked.defaultof<_>) with
   // ⮟ pass ⮟
-  | Error AlphabetTooSmall -> Prop.ofTestable true
+  | Error(AlphabetTooSmall _) -> Prop.ofTestable true
   // ⮟ fail ⮟
   | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
   | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
@@ -32,7 +32,7 @@ let ``Custom alphabet fails if incoherent`` () =
 
   match Alphabet.Validate(incoherent) with
   // ⮟ pass ⮟
-  | Error IncoherentAlphabet -> Prop.ofTestable true
+  | Error(IncoherentAlphabet _) -> Prop.ofTestable true
   // ⮟ fail ⮟
   | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
   | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
@@ -47,7 +47,7 @@ let ``Custom alphabet fails if too short`` () =
 
   match Alphabet.Validate(tooShort) with
   // ⮟ pass ⮟
-  | Error AlphabetTooSmall -> Prop.ofTestable true
+  | Error(AlphabetTooSmall _) -> Prop.ofTestable true
   // ⮟ fail ⮟
   | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
   | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
@@ -62,7 +62,7 @@ let ``Custom alphabet fails if too large`` () =
 
   match Alphabet.Validate(tooLarge) with
   // ⮟ pass ⮟
-  | Error AlphabetTooLarge -> Prop.ofTestable true
+  | Error(AlphabetTooLarge _) -> Prop.ofTestable true
   // ⮟ fail ⮟
   | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
   | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
@@ -73,12 +73,14 @@ let ``All pre-defined alphabets produce comprehensible outputs`` options =
   options.Alphabet.WillPermit(string generated)
   |> Prop.label $"Alphabet failed to validate given letters. (%A{generated})"
 
-[<Property>]
+[<Property(Arbitrary = [| typeof<Generation> |])>]
 let ``NanoIdFactory produces validatable output``
-  (alphabet : Alphabet)
+  (alphabet : IAlphabet)
   (NonNegativeInt size)
   =
-  let factory = alphabet.ToNanoIdFactory() |> Result.defaultWith (failwith "%A")
+  let factory =
+    alphabet.ToNanoIdFactory()
+    |> Result.defaultWith (fun error -> failwith $"{error}")
 
   let expect = factory size
   let didParse, actual = NanoIdParser.UrlSafe.TryParse(string expect)

@@ -31,28 +31,33 @@ type IAlphabet =
 /// <see cref="T:pblasucci.Ananoid.IAlphabet"/> is validated,
 /// or when an alphabet evaluates a string for compatability.
 /// </summary>
+[<NoComparison>]
 type AlphabetError =
   /// Raised when an alphabet contains more than 255 letters.
-  | AlphabetTooLarge
+  | AlphabetTooLarge of Alphabet : IAlphabet
 
   /// Raised when an alphabet contains no letters.
-  | AlphabetTooSmall
+  | AlphabetTooSmall of Alphabet : IAlphabet
 
   /// Raised when an alphabet cannot validate its own letters.
-  | IncoherentAlphabet
+  | IncoherentAlphabet of Alphabet : IAlphabet
+
+  /// The <see cref="T:pblasucci.Ananoid.IAlphabet" />
+  /// which generated the current error.
+  member Source : IAlphabet
 
   /// A human-readable description of the error, suitable for printing.
   member Message : string
 
   /// <summary>
-  /// Creates an <see cref="T:pblasucci.Ananoid.AlphabetException"/> from the
-  /// current <c>AlphabetError</c> and the given <c>IAlphabet</c>.
+  /// Creates an <see cref="T:pblasucci.Ananoid.AlphabetException"/>
+  /// from the current <c>AlphabetError</c> instance.
   /// The newly created exception is then raised.
   /// </summary>
   /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
   /// Raised as the intended consequence of invoking this method.
   /// </exception>
-  member Promote : alphabet : IAlphabet -> 'T
+  member Promote : unit -> 'T
 
 
 /// Encapsulates data for the point-in-time failure of an operation involving
