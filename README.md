@@ -15,12 +15,14 @@ ananoid
 - [x] narrative docs
   - [x] docs template
   - [x] getting started
-  - [x] lower-level APIs
+  - [-] lower-level APIs
+    - [ ] actual example of taking core from source
   - [x] customization
   - [ ] performance
   - [ ] ananoidcc
 - [-] Source Link
-- [ ] ?? build script ??
+- [ ] ?? fake ??
+- [ ] ?? paket ??
 - [ ] CONTRIBUTE
 - [ ] CHANGELOG
 - [-] README

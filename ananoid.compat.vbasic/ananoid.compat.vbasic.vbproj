@@ -18,7 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="pblasucci.ananoid" Version="0.8.2" />
+      <PackageReference Include="pblasucci.ananoid" Version="0.8.4" />
     </ItemGroup>
 
     <ItemGroup>

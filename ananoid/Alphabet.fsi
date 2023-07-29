@@ -34,17 +34,19 @@ type IAlphabet =
 [<NoComparison>]
 type AlphabetError =
   /// Raised when an alphabet contains more than 255 letters.
-  | AlphabetTooLarge of Alphabet : IAlphabet
+  | AlphabetTooLarge of Source : IAlphabet
 
   /// Raised when an alphabet contains no letters.
-  | AlphabetTooSmall of Alphabet : IAlphabet
+  | AlphabetTooSmall of Source : IAlphabet
 
   /// Raised when an alphabet cannot validate its own letters.
-  | IncoherentAlphabet of Alphabet : IAlphabet
+  | IncoherentAlphabet of Source : IAlphabet
 
+  /// <summary>
   /// The <see cref="T:pblasucci.Ananoid.IAlphabet" />
   /// which generated the current error.
-  member Source : IAlphabet
+  /// </summary>
+  member Alphabet : IAlphabet
 
   /// A human-readable description of the error, suitable for printing.
   member Message : string
@@ -67,7 +69,7 @@ type AlphabetException =
   inherit System.Exception
 
   /// The alphabet which lead to the exception.
-  member Source : IAlphabet
+  member Alphabet : IAlphabet
 
   /// Further details about the actual failure.
   member Reason : AlphabetError

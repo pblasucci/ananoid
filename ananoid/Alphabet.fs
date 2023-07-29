@@ -76,11 +76,11 @@ module Patterns =
 
 [<NoComparison>]
 type AlphabetError =
-  | AlphabetTooLarge of Alphabet : IAlphabet
-  | AlphabetTooSmall of Alphabet : IAlphabet
-  | IncoherentAlphabet of Alphabet : IAlphabet
+  | AlphabetTooLarge of Source : IAlphabet
+  | AlphabetTooSmall of Source : IAlphabet
+  | IncoherentAlphabet of Source : IAlphabet
 
-  member me.Source =
+  member me.Alphabet =
     match me with
     | AlphabetTooLarge alphabet
     | AlphabetTooSmall alphabet
@@ -105,7 +105,7 @@ type AlphabetError =
 type AlphabetException(reason : AlphabetError) =
   inherit Exception($"Invalid alphabet, reason: %s{reason.Message}")
 
-  member me.Source = reason.Source
+  member me.Alphabet = reason.Alphabet
   member me.Reason = reason
 
 
