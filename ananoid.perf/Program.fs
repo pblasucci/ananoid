@@ -5,6 +5,7 @@
 *)
 namespace pblasucci.Ananoid.Perf
 
+open System
 open BenchmarkDotNet.Attributes
 open BenchmarkDotNet.Engines
 open BenchmarkDotNet.Running
@@ -16,12 +17,15 @@ open LetterSets
 
 [<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
-type AnanoidVsNanoidNet() =
+type AnanoidVsNanoidNetVsGuid() =
   [<Benchmark(Baseline = true)>]
-  member me.NanoidNet() = Nanoid.Generate()
+  member _.Guid() = Guid.NewGuid()
 
   [<Benchmark>]
-  member me.Ananoid() = nanoId ()
+  member _.NanoidNet() = Nanoid.Generate()
+
+  [<Benchmark>]
+  member _.Ananoid() = nanoId ()
 
 
 [<MemoryDiagnoser>]
@@ -67,7 +71,7 @@ type FunctionVsStruct() =
 
 module Program =
   let benchmarks = [|
-    typeof<AnanoidVsNanoidNet>
+    typeof<AnanoidVsNanoidNetVsGuid>
     typeof<FunctionVsStruct>
     typeof<AllAlphabets>
   |]
