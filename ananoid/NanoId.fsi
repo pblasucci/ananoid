@@ -5,139 +5,7 @@
 *)
 namespace pblasucci.Ananoid
 
-open System
 open System.Runtime.CompilerServices
-
-
-/// <summary>
-/// Details the values which can be changed to alter the generation of
-/// <see cref="T:pblasucci.Ananoid.NanoId" /> identifiers.
-/// </summary>
-[<NoComparison>]
-[<Sealed>]
-type NanoIdOptions =
-  /// The alphabet from which identifiers will be generated, and against
-  /// which raw strings may be checked for validity (e.g. for parsing).
-  member Alphabet : IAlphabet
-
-  /// The length of a generated identifier, in number of characters.
-  member Size : int
-
-  /// <summary>
-  /// Changes the output size (i.e. the character-length of
-  /// generated identifiers), while preserving the <c>Alphabet</c>.
-  /// </summary>
-  /// <param name="size">
-  /// The new output size (note: negative values are changed to zero).
-  /// </param>
-  /// <returns>A new instance with the given <c>Size</c>.</returns>
-  member Resize : size : int -> NanoIdOptions
-
-  /// <summary>
-  /// Creates a new instance from the given inputs, after checking the
-  /// validity of <c>alphabet</c> and, if necessary, adjusting <c>size</c>.
-  /// </summary>
-  /// <param name="alphabet">
-  /// The IAlphabet to use for generation and validation.
-  /// </param>
-  /// <param name="size">
-  /// The length of a generated identifier, in number of characters
-  /// (note: negative values are changed to zero).
-  /// </param>
-  /// <returns>
-  /// On successful validation, returns a new <c>NanoIdOptions</c> instance;
-  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
-  /// </returns>
-  static member Create :
-    alphabet : IAlphabet * size : int -> Result<NanoIdOptions, AlphabetError>
-
-  /// <summary>
-  /// Creates a new instance from the given inputs, after checking the
-  /// validity of <c>alphabet</c> and, if necessary, adjusting <c>size</c>.
-  /// </summary>
-  /// <remarks>
-  /// F# callers should use the name <c>CreateOrRaise</c>; however, callers
-  /// in other languages (eg: C#, Visual Basic) should use the name
-  /// <c>CreateOrThrow</c> to refer to this method.
-  /// </remarks>
-  /// <param name="alphabet">
-  /// The IAlphabet to use for generation and validation.
-  /// </param>
-  /// <param name="size">
-  /// The length of a generated identifier, in number of characters
-  /// (note: negative values are changed to zero).
-  /// </param>
-  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
-  /// Raised if the given alphabet cannot be validated.
-  /// </exception>
-  [<CompiledName("CreateOrThrow")>]
-  static member CreateOrRaise :
-    alphabet : IAlphabet * size : int -> NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Alphanumeric"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member Alphanumeric : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalLowercase"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member HexadecimalLowercase : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalUppercase"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member HexadecimalUppercase : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Lowercase"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member Lowercase : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikes"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member NoLookalikes : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikesSafe"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member NoLookalikesSafe : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Numbers"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member Numbers : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Uppercase"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  static member Uppercase : NanoIdOptions
-
-  /// <summary>
-  /// A <c>NanoIdOptions</c> instance with a
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.UrlSafe"/>
-  /// alphabet and a default output size (21 characters).
-  /// </summary>
-  /// <remarks>These are defaults, used when no others are specified.</remarks>
-  static member UrlSafe : NanoIdOptions
 
 
 /// Represents a unique textual identifier, with a known length,
@@ -146,254 +14,337 @@ type NanoIdOptions =
 [<Struct>]
 type NanoId =
   /// The number of characters in this instance.
-  member Length : uint32
+  member Length : int
 
   /// The zero-valued instance of this type.
   static member Empty : NanoId
 
-  /// Returns true, when the given nanoId is zero-valued; otherwise, false.
-  static member IsEmpty : nanoId : NanoId -> bool
-
-  /// <exclude />
-  static member op_Implicit : nanoId : NanoId -> string
-
   /// <summary>
-  /// Creates a new instance from the given
-  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/>.
+  /// Creates a new instance using the default alphabet and size
+  /// (nb: the default alphabet is URL-friendly numbers, English letters, and
+  /// symbols: <c>A-Za-z0-9_-</c> and the default size is 21).
   /// </summary>
-  /// <param name="options">
-  /// The options to use in generating the identifier.
-  /// </param>
-  static member NewId : options : NanoIdOptions -> NanoId
-
-  /// Creates a new instance using the default options.
   static member NewId : unit -> NanoId
 
 
 /// <summary>
-/// Provides methods for validating and parsing strings into NanoId instances of
-/// <see cref="T:pblasucci.Ananoid.NanoId" />, while using a specific
-/// <see cref="T:pblasucci.Ananoid.IAlphabet" /> to validate the inputs.
+/// Details the potential failures which can occur when an a letter set is
+/// validated during <see cref="T:pblasucci.Ananoid.Alphabet"/> creation.
+/// </summary>
+type AlphabetError =
+  /// Raised when an alphabet contains more than 255 letters.
+  | AlphabetTooLarge of Source : string
+
+  /// Raised when an alphabet contains no letters.
+  | AlphabetTooSmall of Source : string
+
+  /// The letter set which generated the current error.
+  member Letters : string
+
+  /// A human-readable description of the error, suitable for printing.
+  member Message : string
+
+  /// <summary>
+  /// Creates an <see cref="T:pblasucci.Ananoid.AlphabetException"/>
+  /// from the current <c>AlphabetError</c> instance.
+  /// The newly created exception is then raised.
+  /// </summary>
+  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
+  /// Raised as the intended consequence of invoking this method.
+  /// </exception>
+  member Promote : unit -> 'T
+
+
+/// Encapsulates data for the point-in-time failure of
+/// an operation involving alphabet validation.
+[<Sealed; Class>]
+type AlphabetException =
+  inherit System.Exception
+
+  /// The alphabet which lead to the exception.
+  member Alphabet : string
+
+  /// Further details about the actual failure.
+  member Reason : AlphabetError
+
+
+/// <summary>
+/// Represents a validated set of 'letters' from which an identifier is made
+/// (for details, see <see cref="M:pblasucci.Ananoid.Alphabet.Validate" />).
 /// </summary>
 [<Sealed>]
-type NanoIdParser =
-  /// The set of letters against which raw strings will be checked for validity.
-  member Alphabet : IAlphabet
+type Alphabet =
+  /// The validated letter set in this instance.
+  member Letters : string
+
+  /// <summary>
+  /// Creates a new <see cref="T:pblasucci.Ananoid.NanoId"/> instance
+  /// of the given size whose letters are taken from the current alphabet.
+  /// </summary>
+  /// <param name="size">
+  /// The length of a generated identifier, in number of characters
+  /// (note: negative values are changed to zero).
+  /// </param>
+  member MakeNanoId : size : int -> NanoId
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
   /// <see cref="T:pblasucci.Ananoid.NanoId" />,
-  /// using a known alphabet to guide validation.
+  /// using the current alphabet to guide validation.
   /// </summary>
   /// <param name="value">The raw string to be converted.</param>
   /// <returns>
   /// On successful parsing, returns a <c>NanoId</c> instance;
   /// otherwise, returns <c>None</c>.
   /// </returns>
-  member Parse : value : string -> Option<NanoId>
+  member ParseNanoId : value : string -> NanoId option
+
+  /// <summary>
+  /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
+  /// the given letter set after checking that it upholds certain
+  /// invariants which are necessary for the algorithm to work well.
+  /// </summary>
+  /// <remarks>
+  /// An alphabet's letters MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) non-whitespace letter</item>
+  /// <item>Contains no more then 255 letters</item>
+  /// </list>
+  /// </remarks>
+  /// <param name="letters">
+  /// The letter set which will ultimately be used to generate
+  /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
+  /// </param>
+  /// <returns>
+  /// On successful validation, returns a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
+  /// with further details about what went wrong.
+  /// </returns>
+  static member Validate : letters : string -> Result<Alphabet, AlphabetError>
+
+
+/// Contains utilities for working with nano identifiers.
+[<RequireQualifiedAccess>]
+module NanoId =
+  /// The number of characters in the given nanoId instance.
+  val length : nanoId : NanoId -> int
+
+  /// Returns true, when the given nanoId is zero-valued; otherwise, false.
+  val isEmpty : nanoId : NanoId -> bool
+
+  /// <summary>
+  /// Creates a new instance using the default alphabet and size
+  /// (nb: the default alphabet is URL-friendly numbers, English letters, and
+  /// symbols: <c>A-Za-z0-9_-</c> and the default size is 21).
+  /// </summary>
+  val ofDefaults : unit -> NanoId
+
+  /// <summary>
+  /// Creates a new <see cref="T:pblasucci.Ananoid.NanoId"/> instance
+  /// of the given size whose letters are taken from the given alphabet.
+  /// </summary>
+  /// <param name="alphabet">
+  /// The letters from which the new <c>NanoId</c> will be generated.
+  /// </param>
+  /// <param name="size">
+  /// The length of a generated identifier, in number of characters
+  /// (note: negative values are changed to zero).
+  /// </param>
+  val ofOptions : alphabet : Alphabet -> size : int -> NanoId
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
   /// <see cref="T:pblasucci.Ananoid.NanoId" />,
-  /// using a known alphabet to guide validation.
+  /// using the given alphabet to guide validation.
   /// </summary>
+  /// <param name="alphabet">The letters to check against for validity.</param>
   /// <param name="value">The raw string to be converted.</param>
-  /// <param name="nanoId">
-  /// On successful parsing, contains a non-empty <c>NanoId</c> instance.
-  /// </param>
-  /// <returns>true is parsing succeeded; false, otherwise.</returns>
-  member TryParse : value : string * nanoId : outref<NanoId> -> bool
+  /// <returns>
+  /// On successful parsing, returns a <c>NanoId</c> instance;
+  /// otherwise, returns <c>None</c>.
+  /// </returns>
+  val parseAs : alphabet : Alphabet -> value : string -> NanoId option
 
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Alphanumeric" /> alphabet.
-  /// </summary>
-  static member Alphanumeric : NanoIdParser
 
+/// Contains utilities for working with alphabets.
+[<RequireQualifiedAccess>]
+module Alphabet =
   /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalLowercase" />
-  /// alphabet.
+  /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
+  /// the given letter set after checking that it upholds certain
+  /// invariants which are necessary for the algorithm to work well.
   /// </summary>
-  static member HexadecimalLowercase : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.HexadecimalUppercase" />
-  /// alphabet.
-  /// </summary>
-  static member HexadecimalUppercase : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Lowercase" /> alphabet.
-  /// </summary>
-  static member Lowercase : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikes" /> alphabet.
-  /// </summary>
-  static member NoLookalikes : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.NoLookalikesSafe" /> alphabet.
-  /// </summary>
-  static member NoLookalikesSafe : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Numbers" /> alphabet.
-  /// </summary>
-  static member Numbers : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.Uppercase" /> alphabet.
-  /// </summary>
-  static member Uppercase : NanoIdParser
-
-  /// <summary>
-  /// A validating parser based on the
-  /// <see cref="M:pblasucci.Ananoid.Alphabet.UrlSafe" /> alphabet.
-  /// </summary>
-  static member UrlSafe : NanoIdParser
-
-  /// <summary>
-  /// Tries to create a new instance.
-  /// </summary>
-  /// <param name="alphabet">
-  /// The set of letters against which raw strings will be checked for validity.
+  /// <remarks>
+  /// An alphabet's letters MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) non-whitespace letter</item>
+  /// <item>Contains no more then 255 letters</item>
+  /// </list>
+  /// </remarks>
+  /// <param name="letters">
+  /// The letter set which will ultimately be used to generate
+  /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
   /// </param>
   /// <returns>
-  /// On successful creation, returns an <c>NanoIdParser</c> instance;
+  /// On successful validation, returns a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  static member Create :
-    alphabet : IAlphabet -> Result<NanoIdParser, AlphabetError>
+  val ofLetters : letters : string -> Result<Alphabet, AlphabetError>
 
   /// <summary>
-  /// Tries to create a new instance.
+  /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
+  /// the given letter set after checking that it upholds certain
+  /// invariants which are necessary for the algorithm to work well.
   /// </summary>
   /// <remarks>
-  /// F# callers should use the name <c>CreateOrRaise</c>; however, callers
-  /// in other languages (eg: C#, Visual Basic) should use the name
-  /// <c>CreateOrThrow</c> to refer to this method.
+  /// An alphabet's letters MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) non-whitespace letter</item>
+  /// <item>Contains no more then 255 letters</item>
+  /// </list>
   /// </remarks>
-  /// <param name="alphabet">
-  /// The set of letters against which raw strings will be checked for validity.
+  /// <param name="letters">
+  /// The letter set which will ultimately be used to generate
+  /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
   /// </param>
-  /// <returns>
-  /// On successful creation, returns an <c>NanoIdParser</c> instance.
-  /// </returns>
   /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
-  /// Raised if the given alphabet cannot be validated.
+  /// Raised when the given alphabet fails to uphold an invariant.
   /// </exception>
-  [<CompiledName("CreateOrThrow")>]
-  static member CreateOrRaise : alphabet : IAlphabet -> NanoIdParser
-
-
-/// Provided utilities for working with
-/// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
-[<AutoOpen>]
-module NanoIdOptionsPatterns =
-  /// <summary>
-  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
-  /// from a <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance,
-  /// or from a <see cref="T:pblasucci.Ananoid.NanoIdParser"/> instance.
-  /// </summary>
-  /// <remarks>
-  /// <b>This active pattern is not intended for languages other than F#.</b>
-  /// </remarks>
-  val inline (|SourceAlphabet|) :
-    source : 'Source -> IAlphabet when 'Source : (member Alphabet : IAlphabet)
+  val makeOrRaise : letters : string -> Alphabet
 
   /// <summary>
-  /// Extracts the <c>TargetSize</c> value from a
-  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
+  /// Creates a new <see cref="T:pblasucci.Ananoid.NanoId"/> instance
+  /// of the given size whose letters are taken from the given alphabet.
   /// </summary>
-  /// <remarks>
-  /// <b>This active pattern is not intended for languages other than F#.</b>
-  /// </remarks>
-  val (|TargetSize|) : source : NanoIdOptions -> int
+  /// <param name="size">
+  /// The length of a generated identifier, in number of characters
+  /// (note: negative values are changed to zero).
+  /// </param>
+  /// <param name="alphabet">
+  /// The letters from which the new <c>NanoId</c> will be generated.
+  /// </param>
+  val makeNanoId : size : int -> alphabet : Alphabet -> NanoId
 
-
-/// Provided utilities for working with
-/// <see cref="T:pblasucci.Ananoid.NanoIdOption"/> instances.
-[<Extension>]
-[<Sealed>]
-type NanoIdOptionsExtensions =
   /// <summary>
-  /// Extracts the <see cref="T:pblasucci.Ananoid.IAlphabet"/> instance
-  /// and the <c>TargetSize</c> value from a
-  /// <see cref="T:pblasucci.Ananoid.NanoIdOptions"/> instance.
+  /// Attempts to convert the given <c>value</c> into a
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
+  /// using a valid alphabet to guide validation.
   /// </summary>
-  /// <remarks>
-  /// This method is primarily intended for interoperability with C#.
-  /// </remarks>
-  [<Extension>]
-  static member Deconstruct :
-    options : NanoIdOptions *
-    alphabet : outref<IAlphabet> *
-    targetSize : outref<int> ->
-      unit
+  /// <param name="value">The raw string to be converted.</param>
+  /// <param name="alphabet">The letters to check against for validity.</param>
+  /// <returns>
+  /// On successful parsing, returns a <c>NanoId</c> instance;
+  /// otherwise, returns <c>None</c>.
+  /// </returns>
+  val parseNanoId : value : string -> alphabet : Alphabet -> NanoId option
 
 
 /// <summary>
-/// Provides tools for generating <see cref="T:pblasucci.Ananoid.NanoId"/>
-/// instances directly from <see cref="T:pblasucci.Ananoid.IAlphabet"/>
-/// instances (i.e. by-passing the explicit use of
-/// <see cref="T:pblasucci.Ananoid.NanoIdOptions "/>).
+/// Contains utilities intended to simplify working with
+/// <see cref="T:pblasucci.Ananoid.Alphabet" /> in languages other than F#.
 /// </summary>
 [<Extension>]
 [<Sealed>]
-type IAlphabetExtensions =
+type AlphabetExtensions =
   /// <summary>
-  /// Produces a function for generating NanoId instances of varying sizes
-  /// (note: requires a valid <see cref="T:pblasucci.Ananoid.IAlphabet"/>).
+  /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
+  /// the given letter set after checking that it upholds certain
+  /// invariants which are necessary for the algorithm to work well.
   /// </summary>
   /// <remarks>
-  /// <b>This method is not intended for languages other than F#.</b> Further,
-  /// it should be referenced via its compiled name,
-  /// <c>ToNanoIdFactory@FSharpFunc</c> (eg: during reflection).
+  /// An alphabet's letters MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) non-whitespace letter</item>
+  /// <item>Contains no more then 255 letters</item>
+  /// </list>
   /// </remarks>
-  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
+  /// <param name="letters">
+  /// The letter set which will ultimately be used to generate
+  /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
+  /// </param>
   /// <returns>
-  /// On successful validation, returns a "factory function" which will produce
-  /// a <see cref="T:pblasucci.Ananoid.NanoId"/> of the given size,
-  /// constituted from the input given alphabet;
+  /// On successful validation, returns a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
   /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
   /// with further details about what went wrong.
   /// </returns>
-  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
   [<Extension>]
-  static member ToNanoIdFactory :
-    alphabet : IAlphabet -> Result<int -> NanoId, AlphabetError>
+  static member ToAlphabet : letters : string -> Result<Alphabet, AlphabetError>
 
   /// <summary>
-  /// Produces a function for generating NanoId instances of varying sizes
-  /// (note: requires a valid <see cref="T:pblasucci.Ananoid.IAlphabet"/>).
+  /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
+  /// the given letter set after checking that it upholds certain
+  /// invariants which are necessary for the algorithm to work well.
   /// </summary>
   /// <remarks>
-  /// <b>This method is NOT intended for use from F#.</b> Further, it should
-  /// be referenced via its compiled name, <c>ToNanoIdFactory</c> (in C# or
-  /// Visual Basic, during reflection, et cetera).
+  /// An alphabet's letters MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) non-whitespace letter</item>
+  /// <item>Contains no more then 255 letters</item>
+  /// </list>
   /// </remarks>
-  /// <param name="alphabet">An IAlphabet from which to generate NanoIds.</param>
-  /// <returns>
-  /// On successful validation, returns a "factory function" which will produce
-  /// a <see cref="T:pblasucci.Ananoid.NanoId"/> of the given size,
-  /// constituted from the input given alphabet;
-  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
-  /// with further details about what went wrong.
-  /// </returns>
+  /// <param name="letters">
+  /// The letter set which will ultimately be used to generate
+  /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
+  /// </param>
   /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
-  /// Raised when given <c>alphabet</c> fails validation.
+  /// Raised when the given alphabet fails to uphold an invariant.
   /// </exception>
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  [<CompiledName("ToNanoIdFactory")>]
   [<Extension>]
-  static member ToNanoIdFactoryDelegate :
-    alphabet : IAlphabet -> Func<int, NanoId>
+  static member ToAlphabetOrThrow : letters : string -> Alphabet
+
+  /// <summary>
+  /// Attempts to convert the given <c>value</c> into a
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
+  /// using the current alphabet to guide validation.
+  /// </summary>
+  /// <param name="alphabet">The letters to check against for validity.</param>
+  /// <param name="value">The raw string to be converted.</param>
+  /// <param name="nanoId">
+  /// On successful parsing, contains a <c>NanoId</c> instance.
+  /// </param>
+  /// <returns>true is parsing succeeded; false, otherwise.</returns>
+  static member TryParseNanoId :
+    alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
+
+
+/// Pre-defined alphabets commonly used to generation identities.
+module KnownAlphabets =
+  /// Combination of all the lowercase, uppercase characters and numbers
+  /// from 0 to 9, not including any symbols or special characters.
+  val Alphanumeric : Alphabet
+
+  /// Hexadecimal lowercase characters: 0123456789abcdef.
+  val HexadecimalLowercase : Alphabet
+
+  /// Hexadecimal uppercase characters: 0123456789ABCDEF.
+  val HexadecimalUppercase : Alphabet
+
+  /// Lowercase English letters: abcdefghijklmnopqrstuvwxyz.
+  val Lowercase : Alphabet
+
+  /// Numbers, Uppercase, and Lowercase without "lookalikes":
+  /// 1, l, I, 0, O, o, u, v, 5, S, s, 2, Z.
+  /// Complete set: 346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz.
+  val NoLookalikes : Alphabet
+
+  /// Same as Nolookalikes -- but having removed vowels and: 3, 4, x, X, V.
+  /// Complete set: 6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz
+  val NoLookalikesSafe : Alphabet
+
+  /// Numbers from 0 to 9.
+  val Numbers : Alphabet
+
+  /// Uppercase English letters: ABCDEFGHIJKLMNOPQRSTUVWXYZ.
+  val Uppercase : Alphabet
+
+  /// <summary>
+  /// URL-friendly numbers, English letters, and symbols: <c>A-Za-z0-9_-</c>.
+  /// This is the default alphabet if one is not explicitly specified.
+  /// </summary>
+  val UrlSafe : Alphabet

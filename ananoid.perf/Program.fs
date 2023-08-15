@@ -27,34 +27,32 @@ type AnanoidVsNanoidNet() =
 [<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
 type AllAlphabets() =
-  let (TargetSize size) = NanoIdOptions.UrlSafe
+  [<Benchmark>]
+  member me.Alphanumeric() = nanoIdOf Alphanumeric Defaults.Size
 
   [<Benchmark>]
-  member me.Alphanumeric() = nanoIdOf Alphanumeric size
+  member me.HexadecimalLowercase() = nanoIdOf HexadecimalLowercase Defaults.Size
 
   [<Benchmark>]
-  member me.HexadecimalLowercase() = nanoIdOf HexadecimalLowercase size
+  member me.HexadecimalUppercase() = nanoIdOf HexadecimalUppercase Defaults.Size
 
   [<Benchmark>]
-  member me.HexadecimalUppercase() = nanoIdOf HexadecimalUppercase size
+  member me.Lowercase() = nanoIdOf Lowercase Defaults.Size
 
   [<Benchmark>]
-  member me.Lowercase() = nanoIdOf Lowercase size
+  member me.NoLookalikes() = nanoIdOf NoLookalikes Defaults.Size
 
   [<Benchmark>]
-  member me.NoLookalikes() = nanoIdOf NoLookalikes size
+  member me.NoLookalikesSafe() = nanoIdOf NoLookalikesSafe Defaults.Size
 
   [<Benchmark>]
-  member me.NoLookalikesSafe() = nanoIdOf NoLookalikesSafe size
+  member me.Numbers() = nanoIdOf Numbers Defaults.Size
 
   [<Benchmark>]
-  member me.Numbers() = nanoIdOf Numbers size
-
-  [<Benchmark>]
-  member me.Uppercase() = nanoIdOf Uppercase size
+  member me.Uppercase() = nanoIdOf Uppercase Defaults.Size
 
   [<Benchmark(Baseline = true)>]
-  member me.UrlSafe() = nanoIdOf UrlSafe size
+  member me.UrlSafe() = nanoIdOf UrlSafe Defaults.Size
 
 
 [<MemoryDiagnoser>]

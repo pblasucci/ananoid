@@ -12,47 +12,35 @@ open FsCheck.Xunit
 
 (* ⮟ system under test ⮟ *)
 open pblasucci.Ananoid
+open pblasucci.Ananoid.KnownAlphabets
 
 
 [<Property(MaxTest = 1)>]
 let ``Input size zero produces empty NanoId`` () =
-  let generated = NanoId.NewId(NanoIdOptions.UrlSafe.Resize(size = 0))
-  generated |> NanoId.IsEmpty |> Prop.label (string generated)
+  let generated = UrlSafe |> Alphabet.makeNanoId 0
+  generated |> NanoId.isEmpty |> Prop.label (string generated)
 
 [<Property(MaxTest = 1)>]
 let ``Multiple empty NanoId instances are equal`` () =
-  let resized = NanoId.NewId(NanoIdOptions.UrlSafe.Resize(size = 0))
-  let one = NanoId() = NanoId.Empty |> Prop.label "\n.ctor is not `Empty`"
-  let two = NanoId.Empty = resized |> Prop.label "\nzeroed is not `Empty`"
-  one .&. two
-
-[<Property(MaxTest = 1)>]
-let ``By-passing safety checks caused run-time failure`` () =
-  let bypassWithBadInput () =
-    let badAlphabet =
-      { new IAlphabet with
-          member _.Letters = "123"
-          member me.WillPermit(value) = (value <> me.Letters)
-      }
-
-    try
-      typeof<NanoId>
-        .GetMethod("NewId", BindingFlags.Static ||| BindingFlags.NonPublic)
-        .Invoke(null, [| badAlphabet; 21 |])
-    with :? TargetInvocationException as x ->
-      raise x.InnerException
-
-  Prop.throws<ArgumentException, _> (lazy bypassWithBadInput ())
+  let nils = [
+    NanoId()
+    NanoId.Empty
+    NanoId.ofOptions UrlSafe 0
+  ]
+  let allEmpty = nils |> List.forall NanoId.isEmpty
+  let allEqual = nils |> List.allPairs nils |> List.forall (fun (l,r) -> l = r)
+  allEmpty .&. allEqual
 
 [<Property(MaxTest = 1)>]
 let ``Default NanoId is 21 UrlSafe characters`` () =
-  let SourceAlphabet alphabet & TargetSize size = NanoIdOptions.UrlSafe
-  let value = NanoId.NewId().ToString()
-  value.Length = size && alphabet.WillPermit(value)
+  let value = NanoId.ofDefaults ()
+  let parsed = UrlSafe.ParseNanoId(string value)
+
+  value.Length = 21 && Option.isSome parsed
 
 [<Property>]
 let ``Output size always equals input size`` (NonNegativeInt size) =
-  let generated = NanoId.NewId(NanoIdOptions.UrlSafe.Resize size)
+  let generated = UrlSafe.MakeNanoId(size)
   let length = int generated.Length
   length = size |> Prop.label $"expect (%i{size}) <> actual (%i{length})"
 
@@ -60,8 +48,8 @@ let ``Output size always equals input size`` (NonNegativeInt size) =
 let ``Multiple instances are equal when their underlying values are equal``
   (RawNanoId input)
   =
-  let one = NanoIdParser.UrlSafe.Parse(input)
-  let two = NanoIdParser.UrlSafe.Parse(input)
+  let one = UrlSafe |> Alphabet.parseNanoId input
+  let two = input |> NanoId.parseAs UrlSafe
   one = two |> Prop.label $"\nNot equal on '{input}'"
 
 [<Property(Arbitrary = [| typeof<Generation> |])>]
@@ -70,16 +58,14 @@ let ``Multiple instances are ordered the same as their underlying values``
   (RawNanoId input2)
   (RawNanoId input3)
   =
-  let value1 = NanoIdParser.UrlSafe.Parse(input1)
-  let value2 = NanoIdParser.UrlSafe.Parse(input2)
-  let value3 = NanoIdParser.UrlSafe.Parse(input3)
+  let fromRaw = NanoId.parseAs UrlSafe >> Option.toList
 
   let inputs = List.sort [ input1; input2; input3 ]
   let values =
     List.sort [
-      yield! Option.toList value1
-      yield! Option.toList value2
-      yield! Option.toList value3
+      yield! fromRaw input1
+      yield! fromRaw input2
+      yield! fromRaw input3
     ]
 
   values
@@ -89,18 +75,7 @@ let ``Multiple instances are ordered the same as their underlying values``
 
 [<Property(Arbitrary = [| typeof<Generation> |])>]
 let ``Parse and ToString are invertible`` nanoId =
-  match NanoIdParser.UrlSafe.Parse(string nanoId) with
+  match nanoId |> string |> NanoId.parseAs UrlSafe with
   | Some nanoId' -> nanoId' = nanoId
   | None -> false
   |> Prop.label $"\nNot invertible: %A{nanoId}"
-
-[<Property>]
-let ``Parse returns error on invalid letters`` (PositiveInt count) =
-  let input = String.replicate count "*"
-  let parser =
-    NanoIdParser.Create(Numbers)
-    |> Result.defaultWith (fun x -> failwith $"{x}")
-
-  match parser.Parse input with
-  | None -> Prop.ofTestable true
-  | Some nanoId -> false |> Prop.label $"\nParse Ok: '{nanoId}'"

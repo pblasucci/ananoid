@@ -1,20 +1,19 @@
 ---
 title: Work with NanoId strings
-category: Primitives
-categoryindex: 3
-index: 2
+category: How-To Guides
+categoryindex: 1
+index: 5
 ---
 
 How-To: Work with NanoId strings
 ===
 
 Ananoid can serve most uses cases via the `cref:T:pblasucci.Ananoid.NanoId`
-type and its associates (`cref:T:pblasucci.Ananoid.NanoIdOptions`,
-`cref:T:pblasucci.Ananoid.NanoIdParser`, et cetera). However, sometimes this is
-not desired (or at least, not _optimal_). For times when the a struct or class
-is just too much, Ananoid also provides its core functionality --
-cryptographically-secure randomly-generated identifiers -- as functions which
-take simple inputs and just produce strings.
+type and its associates (`cref:T:pblasucci.Ananoid.Alphabet`, et cetera).
+However, sometimes this is not desired (or at least, not _optimal_). For times
+when the a struct or class is just too much, Ananoid also provides its core
+functionality -- cryptographically-secure randomly-generated identifiers -- as
+functions which take simple inputs and just produce strings.
 
 These primitive functions are located in the `cref:T:pblasucci.Ananoid.Core`
 module, and offer two variants: one based on default values, and one which
@@ -94,8 +93,8 @@ numericId: 176645656821584823660920061658558763998443
 
 ### Related Reading
 
-+ [Performance: Select Highlights][2]
-+ [Utilities: Complexity Calculator][3]
++ [Performance: Select Highlights][1]
++ API Reference: `cref:T:pblasucci.Ananoid.Core.Alphabets`
 
 ### Copyright
 The library is available under the Mozilla Public License, Version 2.0.
@@ -103,5 +102,4 @@ For more information see the project's [License][0] file.
 
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[2]: /explanations/performance/highlights.html
-[3]: /explanations/utilities/complexity.html
+[1]: /explanations/highlights.html

@@ -9,7 +9,7 @@ Public Module Basics
     ' ⮟⮟⮟ This is the preferred idiom.
     Dim empty2 = NanoId.Empty
     ' An instance may check the `.IsEmpty` property.
-    WriteLine($"{nameof(empty0)} is empty? {NanoId.IsEmpty(empty0)}")
+    WriteLine($"{nameof(empty0)} is empty? {empty0.Length < 1}")
 
     ' Empty instances are always equal.
     Dim bothAreEqual = empty1.Equals(empty2)
@@ -24,30 +24,23 @@ Public Module Basics
     ' Coercing an instance to string reveals its value.
     WriteLine($"{nameof(nanoId1)} = {nanoId1.ToString()}")
 
-    ' The type NanoIdOptions can be used to customize the generated NanoId.
     ' This is the same as the default behavior.
-    Dim options1 = NanoIdOptions.CreateOrThrow(Alphabet.UrlSafe, size:=21)
-    Dim nanoId2 = NanoId.NewId(options1)
-
-    ' This is the same as the default behavior.
-    Dim nanoId3 = NanoId.NewId(NanoIdOptions.UrlSafe)
+    Dim nanoId2 = KnownAlphabets.UrlSafe.MakeNanoId(size:=21)
 
     ' This one is much shorter.
-    Dim nanoId4 = NanoId.NewId(NanoIdOptions.UrlSafe.Resize(5))
+    Dim nanoId4 = KnownAlphabets.UrlSafe.MakeNanoId(size:=5)
 
     ' This one is empty!
-    Dim empty3 = NanoId.NewId(NanoIdOptions.UrlSafe.Resize(0))
+    Dim empty3 = KnownAlphabets.UrlSafe.MakeNanoId(size:=0)
 
     ' This one uses a different pre-defined alphabet.
-    Dim nanoId5 = NanoId.NewId(NanoIdOptions.HexadecimalLowercase)
+    Dim nanoId5 = KnownAlphabets.HexadecimalLowercase.MakeNanoId(size:=21)
 
     ' This one uses a different pre-defined alphabet and is very long.
-    Dim options2 = NanoIdOptions.HexadecimalLowercase.Resize(1024)
-    Dim nanoId6 = NanoId.NewId(options2)
+    Dim nanoId6 = KnownAlphabets.HexadecimalLowercase.MakeNanoId(size:=1024)
 
     WriteLine("Some different NanoIds:")
     WriteLine($"{vbTab}...Url-safe, 21: {nanoId2}")
-    WriteLine($"{vbTab}...Url-safe, 21: {nanoId3}")
     WriteLine($"{vbTab}...Url-safe, 5: {nanoId4}")
     WriteLine($"{vbTab}...Url-safe, 0: {empty3}")
     WriteLine($"{vbTab}...Hexadecimal, 21: {nanoId5}")
@@ -58,7 +51,7 @@ Public Module Basics
     ' A NanoIdParser can validate strings and transform them into NanoIds.
     Dim parsed1 As NanoId
 
-    If NanoIdParser.UrlSafe.TryParse("ypswLHEC", parsed1) Then
+    If KnownAlphabets.UrlSafe.TryParseNanoId("ypswLHEC", parsed1) Then
       WriteLine($"Parsed Url-safe: {parsed1}")
     End If
 
@@ -66,15 +59,8 @@ Public Module Basics
     ' because different alphabets have different validation criteria.
     Dim parsed2 As NanoId
 
-    If Not NanoIdParser.Numbers.TryParse("!@#$%", parsed2) Then
+    If Not KnownAlphabets.Numbers.TryParseNanoId("!@#$%", parsed2) Then
       WriteLine($"{nameof(parsed2)} never was parsed: '{parsed2}'")
-    End If
-
-    ' Custom alphabets are supported, too.
-    Dim parser = NanoIdParser.CreateOrThrow(Alphabet.HexadecimalUppercase)
-
-    If parser.TryParse("DEADBEEF", parsed2) Then
-      WriteLine($"Parsed custom: {parsed2}")
     End If
   End Sub
 End Module

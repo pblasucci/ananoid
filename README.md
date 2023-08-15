@@ -3,24 +3,10 @@ ananoid
 
 ### TO DO
 
-- [x] **icon!**
-  - [x] design / fabricate
-  - [x] use in NuGet package
-  - [x] use in documentation
-- [x] api docs
-  - [x] docs template
-  - [x] cross-link
-  - [x] fix toggle bug
-- [x] upgrade/review Fantomas
-- [x] narrative docs
-  - [x] docs template
-  - [x] getting started
   - [-] lower-level APIs
-    - [ ] actual example of taking core from source
-  - [x] customization
+    - [ ] ?? actual example of taking core from source ??
   - [ ] performance
   - [ ] ananoidcc
-  - [ ] justification
 - [-] Source Link
 - [ ] ?? fake ??
 - [ ] ?? paket ??

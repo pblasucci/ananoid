@@ -1,6 +1,6 @@
 ---
 title: Create a Default NanoId
-category: Basics
+category: How-To Guides
 categoryindex: 1
 index: 1
 ---
@@ -20,7 +20,7 @@ such an identifier can be generated as follows:
 <summary>F#</summary>
 
 ```fsharp
-let nanoId = NanoId.NewId()
+let nanoId = NanoId.ofDefaults ()
 
 printfn $"%s{nameof nanoId}, as string: %s{string nanoId}"
 printfn $"%s{nameof nanoId}, length: %i{nanoId.Length}"
@@ -63,9 +63,9 @@ nano identifier length: 21
 
 ### The zeroed instance
 
-`NanoId` is actually a [value type][1]. As such is has a "zero" representation --
-the empty identifier. This is a single, special instance of a `NanoId` that has
-a length of zero (0) and produces an empty string (when cast). The following
+`NanoId` is actually a [value type][1]. As such is has a "zero" representation
+-- the empty identifier. This is a single, special instance of a `NanoId` that
+has a length of zero (0) and produces an empty string (when cast). The following
 example shows different ways of creating and working with empty identifiers:
 
 <div class="lang-bar">
@@ -74,11 +74,11 @@ example shows different ways of creating and working with empty identifiers:
 
 ```fsharp
 let zeroedId = NanoId()
-// ⮝⮝⮝ These two values are identical. ⮟⮟⮟
+// ⮝⮝⮝ Identical! ⮟⮟⮟
 let emptyId = NanoId.Empty
 
-printfn $"%s{nameof zeroedId}, length: %i{zeroedId.Length}"
-printfn $"%s{nameof emptyId}, length: %i{emptyId.Length}"
+printfn $"%s{nameof zeroedId}, length: %i{NanoId.length zeroedId}"
+printfn $"%s{nameof emptyId}, length: %i{NanoId.length emptyId}"
 ```
 </details>
 
@@ -87,7 +87,7 @@ printfn $"%s{nameof emptyId}, length: %i{emptyId.Length}"
 
 ```vb
 Dim zeroedId As New NanoId()
-// ⮝⮝⮝ These two values are identical. ⮟⮟⮟
+' ⮝⮝⮝ Identical! ⮟⮟⮟
 Dim emptyId = NanoId.Empty
 
 WriteLine($"{NameOf(zeroedId)}, length: {zeroedId.Length}")
@@ -100,7 +100,7 @@ WriteLine($"{NameOf(emptyId)}, length: {emptyId.Length}")
 
 ```csharp
 NanoId zeroedId = new ();
-// ⮝⮝⮝ These two values are identical. ⮟⮟⮟
+// ⮝⮝⮝ Identical! ⮟⮟⮟
 var emptyId = NanoId.Empty;
 
 WriteLine($"{nameof(zeroedId)}, length: {zeroedId.Length}");
@@ -132,5 +132,5 @@ For more information see the project's [License][0] file.
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://learn.microsoft.com/en-us/dotnet/standard/base-types/common-type-system#structures
-[2]: /guides/basics/nanoidoptions.html
-[3]: /guides/primitives/nanoidstring.html
+[2]: /guides/nanoidoptions.html
+[3]: /guides/nanoidstring.html

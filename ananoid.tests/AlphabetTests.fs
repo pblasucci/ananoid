@@ -11,11 +11,13 @@ open FsCheck.Xunit
 
 (* ⮟ system under test ⮟ *)
 open pblasucci.Ananoid
+open pblasucci.Ananoid.Tests
+open FsCheck.Prop
 
 
 [<Property(MaxTest = 1)>]
-let ``Custom alphabet fails if alphabet is null`` () =
-  match Alphabet.Validate(Unchecked.defaultof<_>) with
+let ``Custom alphabet fails if letter set is null`` () =
+  match Alphabet.ofLetters null with
   // ⮟ pass ⮟
   | Error(AlphabetTooSmall _) -> Prop.ofTestable true
   // ⮟ fail ⮟
@@ -23,29 +25,8 @@ let ``Custom alphabet fails if alphabet is null`` () =
   | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
 
 [<Property(MaxTest = 1)>]
-let ``Custom alphabet fails if incoherent`` () =
-  let incoherent =
-    { new IAlphabet with
-        member _.Letters = "abc123DoReMe"
-        member _.WillPermit(value) = String.IsNullOrWhiteSpace(value)
-    }
-
-  match Alphabet.Validate(incoherent) with
-  // ⮟ pass ⮟
-  | Error(IncoherentAlphabet _) -> Prop.ofTestable true
-  // ⮟ fail ⮟
-  | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
-  | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
-
-[<Property(MaxTest = 1)>]
 let ``Custom alphabet fails if too short`` () =
-  let tooShort =
-    { new IAlphabet with
-        member _.Letters = ""
-        member _.WillPermit(value) = String.IsNullOrWhiteSpace(value)
-    }
-
-  match Alphabet.Validate(tooShort) with
+  match Alphabet.ofLetters "" with
   // ⮟ pass ⮟
   | Error(AlphabetTooSmall _) -> Prop.ofTestable true
   // ⮟ fail ⮟
@@ -54,13 +35,9 @@ let ``Custom alphabet fails if too short`` () =
 
 [<Property(MaxTest = 1)>]
 let ``Custom alphabet fails if too large`` () =
-  let tooLarge =
-    { new IAlphabet with
-        member _.Letters = "qwerty123" |> String.replicate 512
-        member _.WillPermit(value) = String.IsNullOrWhiteSpace(value)
-    }
+  let tooLarge = "qwerty123" |> String.replicate 512
 
-  match Alphabet.Validate(tooLarge) with
+  match tooLarge.ToAlphabet() with
   // ⮟ pass ⮟
   | Error(AlphabetTooLarge _) -> Prop.ofTestable true
   // ⮟ fail ⮟
@@ -68,21 +45,8 @@ let ``Custom alphabet fails if too large`` () =
   | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
 
 [<Property(Arbitrary = [| typeof<Generation> |])>]
-let ``All pre-defined alphabets produce comprehensible outputs`` options =
-  let generated = NanoId.NewId options
-  options.Alphabet.WillPermit(string generated)
-  |> Prop.label $"Alphabet failed to validate given letters. (%A{generated})"
-
-[<Property(Arbitrary = [| typeof<Generation> |])>]
-let ``NanoIdFactory produces validatable output``
-  (alphabet : IAlphabet)
-  (NonNegativeInt size)
-  =
-  let factory =
-    alphabet.ToNanoIdFactory()
-    |> Result.defaultWith (fun error -> failwith $"{error}")
-
-  let expect = factory size
-  let didParse, actual = NanoIdParser.UrlSafe.TryParse(string expect)
-
-  (didParse && expect = actual) |> Prop.label $"%A{expect} <> %A{actual}"
+let ``All pre-defined alphabets produce comprehensible outputs`` alphabet =
+  let generated = alphabet |> Alphabet.makeNanoId Core.Defaults.Size
+  let parsed = alphabet.ParseNanoId(string generated)
+  parsed = Some generated
+  |> Prop.label $"{alphabet} failed to validate given letters. ({generated})"

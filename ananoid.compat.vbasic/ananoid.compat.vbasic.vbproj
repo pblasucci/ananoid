@@ -18,7 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="pblasucci.ananoid" Version="0.8.4" />
+      <PackageReference Include="pblasucci.ananoid" Version="0.9.6" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,5 +26,5 @@
       <Import Include="System.Environment"/>
       <Import Include="pblasucci.Ananoid"/>
     </ItemGroup>
-    
+
 </Project>

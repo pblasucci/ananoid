@@ -9,6 +9,7 @@ open FsCheck
 open pblasucci.Ananoid
 open pblasucci.Ananoid.Core
 open pblasucci.Ananoid.Core.Tagged
+open pblasucci.Ananoid.KnownAlphabets
 
 
 type RawNanoId = RawNanoId of string
@@ -17,66 +18,43 @@ type TaggedNanoId = TaggedNanoId of string<nanoid>
 
 
 type Generation() =
-  static member IAlphabet =
-    let generate =
-      Gen.elements (
-        [
-          Alphabet.Alphanumeric
-          Alphabet.HexadecimalLowercase
-          Alphabet.HexadecimalUppercase
-          Alphabet.Lowercase
-          Alphabet.NoLookalikes
-          Alphabet.NoLookalikesSafe
-          Alphabet.Numbers
-          Alphabet.Uppercase
-          Alphabet.UrlSafe
-        ]
-        : IAlphabet list
-      )
-
-    Arb.fromGen generate
-
-  static member NanoIdOptions =
+  static member ValidAlphabet =
     let generate =
       Gen.elements [
-        NanoIdOptions.Alphanumeric
-        NanoIdOptions.HexadecimalLowercase
-        NanoIdOptions.HexadecimalUppercase
-        NanoIdOptions.Lowercase
-        NanoIdOptions.NoLookalikes
-        NanoIdOptions.NoLookalikesSafe
-        NanoIdOptions.Numbers
-        NanoIdOptions.Uppercase
-        NanoIdOptions.UrlSafe
+        Alphanumeric
+        HexadecimalLowercase
+        HexadecimalUppercase
+        Lowercase
+        NoLookalikes
+        NoLookalikesSafe
+        Numbers
+        Uppercase
+        UrlSafe
       ]
 
-    let shrink (options : NanoIdOptions) =
-      match options.Size with
-      | 0 -> Seq.empty
-      | n -> n |> Arb.shrinkNumber |> Seq.map options.Resize
-
-    Arb.fromGenShrink (generate, shrink)
+    Arb.fromGen generate
 
   static member RawNanoId =
     let generate =
       Gen.sized (fun size ->
-        Gen.fresh (fun () -> RawNanoId(nanoIdOf (string UrlSafe) size))
+        Gen.fresh (fun () -> RawNanoId(nanoIdOf Defaults.Alphabet size))
       )
+      |> Gen.scaleSize (max 1)
 
     let shrink (RawNanoId value) =
       match String.length value with
-      | 0 -> Seq.empty
-      | length ->
+      | length when length > 1 ->
         length
         |> Arb.shrinkNumber
-        |> Seq.map (fun size -> RawNanoId(nanoIdOf (string UrlSafe) size))
+        |> Seq.map (fun size -> RawNanoId(nanoIdOf Defaults.Alphabet size))
+      | _ -> Seq.empty
 
     Arb.fromGenShrink (generate, shrink)
 
   static member TaggedNanoId =
     let generate =
       Gen.sized (fun size ->
-        Gen.fresh (fun () -> TaggedNanoId(nanoIdOf' (string UrlSafe) size))
+        Gen.fresh (fun () -> TaggedNanoId(nanoIdOf' Defaults.Alphabet size))
       )
 
     let shrink (TaggedNanoId value) =
@@ -85,7 +63,7 @@ type Generation() =
       | length ->
         length
         |> Arb.shrinkNumber
-        |> Seq.map (fun size -> TaggedNanoId(nanoIdOf' (string UrlSafe) size))
+        |> Seq.map (fun size -> TaggedNanoId(nanoIdOf' Defaults.Alphabet size))
 
     Arb.fromGenShrink (generate, shrink)
 
@@ -97,8 +75,6 @@ type Generation() =
       | length ->
         length
         |> Arb.shrinkNumber
-        |> Seq.map (fun size ->
-          let options = NanoIdOptions.UrlSafe.Resize(size)
-          NanoId.NewId(options)
-        )
+        |> Seq.map (NanoId.ofOptions UrlSafe)
+
     Arb.fromGenShrink (generate, shrink)

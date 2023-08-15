@@ -43,7 +43,7 @@ representing such an identifier can be generated as follows:
 open pblasucci.Ananoid
 
 // NOTE type annotations only for demonstration's sake
-let nanoId : NanoId = NanoId.NewId()
+let nanoId : NanoId = NanoId.ofDefaults ()
 
 printfn $"nano identifier as string: %s{string nanoId}"
 printfn $"nano identifier length: %i{nanoId.Length}"
@@ -106,6 +106,6 @@ For more information see the project's [License][0] file.
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/ai/nanoid
 [2]: https://www.nuget.org/packages/pblasucci.ananoid
-[3]: /guides/basics/nanoidoptions.html
-[4]: /explanations/utilities/complexity.html
-[5]: /explanations/performance/highlights.html
+[3]: /guides/nanoidoptions.html
+[4]: /explanations/complexity.html
+[5]: /explanations/highlights.html
