@@ -3,55 +3,46 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
+
 namespace pblasucci.Ananoid.Compat.Support;
 
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
 
-
-public record NanoIdWithOptions(NanoIdOptions Options, NanoId Value);
+public record NanoIdWithAlphabet(Alphabet Alphabet, NanoId Value);
 
 public static class Generation
 {
-  public static Arbitrary<NanoIdOptions> GenerateNanoIdOptions()
+  public static Arbitrary<Alphabet> GenerateValidAlphabet()
     => Arb.From(
-      gen: Gen.Sized(
-        size =>
-          Gen.Elements(
-            NanoIdOptions.Alphanumeric.Resize(size),
-            NanoIdOptions.HexadecimalLowercase.Resize(size),
-            NanoIdOptions.HexadecimalUppercase.Resize(size),
-            NanoIdOptions.Lowercase.Resize(size),
-            NanoIdOptions.NoLookalikes.Resize(size),
-            NanoIdOptions.NoLookalikesSafe.Resize(size),
-            NanoIdOptions.Numbers.Resize(size),
-            NanoIdOptions.Uppercase.Resize(size),
-            NanoIdOptions.UrlSafe.Resize(size)
-          )
-      ),
-      shrinker: options => options.Size switch
-      {
-        0 => Enumerable.Empty<NanoIdOptions>(),
-        var size => Arb.Shrink(size).Select(options.Resize)
-      }
+      Gen.Elements(
+        KnownAlphabets.Alphanumeric,
+        KnownAlphabets.HexadecimalLowercase,
+        KnownAlphabets.HexadecimalUppercase,
+        KnownAlphabets.Lowercase,
+        KnownAlphabets.NoLookalikes,
+        KnownAlphabets.NoLookalikesSafe,
+        KnownAlphabets.Numbers,
+        KnownAlphabets.Uppercase,
+        KnownAlphabets.UrlSafe
+      )
     );
 
-  public static Arbitrary<NanoIdWithOptions> GenerateNanoIdWithOptions()
+  public static Arbitrary<NanoIdWithAlphabet> GenerateNanoIdWithAlphabet()
     => Arb.From(
       // generate
-      from options in Arb.Generate<NanoIdOptions>()
+      from alphabet in Arb.Generate<Alphabet>()
       from size in Gen.Choose(0, 1024)
-      let nanoId = NanoId.NewId(options.Resize(size))
-      select new NanoIdWithOptions(options, nanoId),
+      let nanoId = alphabet.MakeNanoId(size: size)
+      select new NanoIdWithAlphabet(alphabet, nanoId),
       // shrink
       input => input switch
       {
-        { Value.Length: 0 } => Enumerable.Empty<NanoIdWithOptions>(),
+        { Value.Length: 1 } => Enumerable.Empty<NanoIdWithAlphabet>(),
         { Value.Length: var length } =>
           from size in Arb.Shrink(length)
-          let options = input.Options.Resize((int) size)
-          let nanoId = NanoId.NewId(options)
-          select new NanoIdWithOptions(options, nanoId)
+          let nanoId = input.Alphabet.MakeNanoId(size)
+          select input with { Value = nanoId }
       }
     );
 }

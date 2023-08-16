@@ -1,8 +1,8 @@
 ---
 title: Install the Core Module from Source
-category: Primitives
-categoryindex: 3
-index: 3
+category: How-To Guides
+categoryindex: 1
+index: 7
 ---
 
 How-To: Install the Core Module from Source
@@ -50,5 +50,5 @@ For more information see the project's [License][0] file.
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/pblasucci/ananoid/blob/c7b6f7a5e38a38f651af267107ab18b1d00c050d/ananoid/Core.fs
-[2]: /guides/primitives/taggednanoid.html
-[3]: /explanations/performance/highlights.html
+[2]: /guides/taggednanoid.html
+[3]: /explanations/highlights.html

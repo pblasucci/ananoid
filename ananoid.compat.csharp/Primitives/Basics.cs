@@ -29,14 +29,14 @@ public class Basics
   );
 
   [Property(MaxTest = 1)]
-  public Property default_is_UrlSafe_alphabet_and_size_21()
+  public Property Default_is_UrlSafe_alphabet_and_size_21()
   {
     var value = NewNanoId();
     return Urlsafe21.IsMatch(value).Label($"Not {Urlsafe21}: {value}");
   }
 
   [Property(MaxTest = 1)]
-  public Property both_alphabet_and_size_can_be_changed()
+  public Property Both_alphabet_and_size_can_be_changed()
   {
     var value = NewNanoId(alphabet: "0123456789", size: 128);
     return Numeric128.IsMatch(value).Label($"Not {Numeric128}: {value}");

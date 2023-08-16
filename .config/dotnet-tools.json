@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "fsdocs-tool": {
-      "version": "18.1.0",
+      "version": "18.1.1",
       "commands": [
         "fsdocs"
       ]
@@ -12,12 +12,6 @@
       "version": "6.1.2",
       "commands": [
         "fantomas"
-      ]
-    },
-    "powershell": {
-      "version": "7.3.6",
-      "commands": [
-        "pwsh"
       ]
     }
   }

@@ -1,23 +1,22 @@
 ---
 title: Work with Tagged NanoId strings
-category: Primitives
-categoryindex: 3
-index: 1
+category: How-To Guides
+categoryindex: 1
+index: 6
 ---
 
 How-To: Work with Tagged NanoId strings
 ===
 
 Ananoid can serve most uses cases via the `cref:T:pblasucci.Ananoid.NanoId`
-type and its associates (`cref:T:pblasucci.Ananoid.NanoIdOptions`,
-`cref:T:pblasucci.Ananoid.NanoIdParser`, et cetera). However, sometimes this is
-not desired (or at least, not _optimal_). For times when the a struct or class
-is just too much, Ananoid also provides its core functionality --
-cryptographically-secure randomly-generated identifiers -- as functions which
-take simple inputs and just produce strings ([as seen here][1]). And, for F#
-consumers, there is one more option: tagged identifiers. This feature attempts
-to strike a balance between the performance of raw strings and safety of more
-robust types.
+type and its associates (`cref:T:pblasucci.Ananoid.Alphabet`, et cetera).
+However, sometimes this is not desired (or at least, not _optimal_). For times
+when the a struct or class is just too much, Ananoid also provides its core
+functionality -- cryptographically-secure randomly-generated identifiers -- as
+functions which take simple inputs and just produce strings ([as seen here][1]).
+And, for F# consumers, there is one more option: tagged identifiers. This
+feature attempts to strike a balance between the performance of raw strings and
+safety of more robust types.
 
 > ---
 > ##Attention!!!
@@ -47,10 +46,9 @@ let taggedNumericId = nanoIdOf' "0123456789" 12
 </details>
 
 <details open class="lang-block console">
-<summary>OUT</summary>
+<summary>Interative Session</summary>
 
 ```sh
-> dotnet fsi
 > open pblasucci.Ananoid.Core.Taggd;;
 
 > let taggeedDefaultId = nanoId' ();;
@@ -80,7 +78,7 @@ printfn $"%s{nameof simpleId} = %s{nameof simpleId'}? %b{simpleId = simpleId'}"
 </details>
 
 <details open class="lang-block console">
-<summary>OUT</summary>
+<summary>Interative Session</summary>
 
 ```sh
 > dotnet fsi ~/scratches/taggednanoid.fsx
@@ -101,7 +99,7 @@ For more information see the project's [License][0] file.
 
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[1]: /guides/primitives/nanoidstring.html
+[1]: /guides/nanoidstring.html
 [2]: https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure
-[3]: /explanations/performance/highlights.html
-[4]: /guides/primitives/installcore.html
+[3]: /explanations/highlights.html
+[4]: /guides/installcore.html

@@ -1,5 +1,5 @@
-Imports pblasucci.Ananoid.Alphabet
-
+Imports Microsoft.FSharp.Core
+Imports pblasucci.Ananoid.KnownAlphabets
 
 Public Module Customization
   Sub PredefinedAlphabets()
@@ -15,45 +15,29 @@ Public Module Customization
     WriteLine($"{vbTab}{nameof(UrlSafe)}: {UrlSafe}")
   End Sub
 
-  Sub AlphabetIsReallyIAlphabet()
-    Dim alphabet1 As IAlphabet = Numbers
-    ' NOTE `CType(Alphabet.Numbers, IAlphabet)` will always be "safe".
-    ' NOTE `DirectCase(Alphabet.Numbers, IAlphabet)` will always be "safe".
-
-    Dim isCoherent = alphabet1.WillPermit(alphabet1.Letters)
-    WriteLine($"{nameof(Numbers)} [0-9] okay? {isCoherent}")
-
-    If TypeOf (NoLookalikesSafe) Is IAlphabet Then
-      Dim alphabet2 As IAlphabet = NoLookalikesSafe
-      Dim areEqual = NoLookalikesSafe.ToString() = alphabet2.Letters
-      WriteLine($"Alphabet.ToString() == IAlphabet.Letters? {areEqual}")
-    End If
-  End Sub
-
   Sub BringYourOwnAlphabet()
-    Dim options = NanoIdOptions.CreateOrThrow(new CustomAlphabet1(), size := 5)
-    Dim custom1 = NanoId.NewId(options)
-    WriteLine($"Custom alphabet, 5: {custom1}")
+    Dim result = Alphabet.Validate("qwerty123")
+    If result.IsOk then
+      Dim alphabet = result.ResultValue
+      Dim custom1 = alphabet.MakeNanoId(size := 5)
+      WriteLine($"Custom alphabet, 5: {custom1}")
+    Else
+      Dim reason = result.ErrorValue
+      WriteLine($"Invalid alphabet: {reason}")
+    End If
   End Sub
 
   Sub CustomAlphabetRequirements()
     ' alphabet must be at least one letter
     Try
-      Alphabet.ValidateOrThrow(new TooShortAlphabet())
+      Dim alphabet = "".ToAlphabetOrThrow()
     Catch x As AlphabetException
       WriteLine($"Failure! reason: '{x.Message}', source: {x.Source}")
     End Try
 
     ' alphabet cannot exceed 255 letters
     Try
-      Alphabet.ValidateOrThrow(new TooLongAlphabet())
-    Catch x As AlphabetException
-      WriteLine($"Failure! reason: '{x.Message}', source: {x.Source}")
-    End Try
-
-    ' alphabet must be coherent (ie: permit itself)
-    Try
-      Alphabet.ValidateOrThrow(new IncoherentAlphabet())
+      Dim alphabet = new String("$"c, 386).ToAlphabetOrThrow()
     Catch x As AlphabetException
       WriteLine($"Failure! reason: '{x.Message}', source: {x.Source}")
     End Try

@@ -11,13 +11,8 @@ Module Program
     ':: Customization ::
     WriteLine($"{NewLine}::{NameOf(Customization)}::")
     PredefinedAlphabets()
-    AlphabetIsReallyIAlphabet()
     BringYourOwnAlphabet()
     CustomAlphabetRequirements()
-
-    ':: Advanced ::
-    WriteLine($"{NewLine}::{NameOf(Advanced)}::")
-    BypassingNanoIdOptions()
 
     ':: Primitives ::
     WriteLine($"{NewLine}::{NameOf(Primitives)}::")

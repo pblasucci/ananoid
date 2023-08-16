@@ -1,7 +1,7 @@
 ---
 title: Complexity Calculator
-category: Utilities
-categoryindex: 4
+category: Explanations
+categoryindex: 2
 index: 1
 ---
 

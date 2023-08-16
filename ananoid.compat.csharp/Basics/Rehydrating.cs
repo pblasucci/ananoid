@@ -3,97 +3,82 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
+
 namespace pblasucci.Ananoid.Compat.Basics;
 
 #pragma warning disable CS1591
 // ⮝⮝⮝ missing XMLDoc comments
-
-using Customization;
 using Support;
-
-using static NanoIdParser;
-// ⮝⮝⮝ defines parsers for many known alphabets as static members
+using static KnownAlphabets;
 
 [Properties(Arbitrary = new[] { typeof(Generation) })]
 public class Rehydrating
 {
-  private static Property TestParser(NanoIdOptions options, NanoIdParser parser)
+  private static Property TestParser(Alphabet alphabet, int size)
   {
-    var nanoId1 = NanoId.NewId(options);
-    var didParse = parser.TryParse(nanoId1, out var nanoId2);
-    // NOTE a NanoId is implicitly a string ⮝⮝⮝
+    var nanoId1 = alphabet.MakeNanoId(size);
+    var didParse = alphabet.TryParseNanoId(nanoId1.ToString(), out var nanoId2);
+
     return (didParse && nanoId1.Equals(nanoId2)).Collect((nanoId1, nanoId2));
   }
 
-
   [Property(MaxTest = 1)]
   public Property Alphanumeric_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.Alphanumeric, Alphanumeric);
+    => TestParser(Alphanumeric, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property HexadecimalLowercase_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.HexadecimalLowercase, HexadecimalLowercase);
+    => TestParser(HexadecimalLowercase, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property HexadecimalUppercase_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.HexadecimalUppercase, HexadecimalUppercase);
+    => TestParser(HexadecimalUppercase, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property Lowercase_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.Lowercase, Lowercase);
+    => TestParser(Lowercase, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property NoLookalikes_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.NoLookalikes, NoLookalikes);
+    => TestParser(NoLookalikes, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property NoLookalikesSafe_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.NoLookalikesSafe, NoLookalikesSafe);
+    => TestParser(NoLookalikesSafe, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property Numbers_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.Numbers, Numbers);
+    => TestParser(Numbers, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property Uppercase_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.Uppercase, Uppercase);
+    => TestParser(Uppercase, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property UrlSafe_parser_succeeds_against_known_value()
-    => TestParser(NanoIdOptions.UrlSafe, UrlSafe);
+    => TestParser(UrlSafe, Core.Defaults.Size);
 
   [Property(MaxTest = 1)]
   public Property Custom_parser_succeeds_against_known_value()
-  {
-    Qwerty12345Alphabet alphabet = new();
-
-    var options = NanoIdOptions.CreateOrThrow(alphabet, size: 6);
-    var parser = NanoIdParser.CreateOrThrow(alphabet);
-
-    return TestParser(options, parser);
-  }
+    => TestParser("qwerty123".ToAlphabetOrThrow(), 6);
 
   [Property(MaxTest = 1)]
   public Property Custom_parser_fails_against_known_incorrect_value()
   {
-    Qwerty12345Alphabet alphabet = new();
+    var valid = "qwerty123".ToAlphabetOrThrow();
+    var original = valid.MakeNanoId(size: 6);
+    var didParse = Numbers.TryParseNanoId(original.ToString(), out var parsed);
 
-    var options = NanoIdOptions.CreateOrThrow(alphabet, size: 6);
-    var didParse = Numbers.TryParse(NanoId.NewId(options), out var parsed);
-
-    return (didParse == false).Label($"Parsed: {parsed}");
+    return (didParse == false).Label($"{original} <> {parsed}");
   }
 
   [Property]
   public Property Any_parser_succeeds_against_known_value(
-    NanoIdWithOptions input
+    NanoIdWithAlphabet input
   )
   {
-    var (options, nanoId) = input;
-
-    var parser = NanoIdParser.CreateOrThrow(options.Alphabet);
-    var didParse = parser.TryParse(nanoId, out var parsed);
-
-    return (didParse && parsed.Equals(nanoId)).Label($"{nanoId} != {parsed}");
+    var (alphabet, nanoId) = input;
+    var didParse = alphabet.TryParseNanoId(nanoId.ToString(), out var parsed);
+    return (didParse && nanoId.Equals(parsed)).Label($"{nanoId} != {parsed}");
   }
 }

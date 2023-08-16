@@ -11,13 +11,14 @@ open FsCheck.Xunit
 
 (* ⮟ system under test ⮟ *)
 open pblasucci.Ananoid
+open pblasucci.Ananoid.KnownAlphabets
 open pblasucci.Ananoid.Core
 open pblasucci.Ananoid.Core.Tagged
 
 
 [<Property>]
 let ``Returns empty on negative size`` (NegativeInt size) =
-  let value = nanoIdOf (string Numbers) size
+  let value = nanoIdOf Alphabets.Numbers size
   value |> String.IsNullOrWhiteSpace |> Prop.label $"generated '%s{value}'"
 
 [<Property>]
@@ -32,9 +33,9 @@ let ``Raises exception on over-large alphabet`` () =
 
 [<Property(MaxTest = 1)>]
 let ``Default is UrlSafe alphabet of size 21`` () =
-  let SourceAlphabet alphabet & TargetSize size = NanoIdOptions.UrlSafe
   let value = nanoId ()
-  value.Length = size && alphabet.WillPermit(value)
+  let parsed = UrlSafe |> Alphabet.parseNanoId value
+  value.Length = 21 && Option.isSome parsed
 
 [<Property(Arbitrary = [| typeof<Generation> |])>]
 let ``Tagged output equals untagged output`` (TaggedNanoId tagged) =
@@ -43,6 +44,6 @@ let ``Tagged output equals untagged output`` (TaggedNanoId tagged) =
 
 [<Property(MaxTest = 1)>]
 let ``Tagged default is UrlSafe alphabet of size 21`` () =
-  let SourceAlphabet alphabet & TargetSize size = NanoIdOptions.UrlSafe
   let value = string (nanoId' ())
-  value.Length = size && alphabet.WillPermit(value)
+  let parsed = value |> NanoId.parseAs UrlSafe
+  value.Length = 21 && Option.isSome parsed

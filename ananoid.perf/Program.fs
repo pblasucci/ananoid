@@ -5,6 +5,7 @@
 *)
 namespace pblasucci.Ananoid.Perf
 
+open System
 open BenchmarkDotNet.Attributes
 open BenchmarkDotNet.Engines
 open BenchmarkDotNet.Running
@@ -16,45 +17,46 @@ open LetterSets
 
 [<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
-type AnanoidVsNanoidNet() =
+type AnanoidVsNanoidNetVsGuid() =
   [<Benchmark(Baseline = true)>]
-  member me.NanoidNet() = Nanoid.Generate()
+  member _.Guid() = Guid.NewGuid()
 
   [<Benchmark>]
-  member me.Ananoid() = nanoId ()
+  member _.NanoidNet() = Nanoid.Generate()
+
+  [<Benchmark>]
+  member _.Ananoid() = nanoId ()
 
 
 [<MemoryDiagnoser>]
 [<SimpleJob(RunStrategy.Throughput)>]
 type AllAlphabets() =
-  let (TargetSize size) = NanoIdOptions.UrlSafe
+  [<Benchmark>]
+  member me.Alphanumeric() = nanoIdOf Alphanumeric Defaults.Size
 
   [<Benchmark>]
-  member me.Alphanumeric() = nanoIdOf Alphanumeric size
+  member me.HexadecimalLowercase() = nanoIdOf HexadecimalLowercase Defaults.Size
 
   [<Benchmark>]
-  member me.HexadecimalLowercase() = nanoIdOf HexadecimalLowercase size
+  member me.HexadecimalUppercase() = nanoIdOf HexadecimalUppercase Defaults.Size
 
   [<Benchmark>]
-  member me.HexadecimalUppercase() = nanoIdOf HexadecimalUppercase size
+  member me.Lowercase() = nanoIdOf Lowercase Defaults.Size
 
   [<Benchmark>]
-  member me.Lowercase() = nanoIdOf Lowercase size
+  member me.NoLookalikes() = nanoIdOf NoLookalikes Defaults.Size
 
   [<Benchmark>]
-  member me.NoLookalikes() = nanoIdOf NoLookalikes size
+  member me.NoLookalikesSafe() = nanoIdOf NoLookalikesSafe Defaults.Size
 
   [<Benchmark>]
-  member me.NoLookalikesSafe() = nanoIdOf NoLookalikesSafe size
+  member me.Numbers() = nanoIdOf Numbers Defaults.Size
 
   [<Benchmark>]
-  member me.Numbers() = nanoIdOf Numbers size
-
-  [<Benchmark>]
-  member me.Uppercase() = nanoIdOf Uppercase size
+  member me.Uppercase() = nanoIdOf Uppercase Defaults.Size
 
   [<Benchmark(Baseline = true)>]
-  member me.UrlSafe() = nanoIdOf UrlSafe size
+  member me.UrlSafe() = nanoIdOf UrlSafe Defaults.Size
 
 
 [<MemoryDiagnoser>]
@@ -69,7 +71,7 @@ type FunctionVsStruct() =
 
 module Program =
   let benchmarks = [|
-    typeof<AnanoidVsNanoidNet>
+    typeof<AnanoidVsNanoidNetVsGuid>
     typeof<FunctionVsStruct>
     typeof<AllAlphabets>
   |]

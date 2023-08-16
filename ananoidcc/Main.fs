@@ -5,7 +5,6 @@
 *)
 namespace pblasucci.Ananoid
 
-open Microsoft.FSharp.Reflection
 open System
 open System.Globalization
 open Avalonia.Controls
@@ -16,6 +15,7 @@ open Avalonia.FuncUI.Hosts
 
 open Core
 open Support
+open KnownAlphabets
 
 open type WindowStartupLocation
 open type TextWrapping
@@ -24,10 +24,15 @@ open type TextWrapping
 module Main =
   let alphabets =
     Map [
-      for info in FSharpType.GetUnionCases typeof<Alphabet> do
-        let letters =
-          FSharpValue.MakeUnion(info, null) |> unbox<Alphabet> |> string
-        (info.Name, letters)
+      (nameof Alphanumeric, Alphanumeric.Letters)
+      (nameof HexadecimalLowercase, HexadecimalLowercase.Letters)
+      (nameof HexadecimalUppercase, HexadecimalUppercase.Letters)
+      (nameof Lowercase, Lowercase.Letters)
+      (nameof NoLookalikes, NoLookalikes.Letters)
+      (nameof NoLookalikesSafe, NoLookalikesSafe.Letters)
+      (nameof Numbers, Numbers.Letters)
+      (nameof Uppercase, Uppercase.Letters)
+      (nameof UrlSafe, UrlSafe.Letters)
     ]
 
   let alphabetMenuItems (state : IWritable<_>) =
@@ -236,7 +241,7 @@ module Main =
 
   let view () =
     Component(fun context ->
-      let alphabet = context.useState (string UrlSafe)
+      let alphabet = context.useState UrlSafe.Letters
       let length = context.useState 21.0
       let frequency = context.useState (PerHour 1000.0)
       let results = context.useState nan

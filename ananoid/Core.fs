@@ -130,7 +130,7 @@ module Tagged =
   /// <remarks>
   /// <b>This alias is not intended for languages other than F#.</b>
   /// </remarks>
-  [<CompiledName("string@measurealias")>]
+  [<CompiledName("string@measurealias'")>]
   [<MeasureAnnotatedAbbreviation>]
   type string<[<Measure>] 'Tag> = string
 
@@ -140,7 +140,7 @@ module Tagged =
   /// <remarks>
   /// <b>This tag is not intended for languages other than F#.</b>
   /// </remarks>
-  [<CompiledName("nanoid@measure")>]
+  [<CompiledName("nanoid@measure'")>]
   [<Measure>]
   type nanoid =
     /// <summary>
@@ -171,3 +171,50 @@ module Tagged =
   /// <b>This function is not intended for languages other than F#.</b>
   /// </remarks>
   let nanoId' () = nanoIdOf' Defaults.Alphabet Defaults.Size
+
+
+/// Pre-defined alphabets commonly used to generation identities.
+module Alphabets =
+  // Combination of all the lowercase, uppercase characters and numbers
+  /// from 0 to 9, not including any symbols or special characters.
+  [<Literal>]
+  let Alphanumeric =
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+  /// Hexadecimal lowercase characters: 0123456789abcdef.
+  [<Literal>]
+  let HexadecimalLowercase = "0123456789abcdef"
+
+  /// Hexadecimal uppercase characters: 0123456789ABCDEF.
+  [<Literal>]
+  let HexadecimalUppercase = "0123456789ABCDEF"
+
+  /// Lowercase English letters: abcdefghijklmnopqrstuvwxyz.
+  [<Literal>]
+  let Lowercase = "abcdefghijklmnopqrstuvwxyz"
+
+  /// Numbers, Uppercase, and Lowercase without "lookalikes":
+  /// 1, l, I, 0, O, o, u, v, 5, S, s, 2, Z.
+  /// Complete set: 346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz.
+  [<Literal>]
+  let NoLookalikes = "346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz"
+
+  /// Same as Nolookalikes -- but having removed vowels and: 3, 4, x, X, V.
+  /// Complete set: 6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz
+  [<Literal>]
+  let NoLookalikesSafe = "6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz"
+
+  /// Numbers from 0 to 9.
+  [<Literal>]
+  let Numbers = "0123456789"
+
+  /// Uppercase English letters: ABCDEFGHIJKLMNOPQRSTUVWXYZ.
+  [<Literal>]
+  let Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+  /// <summary>
+  /// URL-friendly numbers, English letters, and symbols: <c>A-Za-z0-9_-</c>.
+  /// This is the default alphabet if one is not explicitly specified.
+  /// </summary>
+  [<Literal>]
+  let UrlSafe = Defaults.Alphabet

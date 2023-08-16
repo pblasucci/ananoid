@@ -1,51 +1,38 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <AssemblyName>pblasucci.ananoid</AssemblyName>
-        <IsPackable>true</IsPackable>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <VersionPrefix>0.8.4</VersionPrefix>
-        <Title>Ananoid</Title>
-        <Authors>Paul Blasucci</Authors>
-        <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
-        <Copyright>2023 © Paul Blasucci. All rights reserved.</Copyright>
-        <PackageProjectUrl>https://github.com/pblasucci/ananoid</PackageProjectUrl>
-        <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-        <PackageIcon>ananoid.png</PackageIcon>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <!-- Sourcelink -->
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DocumentationFile>obj/Debug/net6.0/pblasucci.ananoid.xml</DocumentationFile>
-        <VersionSuffix>debug</VersionSuffix>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DocumentationFile>obj/Release/net6.0/pblasucci.ananoid.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="Core.fs" />
-        <Compile Include="Library.fs" />
-        <Compile Include="Alphabet.fsi" />
-        <Compile Include="Alphabet.fs" />
-        <Compile Include="NanoId.fsi" />
-        <Compile Include="NanoId.fs" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Update="FSharp.Core" Version="7.0.300" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="assets\ananoid.png" Pack="true" PackagePath="\" />
-      <None Include="..\README.md" Pack="true" PackagePath="\" />
-    </ItemGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>pblasucci.ananoid</AssemblyName>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <VersionPrefix>0.9.6</VersionPrefix>
+    <Title>Ananoid</Title>
+    <Authors>Paul Blasucci</Authors>
+    <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
+    <Copyright>2023 © Paul Blasucci. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/pblasucci/ananoid</PackageProjectUrl>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <PackageIcon>ananoid.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- Sourcelink -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>obj/Debug/net6.0/pblasucci.ananoid.xml</DocumentationFile>
+    <VersionSuffix>debug</VersionSuffix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>obj/Release/net6.0/pblasucci.ananoid.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Core.fs" />
+    <Compile Include="NanoId.fsi" />
+    <Compile Include="NanoId.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\ananoid.png" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>

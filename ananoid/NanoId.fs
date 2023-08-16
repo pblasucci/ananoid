@@ -1,4 +1,4 @@
-(*
+﻿(*
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -7,173 +7,162 @@ namespace pblasucci.Ananoid
 
 open System
 open System.Runtime.CompilerServices
-open System.Runtime.InteropServices
+open Microsoft.FSharp.Core
 
 
-[<NoComparison>]
-type NanoIdOptions = {
-  Alphabet' : IAlphabet
-  Size' : int
-} with
-  member me.Alphabet = me.Alphabet'
-  member me.Size = me.Size'
+[<AutoOpen>]
+module StringPatterns =
+  let inline (|Empty|_|) value =
+    if String.IsNullOrWhiteSpace value then Some() else None
 
-  member me.Resize(size) = { me with Size' = max 0 size }
+  let inline (|Trimmed|) (value : string) =
+    Trimmed(if String.IsNullOrWhiteSpace value then "" else value.Trim())
 
-  static member Create(alphabet : IAlphabet, size) =
-    alphabet
-    |> Alphabet.Validate
-    |> Result.map (fun letters -> { Alphabet' = letters; Size' = max 0 size })
-
-  [<CompiledName("CreateOrThrow")>]
-  static member CreateOrRaise(alphabet, size) =
-    NanoIdOptions.Create(alphabet, size)
-    |> Result.defaultWith (fun e -> e.Promote())
-
-  static member UrlSafe = { Alphabet' = UrlSafe; Size' = Core.Defaults.Size }
-
-  static member Numbers = { NanoIdOptions.UrlSafe with Alphabet' = Numbers }
-
-  static member HexadecimalLowercase = {
-    NanoIdOptions.UrlSafe with
-        Alphabet' = HexadecimalLowercase
-  }
-
-  static member HexadecimalUppercase = {
-    NanoIdOptions.UrlSafe with
-        Alphabet' = HexadecimalUppercase
-  }
-
-  static member Lowercase = { NanoIdOptions.UrlSafe with Alphabet' = Lowercase }
-
-  static member Uppercase = { NanoIdOptions.UrlSafe with Alphabet' = Uppercase }
-
-  static member Alphanumeric = {
-    NanoIdOptions.UrlSafe with
-        Alphabet' = Alphanumeric
-  }
-
-  static member NoLookalikes = {
-    NanoIdOptions.UrlSafe with
-        Alphabet' = NoLookalikes
-  }
-
-  static member NoLookalikesSafe = {
-    NanoIdOptions.UrlSafe with
-        Alphabet' = NoLookalikesSafe
-  }
+  let inline (|Length|) (Trimmed trimmed) = Length(uint32 trimmed.Length)
 
 
 [<IsReadOnly>]
 [<Struct>]
-type NanoId(value : string, length : uint32) =
-  member _.Length = length
+type NanoId(nanoId' : string) =
+  member _.Length = String.length nanoId'
 
-  override _.ToString() = let (Trimmed value') = value in value'
-
-  static member op_Implicit(nanoId : NanoId) = string nanoId
-
-  static member IsEmpty(nanoId : NanoId) = (nanoId.Length = 0u)
+  override _.ToString() = let (Trimmed value) = nanoId' in value
 
   static member Empty = NanoId()
 
-  static member internal NewId(alphabet, size) =
-    match Alphabet.Validate alphabet with
-    | Ok _ when size < 1 -> NanoId.Empty
-    | Ok a ->
-      let nanoid & Length n = Core.nanoIdOf a.Letters size
-      NanoId(nanoid, n)
-    //NOTE Since this overload of NewId is never publicly exposed,
-    // ... this exception is only possible to encounter via reflection!
-    | Error reason -> invalidArg (nameof alphabet) (string reason)
+  static member NewId() = NanoId(Core.nanoId ())
 
-  static member NewId(options) = NanoId.NewId(options.Alphabet', options.Size')
 
-  static member NewId() = NanoId.NewId(NanoIdOptions.UrlSafe)
+type AlphabetError =
+  | AlphabetTooLarge of Source : string
+  | AlphabetTooSmall of Source : string
+
+  member me.Letters =
+    match me with
+    | AlphabetTooLarge letters
+    | AlphabetTooSmall letters -> letters
+
+  member me.Message =
+    match me with
+    | AlphabetTooLarge _ -> "Alphabet may not contain more than 255 letters."
+    | AlphabetTooSmall _ -> "Alphabet must contain at least one letter."
+
+  override me.ToString() =
+    let case =
+      match me with
+      | AlphabetTooLarge _ -> nameof AlphabetTooLarge
+      | AlphabetTooSmall _ -> nameof AlphabetTooSmall
+    $"{nameof AlphabetError}.{case} '{me.Message}'"
 
 
 [<Sealed>]
-type NanoIdParser(alphabet : IAlphabet) =
-  member _.Alphabet = alphabet
+type AlphabetException(reason : AlphabetError) =
+  inherit Exception($"Invalid alphabet, reason: %s{reason.Message}")
 
-  member me.Parse(value) =
+  member _.Alphabet = reason.Letters
+  member _.Reason = reason
+
+
+type Alphabet = {
+  alphabet' : string
+} with
+  member me.Letters = let (Trimmed letters) = me.alphabet' in letters
+
+  override me.ToString() = me.Letters
+
+  static member Validate(Trimmed letters) =
+    if String.length letters < 1 then Error(AlphabetTooSmall letters)
+    elif 255 < String.length letters then Error(AlphabetTooLarge letters)
+    else Ok({ alphabet' = letters })
+
+
+type AlphabetError with
+  member me.Promote() = raise (AlphabetException me)
+
+
+[<RequireQualifiedAccess>]
+module Alphabet =
+  let ofLetters letters = Alphabet.Validate letters
+
+  let inline (|Letters|) (alphabet : Alphabet) = Letters(string alphabet)
+
+  let makeOrRaise letters =
+    letters |> ofLetters |> Result.defaultWith (fun e -> e.Promote())
+
+  let makeNanoId size (Letters alphabet) =
+    if size < 1 then NanoId.Empty else NanoId(Core.nanoIdOf alphabet size)
+
+  let inline (|Allowed|_|) (Letters alphabet) (Trimmed value) =
+    if value |> String.forall alphabet.Contains then Some value else None
+
+  let parseNanoId value alphabet =
     match value with
-    | Empty when alphabet.WillPermit("") -> Some NanoId.Empty
-    | Trimmed t & Length n when alphabet.WillPermit(t) -> Some(NanoId(t, n))
+    | Empty -> Some NanoId.Empty
+    | Allowed alphabet value -> Some(NanoId value)
     | _ -> None
 
-  member me.TryParse(value, [<Out>] nanoId : outref<_>) =
-    let result = me.Parse(value)
-    nanoId <- result |> Option.defaultValue NanoId.Empty
-    Option.isSome result
 
-  static member Alphanumeric = NanoIdParser(Alphanumeric)
+type Alphabet with
+  member me.MakeNanoId(size) = me |> Alphabet.makeNanoId size
 
-  static member HexadecimalLowercase = NanoIdParser(HexadecimalLowercase)
-
-  static member HexadecimalUppercase = NanoIdParser(HexadecimalUppercase)
-
-  static member Lowercase = NanoIdParser(Lowercase)
-
-  static member NoLookalikes = NanoIdParser(NoLookalikes)
-
-  static member NoLookalikesSafe = NanoIdParser(NoLookalikesSafe)
-
-  static member Numbers = NanoIdParser(Numbers)
-
-  static member Uppercase = NanoIdParser(Uppercase)
-
-  static member UrlSafe = NanoIdParser(UrlSafe)
-
-  static member Create(alphabet) =
-    alphabet |> Alphabet.Validate |> Result.map NanoIdParser
-
-  [<CompiledName("CreateOrThrow")>]
-  static member CreateOrRaise(alphabet) =
-    NanoIdParser.Create(alphabet) |> Result.defaultWith (fun e -> e.Promote())
-
-
-[<AutoOpen>]
-module NanoIdOptionsPatterns =
-  let inline (|SourceAlphabet|)
-    (source : 'Source when 'Source : (member Alphabet : IAlphabet))
-    =
-    SourceAlphabet(source.Alphabet)
-
-  let (|TargetSize|) { Size' = size } = TargetSize(size)
+  member me.ParseNanoId(value) = me |> Alphabet.parseNanoId value
 
 
 [<Extension>]
 [<Sealed>]
-type NanoIdOptionsExtensions =
+type AlphabetExtensions =
   [<Extension>]
-  static member Deconstruct
+  static member ToAlphabet(letters) = Alphabet.ofLetters letters
+
+  [<Extension>]
+  static member ToAlphabetOrThrow(letters) = Alphabet.makeOrRaise letters
+
+  [<Extension>]
+  static member TryParseNanoId
     (
-      options : NanoIdOptions,
-      alphabet : outref<IAlphabet>,
-      targetSize : outref<int>
+      alphabet,
+      value,
+      nanoId : outref<NanoId>
     )
     =
-    alphabet <- options.Alphabet
-    targetSize <- options.Size
+    let parsed = alphabet |> Alphabet.parseNanoId value
+    nanoId <- parsed |> Option.defaultValue NanoId.Empty
+    Option.isSome parsed
 
 
-[<Extension>]
-[<Sealed>]
-type IAlphabetExtensions =
-  [<CompiledName("ToNanoIdFactory@FSharpFunc")>]
-  [<Extension>]
-  static member ToNanoIdFactory(alphabet) =
-    Alphabet.Validate(alphabet)
-    |> Result.map (fun a size -> NanoId.NewId(a, size))
+[<RequireQualifiedAccess>]
+module NanoId =
+  let length (nanoId : NanoId) = nanoId.Length
 
-  [<CompilerMessage("Not intended for use from F#", 9999, IsHidden = true)>]
-  [<CompiledName("ToNanoIdFactory")>]
-  [<Extension>]
-  static member ToNanoIdFactoryDelegate(alphabet) =
-    match alphabet.ToNanoIdFactory() with
-    | Error e -> e.Promote()
-    | Ok func -> Func<_, _> func
+  let isEmpty nanoId = length nanoId < 1
+
+  let ofDefaults () = NanoId.NewId()
+
+  let ofOptions alphabet size = alphabet |> Alphabet.makeNanoId size
+
+  let parseAs alphabet value = alphabet |> Alphabet.parseNanoId value
+
+
+module KnownAlphabets =
+  open Core.Alphabets
+
+  let Alphanumeric = { alphabet' = Alphanumeric }
+
+  let HexadecimalLowercase = { alphabet' = HexadecimalLowercase }
+
+  let HexadecimalUppercase = { alphabet' = HexadecimalUppercase }
+
+  let Lowercase = { alphabet' = Lowercase }
+
+  let NoLookalikes = { alphabet' = NoLookalikes }
+
+  let NoLookalikesSafe = { alphabet' = NoLookalikesSafe }
+
+  let Numbers = { alphabet' = Numbers }
+
+  let Uppercase = { alphabet' = Uppercase }
+
+  let UrlSafe = { alphabet' = UrlSafe }
 
 
 [<assembly : Extension>]
