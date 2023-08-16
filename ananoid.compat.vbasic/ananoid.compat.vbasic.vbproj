@@ -18,13 +18,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="pblasucci.ananoid" Version="0.9.6" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Import Include="System.Console"/>
       <Import Include="System.Environment"/>
       <Import Include="pblasucci.Ananoid"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ananoid\ananoid.fsproj" />
     </ItemGroup>
 
 </Project>
