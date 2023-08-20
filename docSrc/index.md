@@ -106,6 +106,6 @@ For more information see the project's [License][0] file.
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/ai/nanoid
 [2]: https://www.nuget.org/packages/pblasucci.ananoid
-[3]: /guides/nanoidoptions.html
-[4]: /explanations/complexity.html
-[5]: /explanations/highlights.html
+[3]: ./guides/nanoidoptions.html
+[4]: ./explanations/complexity.html
+[5]: ./explanations/highlights.html
