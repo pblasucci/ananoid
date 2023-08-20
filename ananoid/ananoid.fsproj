@@ -10,6 +10,7 @@
     <Authors>Paul Blasucci</Authors>
     <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
     <Copyright>2023 © Paul Blasucci. All rights reserved.</Copyright>
+    <RepositoryUrl>https://github.com/pblasucci/ananoid</RepositoryUrl>
     <PackageProjectUrl>https://pblasucci.github.io/ananoid</PackageProjectUrl>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
     <PackageIcon>ananoid.png</PackageIcon>
