@@ -51,9 +51,10 @@ From a command prompt (assuming a basic build and test has worked), run the
 following:
 
 ```sh
-> dotnet fsdocs watch --port 2023 --input ./docSrc/ --parameters \
+> dotnet fsdocs watch --port 2023 --input ./docSrc/ --properties Configuration=Release --parameters \
     fsdocs-license-link https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt \
-    fsdocs-readme-link https://github.com/pblasucci/ananoid/blob/main/README.md
+    fsdocs-readme-link https://github.com/pblasucci/ananoid/blob/main/README.md \
+    fsdocs-release-notes-link https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md
 ```
 
 ### Copyright
