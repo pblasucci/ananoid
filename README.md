@@ -1,12 +1,61 @@
-ananoid
+Ananoid
 ===
 
-### TO DO
+Ananoid provides nano identifiers, an alternative to UUIDs. This project was
+inspired by [https://github.com/ai/nanoid][1].
 
-- [-] documentation
-  - [ ] performance
-  - [ ] ananoidcc
-- [-] Source Link
-- [ ] CONTRIBUTE
-- [ ] CHANGELOG
-- [-] README
+### Overview
+
+A nano identifier, or nanoid, is a randomly generated opaque value, suitable
+for uniquely identifying database entries, file names, et cetera.
+
+Ananoid (pronounced: "an-an-oyd") is a library for generating such identifiers.
+It uses cryptographically secure random number generation, and has no
+dependencies beyond the dotnet 6 base class libraries. It has both a high-level
+API, and a simpler, more memory-efficient, low-level API.
+
+### Installation via NuGet
+
+The latest version of this package can be installed from [NuGet][2] via the
+following command:
+
+```sh
+> dotnet add package pblasucci.ananoid --version 1.0.0
+```
+
+### Building from source
+
+_Prerequisites:_
+
+[.NET SDK version 7][3], or higher (note, .NET 7 is required to _build_ all
+the projects in this repository. However, _consuming_ the `pblasucci.ananoid.dll`
+file only requires .NET 6).
+
+_Build steps:_
+
+1. Clone this repo.
+2. From a command prompt, move into the root of th cloned repo.
+3. Restore the necessary tools (eg: `> dotnet tool restore`).
+4. Compile all project in the solution (eg: `> dotnet build`).
+5. Run the test suite (eg: `> dotnet test`).
+
+_Preview the docs locally, with "hot reload":_
+
+From a command prompt (assuming a basic build and test has worked), run the
+following:
+
+```sh
+> dotnet fsdocs watch --port 2023 --input ./docSrc/ --parameters \
+    fsdocs-license-link https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt \
+    fsdocs-readme-link https://github.com/pblasucci/ananoid/blob/main/README.md
+```
+
+### Copyright
+
+The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's [License][0] file.
+
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
+[1]: https://github.com/ai/nanoid
+[2]: https://www.nuget.org/packages/pblasucci.ananoid
+[3]: https://dotnet.microsoft.com/en-us/download/dotnet/7.0

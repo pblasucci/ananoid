@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <title>Install the Core Module from Source</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Paul Blasucci">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://pblasucci.github.io/ananoid/img/favicon.ico">
+    <link id="fsdocs-theme" type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-dark.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-main.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-custom.css" />
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/theme-toggle.js">
+        <!-- Placed in head to prevent flicker -->
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/navbar-fixed-left.css" />
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-body">
+        <div class="container">
+            <a class="navbar-brand" href="https://pblasucci.github.io/ananoid/"><img id="fsdocs-logo" src="https://pblasucci.github.io/ananoid/img/logo.png" /></a>
+            <div id="header">
+                <div class="searchbox">
+                    <input data-search-input="" class="m-3" id="search-by" type="search" placeholder="Search..." />
+                </div>
+            </div>
+            <div class="nav-item dropdown">
+                <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
+                    data-bs-display="static">
+
+                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke"></i>
+                    <span class="d-none d-sm-none d-md-block ms-2">Toggle theme</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
+                    style="--bs-dropdown-min-width: 8rem;">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="light">
+                            <i class="me-2  fa-solid fa-sun"></i>
+                            Light
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active"
+                            data-bs-theme-value="dark">
+                            <i class="me-2  fa-regular fa-moon"></i>
+                            Dark
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="auto">
+                            <i class="me-2 fa-solid fa-circle-half-stroke"></i>
+                            Auto
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav flex-wrap">
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    How-To Guides
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    Explanations
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    API Reference
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/reference/index.html">All Namespaces</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="project-references" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Project References
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/README.md"><i
+                                        class="fa-brands fa-readme  pe-2"></i>README</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt"><i
+                                        class="fa-regular  fa-id-card pe-2"></i>LICENSE</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/master/CHANGELOG.md"><i
+                                        class="fa-regular  fa-sticky-note pe-2"></i>CHANGELOG/Release
+                                    Notes</a></li>
+                            <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/"><i
+                                        class="fa-brands fa-github pe-2"></i>Source Repository</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Other Links
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://docs.microsoft.com/en-us/dotnet/fsharp/"><i
+                                        class="fa-brands fa-microsoft pe-2"></i>F# Documentation</a></li>
+                            <li><a class="dropdown-item" href="https://fsharp.org/guides/slack/"><i
+                                        class="fa-brands fa-slack pe-2"></i>F# Slack</a></li>
+                            <li><a class="dropdown-item" href="https://discord.gg/R6n7c54/"><i
+                                        class="fa-brands fa-discord pe-2"></i>F# Discord</a></li>
+                            <li><a class="dropdown-item" href="http://foundation.fsharp.org/"><img
+                                        src="https://fsharp.org/img/logo/fsharp.svg" Alt="FSharp Logo"
+                                        class="fsharp-icon-logo pe-2"></i>F# Software Foundation</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://pblasucci.github.io/ananoid/">ananoid <small
+                        class="muted">1.0.0</small></a></h3>
+        </div>
+        <div class="float-right" id="edit-this-page"><span><a class="nav-link"
+                    href="https://pblasucci.github.io/ananoid/edit/main/docsSrc/guides/installcore.md"><i
+                        class="fa-regular fa-pen-to-square pe-2"></i>Edit this page</a></span></div>
+        <hr />
+    </div>
+    <div class="container" id="fsdocs-content">
+        
+<h1><a name="How-To-Install-the-Core-Module-from-Source" class="anchor" href="#How-To-Install-the-Core-Module-from-Source">How-To: Install the Core Module from Source</a></h1>
+<p>Ananoid can serve most uses cases via the <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>
+type and its associates (<a href="https://learn.microsoft.com/dotnet/api/pblasucci.ananoid.nanoidoptions">NanoIdOptions</a>,
+<a href="https://learn.microsoft.com/dotnet/api/pblasucci.ananoid.nanoidparser">NanoIdParser</a>, et cetera). However, sometimes this is
+not desired (or at least, not <em>optimal</em>). For times when the a struct or class
+is just too much, Ananoid also provides its core functionality --
+cryptographically-secure randomly-generated identifiers -- as functions which
+take simple inputs and just produce strings.</p>
+<p>Further, there are some circumstances wherein it might be advantageous to only
+take the lowest-level parts of the library as a <em>source-code dependency</em> (the
+so-called "vendorizing" of dependencies). In order to accomodate this, the
+library has been carefully structured so that you may simply copy the file
+<a href="https://github.com/pblasucci/ananoid/blob/c7b6f7a5e38a38f651af267107ab18b1d00c050d/ananoid/Core.fs"><code>Core.fs</code></a> into your project and treat these functions as just another
+module in your library/application/et cetera.</p>
+<blockquote>
+<hr />
+<h2><a name="Attention" class="anchor" href="#Attention">Attention!!!</a></h2>
+<p><strong>Unfortunately, this is only applicable for F# projects... sorry ¯_(ツ)_/¯.</strong></p>
+<hr />
+</blockquote>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>OUT</summary>
+<img alt="project overview" src="/img/installcore.png"/>
+</details>
+</div>
+<h3><a name="Related-Reading" class="anchor" href="#Related-Reading">Related Reading</a></h3>
+<ul>
+<li><a href="/guides/taggednanoid.html">How-To: Work with Tagged NanoId strings</a></li>
+<li><a href="/explanations/highlights.html">Performance: Select Highlights</a></li>
+</ul>
+<h3><a name="Copyright" class="anchor" href="#Copyright">Copyright</a></h3>
+<p>The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's <a href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt">License</a> file.</p>
+
+        
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://pblasucci.github.io/ananoid/';</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-search.js"></script>
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-tips.js"></script>
+
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+</body>
+
+</html>

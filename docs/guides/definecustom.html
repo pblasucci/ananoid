@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <title>Define a Custom Alphabet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Paul Blasucci">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://pblasucci.github.io/ananoid/img/favicon.ico">
+    <link id="fsdocs-theme" type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-dark.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-main.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-custom.css" />
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/theme-toggle.js">
+        <!-- Placed in head to prevent flicker -->
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/navbar-fixed-left.css" />
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-body">
+        <div class="container">
+            <a class="navbar-brand" href="https://pblasucci.github.io/ananoid/"><img id="fsdocs-logo" src="https://pblasucci.github.io/ananoid/img/logo.png" /></a>
+            <div id="header">
+                <div class="searchbox">
+                    <input data-search-input="" class="m-3" id="search-by" type="search" placeholder="Search..." />
+                </div>
+            </div>
+            <div class="nav-item dropdown">
+                <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
+                    data-bs-display="static">
+
+                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke"></i>
+                    <span class="d-none d-sm-none d-md-block ms-2">Toggle theme</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
+                    style="--bs-dropdown-min-width: 8rem;">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="light">
+                            <i class="me-2  fa-solid fa-sun"></i>
+                            Light
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active"
+                            data-bs-theme-value="dark">
+                            <i class="me-2  fa-regular fa-moon"></i>
+                            Dark
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="auto">
+                            <i class="me-2 fa-solid fa-circle-half-stroke"></i>
+                            Auto
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav flex-wrap">
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    How-To Guides
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    Explanations
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    API Reference
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/reference/index.html">All Namespaces</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="project-references" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Project References
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/README.md"><i
+                                        class="fa-brands fa-readme  pe-2"></i>README</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt"><i
+                                        class="fa-regular  fa-id-card pe-2"></i>LICENSE</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/master/CHANGELOG.md"><i
+                                        class="fa-regular  fa-sticky-note pe-2"></i>CHANGELOG/Release
+                                    Notes</a></li>
+                            <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/"><i
+                                        class="fa-brands fa-github pe-2"></i>Source Repository</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Other Links
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://docs.microsoft.com/en-us/dotnet/fsharp/"><i
+                                        class="fa-brands fa-microsoft pe-2"></i>F# Documentation</a></li>
+                            <li><a class="dropdown-item" href="https://fsharp.org/guides/slack/"><i
+                                        class="fa-brands fa-slack pe-2"></i>F# Slack</a></li>
+                            <li><a class="dropdown-item" href="https://discord.gg/R6n7c54/"><i
+                                        class="fa-brands fa-discord pe-2"></i>F# Discord</a></li>
+                            <li><a class="dropdown-item" href="http://foundation.fsharp.org/"><img
+                                        src="https://fsharp.org/img/logo/fsharp.svg" Alt="FSharp Logo"
+                                        class="fsharp-icon-logo pe-2"></i>F# Software Foundation</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://pblasucci.github.io/ananoid/">ananoid <small
+                        class="muted">1.0.0</small></a></h3>
+        </div>
+        <div class="float-right" id="edit-this-page"><span><a class="nav-link"
+                    href="https://pblasucci.github.io/ananoid/edit/main/docsSrc/guides/definecustom.md"><i
+                        class="fa-regular fa-pen-to-square pe-2"></i>Edit this page</a></span></div>
+        <hr />
+    </div>
+    <div class="container" id="fsdocs-content">
+        
+<h1><a name="How-To-Define-a-Custom-Alphabet" class="anchor" href="#How-To-Define-a-Custom-Alphabet">How-To: Define a Custom Alphabet</a></h1>
+<p>The default settings for creating a <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>
+(21 characters taken from a mix of letters, numbers, hyphen, and underscore)
+reflect a reasonable balance of entropy versus performance. Further the
+additional alphabets shipped with Ananoid cover a wide range of common needs.
+But it is possible to go further. Consumers can define their <em>own</em> alphabets.</p>
+<h3><a name="Learning-about-alphabets" class="anchor" href="#Learning-about-alphabets">Learning about alphabets</a></h3>
+<p>Conceptually, an 'alphabet' is a set of 'letters' (technically, single-byte
+characters) from which a <code>NanoId</code> is constituted. In practice, an
+<a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> instance represents a <em>valildated</em> set of
+letters. Specifically, an <code>Alphabet</code> is safe to use for the generation and
+parsing of nano identifiers because it upholds the following invariants:</p>
+<ul>
+<li>The set of letters is NOT <code>null</code>.</li>
+<li>The set of letters MUST contain at least one (1) non-whitespace letter.</li>
+<li>The set of letters MAY NOT contains more than 255 letters.</li>
+</ul>
+<p>These are not the most challenging invariants, and any set of letters which
+conforms to them can be validated as an <code>Alphabet</code>. For example, one could
+define an alphabet consisting entirely of upper case ASCII letters:</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">uppercase</span> <span class="o">=</span> <span class="id">Alphabet</span><span class="pn">.</span><span class="id">Validate</span><span class="pn">(</span><span class="s">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><span class="pn">)</span>
+
+<span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="fn">printfn</span> <span class="s">$&quot;Is alphabet valid? </span><span class="pf">%b</span><span class="s">{</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="m">Result</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="id">isOk</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="id">uppercase</span><span class="s">}&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Dim</span> uppercase = Alphabet.Validate(<span class="s">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>)
+
+WriteLine($<span class="s">"Is alphabet valid? {uppercase.IsOk}"</span>)
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">var</span> uppercase <span class="o">=</span> Alphabet.Validate(<span class="s">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>);
+
+WriteLine($<span class="s">"Is alphabet valid? {uppercase.IsOk}"</span>);
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/definecustom.fsx
+
+Is alphabet valid? true
+</code></pre></td></tr></table>
+</details>
+</div>
+<h3><a name="Dealing-with-failures" class="anchor" href="#Dealing-with-failures">Dealing with failures</a></h3>
+<p>Not all letter sets will be valid. When validation fails, Ananoid provides the
+<a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabeterror.html">AlphabetError</a> type, which provides details about
+why, exactly, a given set of letters is not valid.</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">match</span> <span class="id">Alphabet</span><span class="pn">.</span><span class="id">ofLetters</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="id">String</span><span class="pn">.</span><span class="id">Empty</span> <span class="k">with</span>
+<span class="pn">|</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="id">Ok</span> <span class="id">valid</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 8)" onmouseover="showTip(event, 'fs2', 8)" class="id">printfn</span> <span class="s">$&quot;%s{</span><span class="id">valid</span><span class="pn">.</span><span class="id">Letters</span><span class="s">} are valid.&quot;</span>
+<span class="pn">|</span> <span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="id">Error</span><span class="pn">(</span><span class="id">AlphabetTooLarge</span> <span class="id">letters</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 10)" onmouseover="showTip(event, 'fs2', 10)" class="id">printfn</span> <span class="s">&quot;Too large: &#39;%s{letters}&#39;!&quot;</span>
+<span class="pn">|</span> <span onmouseout="hideTip(event, 'fs7', 11)" onmouseover="showTip(event, 'fs7', 11)" class="id">Error</span><span class="pn">(</span><span class="id">AlphabetTooSmall</span> <span class="id">letters</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 12)" onmouseover="showTip(event, 'fs2', 12)" class="id">printfn</span> <span class="s">&quot;Too small: &#39;%s{letters}&#39;!&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Dim</span> checked = <span class="k">String</span>.Empty.ToAlphabet()
+
+<span class="k">If</span> checked.IsOk <span class="k">Then</span>
+  <span class="k">Dim</span> alphabet = checked.ResultValue
+  WriteLine($<span class="s">"{alphabet.Letters} are valid."</span>)
+<span class="k">Else</span>
+  <span class="k">Dim</span> <span class="k">error</span> = checked.ErrorValue
+  <span class="k">Select</span> <span class="k">True</span>
+    <span class="k">Case</span> <span class="k">error</span>.IsAlphabetTooLarge
+      WriteLine($<span class="s">"Too large: '{error.Letters}'!"</span>)
+
+    <span class="k">Case</span> <span class="k">error</span>.IsAlphabetTooSmall
+      WriteLine($<span class="s">"Too small: '{error.Letters}'!"</span>)
+
+    <span class="k">Case</span> <span class="k">Else</span>
+      <span class="k">Throw</span> <span class="k">New</span> UnreachableException()
+  <span class="k">End</span> <span class="k">Select</span>
+<span class="k">End</span> <span class="k">If</span>
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">var</span> <span class="k">checked</span> <span class="o">=</span> String.Empty.ToAlphabet();
+
+<span class="k">var</span> message <span class="o">=</span> <span class="k">checked</span> <span class="k">switch</span>
+{
+  { IsOk: <span class="k">true</span>, ResultValue: <span class="k">var</span> alphabet } <span class="o">=</span><span class="o">&gt;</span> $<span class="s">"{alphabet.Letters} are valid."</span>,
+
+  { ErrorValue: <span class="k">var</span> error } <span class="o">=</span><span class="o">&gt;</span> error <span class="k">switch</span>
+  {
+    { IsAlphabetTooLarge: <span class="k">true</span> } <span class="o">=</span><span class="o">&gt;</span> $<span class="s">"Too large: '{error.Letters}'!"</span>,
+    { IsAlphabetTooSmall: <span class="k">true</span> } <span class="o">=</span><span class="o">&gt;</span> $<span class="s">"Too small: '{error.Letters}'!"</span>,
+
+    _ <span class="o">=</span><span class="o">&gt;</span> <span class="k">throw</span> <span class="k">new</span> UnreachableException()
+  },
+
+  _ <span class="o">=</span><span class="o">&gt;</span> <span class="k">throw</span> <span class="k">new</span> UnreachableException()
+};
+
+WriteLine(message);
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/definecustom.fsx
+
+Too small: ''!
+</code></pre></td></tr></table>
+</details>
+</div>
+<p>However, sometimes, processing complex failures is uncessary (or, at least,
+undesirable). In those cases, Ananaoid can raise an
+<a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabetexception.html">AlphabetException</a>, which not only surfaces an
+<code>AlphabetError</code> but also halts program flow and captures a stack trace. This
+is shown in the following example:</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">try</span>
+  <span class="id">Alphabet</span><span class="pn">.</span><span class="id">makeOrRaise</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs5', 13)" onmouseover="showTip(event, 'fs5', 13)" class="id">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="id">replicate</span> <span class="n">800</span> <span class="s">&quot;$&quot;</span><span class="pn">)</span>
+<span class="k">with</span>
+<span class="pn">|</span> <span class="o">:?</span> <span class="id">AlphabetException</span> <span class="k">as</span> <span class="id">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 15)" onmouseover="showTip(event, 'fs2', 15)" class="id">printfn</span> <span class="s">$&quot;FAIL! %A{</span><span class="id">x</span><span class="pn">.</span><span class="id">Reason</span><span class="s">}&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Try</span>
+  <span class="k">Dim</span> letters = <span class="k">New</span> <span class="k">String</span>(<span class="s">"$"</span>c, <span class="n">800</span>)
+  <span class="k">Dim</span> alphabet = letters.ToAlphabetOrThrow()
+  WriteLine($<span class="s">"{alphabet.Letters} are valid."</span>)
+
+<span class="k">Catch</span> x <span class="k">As</span> AlphabetException
+  WriteLine($<span class="s">"FAIL! {x.Reason}"</span>)
+
+<span class="k">End</span> <span class="k">Try</span>
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">try</span>
+{
+  <span class="k">var</span> alphabet <span class="o">=</span> <span class="k">new</span> String(<span class="s">'$'</span>, <span class="n">300</span>).ToAlphabetOrThrow();
+  WriteLine($<span class="s">"{alphabet.Letters} are valid."</span>);
+}
+<span class="k">catch</span> (AlphabetException x)
+{
+  WriteLine($<span class="s">"FAIL! {x.Reason}"</span>);
+}
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/definecustom.fsx
+
+FAIl! AlphabetTooLarge
+  "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+</code></pre></td></tr></table>
+</details>
+</div>
+<h3><a name="Related-Reading" class="anchor" href="#Related-Reading">Related Reading</a></h3>
+<ul>
+<li><a href="/explanations/complexity.html">Utilities: Complexity Calculator</a></li>
+<li><a href="/guides/nanoidparser.html">How-To: Parse an Existing String into a NanoId</a></li>
+</ul>
+<h3><a name="Copyright" class="anchor" href="#Copyright">Copyright</a></h3>
+<p>The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's <a href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt">License</a> file.</p>
+
+        <div class="fsdocs-tip" id="fs1">val uppercase: Result&lt;obj,obj&gt;</div>
+<div class="fsdocs-tip" id="fs2">val printfn: format: Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs3">Multiple items<br />module Result
+
+from Microsoft.FSharp.Core<br /><br />--------------------<br />[&lt;Struct&gt;]
+type Result&lt;&#39;T,&#39;TError&gt; =
+  | Ok of ResultValue: &#39;T
+  | Error of ErrorValue: &#39;TError</div>
+<div class="fsdocs-tip" id="fs4">val isOk: result: Result&lt;&#39;T,&#39;Error&gt; -&gt; bool</div>
+<div class="fsdocs-tip" id="fs5">module String
+
+from Microsoft.FSharp.Core</div>
+<div class="fsdocs-tip" id="fs6">union case Result.Ok: ResultValue: &#39;T -&gt; Result&lt;&#39;T,&#39;TError&gt;</div>
+<div class="fsdocs-tip" id="fs7">union case Result.Error: ErrorValue: &#39;TError -&gt; Result&lt;&#39;T,&#39;TError&gt;</div>
+<div class="fsdocs-tip" id="fs8">val replicate: count: int -&gt; str: string -&gt; string</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://pblasucci.github.io/ananoid/';</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-search.js"></script>
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-tips.js"></script>
+
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+</body>
+
+</html>

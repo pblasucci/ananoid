@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <title>KnownAlphabets (ananoid)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Paul Blasucci">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://pblasucci.github.io/ananoid/img/favicon.ico">
+    <link id="fsdocs-theme" type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-dark.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-main.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-custom.css" />
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/theme-toggle.js">
+        <!-- Placed in head to prevent flicker -->
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/navbar-fixed-left.css" />
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-body">
+        <div class="container">
+            <a class="navbar-brand" href="https://pblasucci.github.io/ananoid/"><img id="fsdocs-logo" src="https://pblasucci.github.io/ananoid/img/logo.png" /></a>
+            <div id="header">
+                <div class="searchbox">
+                    <input data-search-input="" class="m-3" id="search-by" type="search" placeholder="Search..." />
+                </div>
+            </div>
+            <div class="nav-item dropdown">
+                <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
+                    data-bs-display="static">
+
+                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke"></i>
+                    <span class="d-none d-sm-none d-md-block ms-2">Toggle theme</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
+                    style="--bs-dropdown-min-width: 8rem;">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="light">
+                            <i class="me-2  fa-solid fa-sun"></i>
+                            Light
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active"
+                            data-bs-theme-value="dark">
+                            <i class="me-2  fa-regular fa-moon"></i>
+                            Dark
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="auto">
+                            <i class="me-2 fa-solid fa-circle-half-stroke"></i>
+                            Auto
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav flex-wrap">
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    How-To Guides
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    Explanations
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    API Reference
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/reference/index.html">All Namespaces</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="project-references" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Project References
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/README.md"><i
+                                        class="fa-brands fa-readme  pe-2"></i>README</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt"><i
+                                        class="fa-regular  fa-id-card pe-2"></i>LICENSE</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/master/CHANGELOG.md"><i
+                                        class="fa-regular  fa-sticky-note pe-2"></i>CHANGELOG/Release
+                                    Notes</a></li>
+                            <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/"><i
+                                        class="fa-brands fa-github pe-2"></i>Source Repository</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Other Links
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://docs.microsoft.com/en-us/dotnet/fsharp/"><i
+                                        class="fa-brands fa-microsoft pe-2"></i>F# Documentation</a></li>
+                            <li><a class="dropdown-item" href="https://fsharp.org/guides/slack/"><i
+                                        class="fa-brands fa-slack pe-2"></i>F# Slack</a></li>
+                            <li><a class="dropdown-item" href="https://discord.gg/R6n7c54/"><i
+                                        class="fa-brands fa-discord pe-2"></i>F# Discord</a></li>
+                            <li><a class="dropdown-item" href="http://foundation.fsharp.org/"><img
+                                        src="https://fsharp.org/img/logo/fsharp.svg" Alt="FSharp Logo"
+                                        class="fsharp-icon-logo pe-2"></i>F# Software Foundation</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://pblasucci.github.io/ananoid/">ananoid <small
+                        class="muted">1.0.0</small></a></h3>
+        </div>
+        <hr />
+    </div>
+    <div class="container" id="fsdocs-content">
+        <div>
+  <h2>
+    KnownAlphabets Module
+  </h2>
+  <dl class="fsdocs-metadata">
+    <dt>
+      Namespace: 
+      <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid.html">
+        pblasucci.Ananoid
+      </a>
+    </dt>
+    <dt>
+      Assembly: pblasucci.ananoid.dll
+    </dt>
+  </dl>
+  <div class="fsdocs-xmldoc">
+    <div>
+      <p class="fsdocs-summary">
+        
+ Pre-defined alphabets commonly used to generation identities.
+
+      </p>
+    </div>
+  </div>
+  <div>
+    <h3>
+      Functions and values
+    </h3>
+    <table class="table outer-list fsdocs-member-list">
+      <thead>
+        <tr>
+          <td class="fsdocs-member-list-header">
+            Function or value
+          </td>
+          <td class="fsdocs-member-list-header">
+            Description
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '20', 20)" onmouseover="showTip(event, '20', 20)">
+                <p>
+                  <a id="Alphanumeric">
+                    <a href="#Alphanumeric">
+                      <code><span>Alphanumeric&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="20">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Alphanumeric&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.Alphanumeric`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.Alphanumeric\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L149-149" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Combination of all the lowercase, uppercase characters and numbers
+ from 0 to 9, not including any symbols or special characters.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '21', 21)" onmouseover="showTip(event, '21', 21)">
+                <p>
+                  <a id="HexadecimalLowercase">
+                    <a href="#HexadecimalLowercase">
+                      <code><span>HexadecimalLowercase&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="21">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>HexadecimalLowercase&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.HexadecimalLowercase`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.HexadecimalLowercase\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L151-151" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Hexadecimal lowercase characters: 0123456789abcdef.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '22', 22)" onmouseover="showTip(event, '22', 22)">
+                <p>
+                  <a id="HexadecimalUppercase">
+                    <a href="#HexadecimalUppercase">
+                      <code><span>HexadecimalUppercase&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="22">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>HexadecimalUppercase&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.HexadecimalUppercase`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.HexadecimalUppercase\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L153-153" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Hexadecimal uppercase characters: 0123456789ABCDEF.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '23', 23)" onmouseover="showTip(event, '23', 23)">
+                <p>
+                  <a id="Lowercase">
+                    <a href="#Lowercase">
+                      <code><span>Lowercase&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="23">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Lowercase&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.Lowercase`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.Lowercase\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L155-155" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Lowercase English letters: abcdefghijklmnopqrstuvwxyz.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '24', 24)" onmouseover="showTip(event, '24', 24)">
+                <p>
+                  <a id="NoLookalikes">
+                    <a href="#NoLookalikes">
+                      <code><span>NoLookalikes&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="24">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>NoLookalikes&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.NoLookalikes`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.NoLookalikes\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L157-157" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Numbers, Uppercase, and Lowercase without "lookalikes":
+ 1, l, I, 0, O, o, u, v, 5, S, s, 2, Z.
+ Complete set: 346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrtwxyz.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '25', 25)" onmouseover="showTip(event, '25', 25)">
+                <p>
+                  <a id="NoLookalikesSafe">
+                    <a href="#NoLookalikesSafe">
+                      <code><span>NoLookalikesSafe&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="25">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>NoLookalikesSafe&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.NoLookalikesSafe`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.NoLookalikesSafe\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L159-159" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Same as Nolookalikes -- but having removed vowels and: 3, 4, x, X, V.
+ Complete set: 6789BCDFGHJKLMNPQRTWbcdfghjkmnpqrtwz
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '26', 26)" onmouseover="showTip(event, '26', 26)">
+                <p>
+                  <a id="Numbers">
+                    <a href="#Numbers">
+                      <code><span>Numbers&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="26">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Numbers&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.Numbers`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.Numbers\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L161-161" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Numbers from 0 to 9.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '27', 27)" onmouseover="showTip(event, '27', 27)">
+                <p>
+                  <a id="Uppercase">
+                    <a href="#Uppercase">
+                      <code><span>Uppercase&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="27">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Uppercase&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.Uppercase`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.Uppercase\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L163-163" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Uppercase English letters: ABCDEFGHIJKLMNOPQRSTUVWXYZ.
+
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '28', 28)" onmouseover="showTip(event, '28', 28)">
+                <p>
+                  <a id="UrlSafe">
+                    <a href="#UrlSafe">
+                      <code><span>UrlSafe&#32;<span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="28">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UrlSafe&#32;<span></span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.KnownAlphabets.UrlSafe`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.KnownAlphabets.UrlSafe\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/tree/main/ananoid/NanoId.fs#L165-165" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ URL-friendly numbers, English letters, and symbols: <code>A-Za-z0-9_-</code>.
+ This is the default alphabet if one is not explicitly specified.
+ 
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+        
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://pblasucci.github.io/ananoid/';</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-search.js"></script>
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-tips.js"></script>
+
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+    <script type="text/javascript">
+      function handleClick(div) {
+        if (div) {
+          div.addEventListener("click", e => e.preventDefault());
+        }
+      }
+      const iconDivsSelector = 'DIV.fsdocs-summary DIV.fsdocs-source-link';
+      const iconDivs = document.querySelectorAll(iconDivsSelector);
+      iconDivs.forEach(handleClick);
+    </script>
+</body>
+
+</html>

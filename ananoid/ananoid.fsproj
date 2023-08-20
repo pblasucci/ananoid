@@ -5,15 +5,17 @@
     <AssemblyName>pblasucci.ananoid</AssemblyName>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <VersionPrefix>0.9.6</VersionPrefix>
+    <VersionPrefix>1.0.0</VersionPrefix>
     <Title>Ananoid</Title>
     <Authors>Paul Blasucci</Authors>
     <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>
     <Copyright>2023 © Paul Blasucci. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://github.com/pblasucci/ananoid</PackageProjectUrl>
+    <PackageProjectUrl>https://pblasucci.github.io/ananoid</PackageProjectUrl>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
     <PackageIcon>ananoid.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/pblasucci/ananoid/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageTags>identifier nanoid fsharp vb csharp</PackageTags>
     <!-- Sourcelink -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -27,12 +29,18 @@
     <DocumentationFile>obj/Release/net6.0/pblasucci.ananoid.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Core.fs" />
-    <Compile Include="NanoId.fsi" />
-    <Compile Include="NanoId.fs" />
+    <Compile Include="Core.fs"/>
+    <Compile Include="NanoId.fsi"/>
+    <Compile Include="NanoId.fs"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\ananoid.png" Pack="true" PackagePath="\" />
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="assets\ananoid.png" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

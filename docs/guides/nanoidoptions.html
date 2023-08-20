@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <title>Customize NanoId Creation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Paul Blasucci">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://pblasucci.github.io/ananoid/img/favicon.ico">
+    <link id="fsdocs-theme" type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-dark.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-main.css" />
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-custom.css" />
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/theme-toggle.js">
+        <!-- Placed in head to prevent flicker -->
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/navbar-fixed-left.css" />
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-body">
+        <div class="container">
+            <a class="navbar-brand" href="https://pblasucci.github.io/ananoid/"><img id="fsdocs-logo" src="https://pblasucci.github.io/ananoid/img/logo.png" /></a>
+            <div id="header">
+                <div class="searchbox">
+                    <input data-search-input="" class="m-3" id="search-by" type="search" placeholder="Search..." />
+                </div>
+            </div>
+            <div class="nav-item dropdown">
+                <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
+                    data-bs-display="static">
+
+                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke"></i>
+                    <span class="d-none d-sm-none d-md-block ms-2">Toggle theme</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
+                    style="--bs-dropdown-min-width: 8rem;">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="light">
+                            <i class="me-2  fa-solid fa-sun"></i>
+                            Light
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active"
+                            data-bs-theme-value="dark">
+                            <i class="me-2  fa-regular fa-moon"></i>
+                            Dark
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="auto">
+                            <i class="me-2 fa-solid fa-circle-half-stroke"></i>
+                            Auto
+                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav flex-wrap">
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    How-To Guides
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    Explanations
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
+<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    API Reference
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="other-links">
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/reference/index.html">All Namespaces</a></li>
+  </ul>
+</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="project-references" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Project References
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/README.md"><i
+                                        class="fa-brands fa-readme  pe-2"></i>README</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt"><i
+                                        class="fa-regular  fa-id-card pe-2"></i>LICENSE</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/master/CHANGELOG.md"><i
+                                        class="fa-regular  fa-sticky-note pe-2"></i>CHANGELOG/Release
+                                    Notes</a></li>
+                            <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/"><i
+                                        class="fa-brands fa-github pe-2"></i>Source Repository</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Other Links
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="other-links">
+                            <li><a class="dropdown-item" href="https://docs.microsoft.com/en-us/dotnet/fsharp/"><i
+                                        class="fa-brands fa-microsoft pe-2"></i>F# Documentation</a></li>
+                            <li><a class="dropdown-item" href="https://fsharp.org/guides/slack/"><i
+                                        class="fa-brands fa-slack pe-2"></i>F# Slack</a></li>
+                            <li><a class="dropdown-item" href="https://discord.gg/R6n7c54/"><i
+                                        class="fa-brands fa-discord pe-2"></i>F# Discord</a></li>
+                            <li><a class="dropdown-item" href="http://foundation.fsharp.org/"><img
+                                        src="https://fsharp.org/img/logo/fsharp.svg" Alt="FSharp Logo"
+                                        class="fsharp-icon-logo pe-2"></i>F# Software Foundation</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted"><a href="https://pblasucci.github.io/ananoid/">ananoid <small
+                        class="muted">1.0.0</small></a></h3>
+        </div>
+        <div class="float-right" id="edit-this-page"><span><a class="nav-link"
+                    href="https://pblasucci.github.io/ananoid/edit/main/docsSrc/guides/nanoidoptions.md"><i
+                        class="fa-regular fa-pen-to-square pe-2"></i>Edit this page</a></span></div>
+        <hr />
+    </div>
+    <div class="container" id="fsdocs-content">
+        
+<h1><a name="How-To-Customize-NanoId-Creation" class="anchor" href="#How-To-Customize-NanoId-Creation">How-To: Customize NanoId Creation</a></h1>
+<h3><a name="Configuring-generated-values" class="anchor" href="#Configuring-generated-values">Configuring generated values</a></h3>
+<p>While the default settings for a <code>NanoId</code> (21 random characters from a URL-safe
+alphabet consisting of: letters, numbers, underscore, or hyphen) are excellent
+for most use cases, it remains possible to generate instances of varying sizes,
+or even generate an instance from an entirely different alphabet. Further, the
+Ananoid library ships with several <a href="/explanations/complexity.html">common alphabets already defined</a>.
+For example, the default behavior can be mimicked as follows:</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">sameAsDefault</span> <span class="o">=</span> <span class="id">NanoId</span><span class="pn">.</span><span class="id">ofOptions</span> <span class="id">KnownAlphabets</span><span class="pn">.</span><span class="id">UrlSafe</span> <span class="n">21</span>
+
+<span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="fn">printfn</span> <span class="s">$&quot;</span><span class="pf">%s</span><span class="s">{</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="k">nameof</span> <span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="id">sameAsDefault</span><span class="s">}: </span><span class="pf">%A</span><span class="s">{</span><span class="id">sameAsDefault</span><span class="s">}&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Dim</span> sameAsDefault = KnownAlphabets.UrlSafe.MakeNanoId(size:=<span class="n">21</span>)
+
+WriteLine($<span class="s">"{NameOf(sameAsDefault)}: {sameAsDefault}"</span>)
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">var</span> sameAsDefault <span class="o">=</span> KnownAlphabets.UrlSafe.MakeNanoId(size: <span class="n">21</span>);
+
+WriteLine($<span class="s">"{nameof(sameAsDefault)}: {sameAsDefault}"</span>);
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/nanoidoptions.fsx
+
+sameAsDefault: Yq1CtDALLQCgP-XIBlzE6
+</code></pre></td></tr></table>
+</details>
+</div>
+<p>But maybe we want a 64-character URL-safe identifier instead? Easy:</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span class="id">KnownAlphabets</span>
+
+<span class="k">let</span> <span class="id">longerId</span> <span class="o">=</span> <span class="id">UrlSafe</span> <span class="o">|&gt;</span> <span class="id">Alphabet</span><span class="pn">.</span><span class="id">makeNanoId</span> <span class="n">64</span>
+
+<span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="id">printfn</span> <span class="s">$&quot;%s{</span><span onmouseout="hideTip(event, 'fs3', 6)" onmouseover="showTip(event, 'fs3', 6)" class="id">nameof</span> <span class="id">longerId</span><span class="s">}: %A{</span><span class="id">longerId</span><span class="s">}&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Imports</span> KnownAlphabets
+
+<span class="k">Dim</span> longerId = UrlSafe.MakeNanoId(size:=<span class="n">64</span>)
+
+WriteLine($<span class="s">"{NameOf(longerId)}: {longerId}"</span>)
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">using</span> <span class="k">static</span> KnownAlphabets;
+
+<span class="k">var</span> longerId <span class="o">=</span> UrlSafe.MakeNanoId(size: <span class="n">64</span>);
+
+WriteLine($<span class="s">"{nameof(longerId)}: {longerId}"</span>);
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/nanoiddefault.fsx
+
+longerId: xXFsRF7OGQK9dXpYZp6i88wlTU6YaVGdPWAHJTyo6SjHy-whflF7Lom0oVJerVoM
+</code></pre></td></tr></table>
+</details>
+</div>
+<p>Or if we wanted a 12-character value composed entirely of numbers:</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">numericId</span> <span class="o">=</span> <span class="id">Numbers</span><span class="pn">.</span><span class="id">MakeNanoId</span><span class="pn">(</span><span class="id">size</span> <span class="o">=</span> <span class="n">128</span><span class="pn">)</span>
+
+<span onmouseout="hideTip(event, 'fs2', 7)" onmouseover="showTip(event, 'fs2', 7)" class="id">printfn</span> <span class="s">$&quot;%s{</span><span onmouseout="hideTip(event, 'fs3', 8)" onmouseover="showTip(event, 'fs3', 8)" class="id">nameof</span> <span class="id">numericId</span><span class="s">}: %A{</span><span class="id">numericId</span><span class="s">}&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Dim</span> numericId = Numbers.MakeNanoId(size:=<span class="n">128</span>)
+
+WriteLine($<span class="s">"{NameOf(numericId)}: {numericId}"</span>)
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">var</span> numericId <span class="o">=</span> Numbers.MakeNanoId(size: <span class="n">128</span>);
+
+WriteLine($<span class="s">"{nameof(numericId)}: {numericId}"</span>);
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/nanoiddefault.fsx
+
+numericId: 63605584488709912960741866160961621054311208530158529005938917360552694066372962792631604006204502313290707959512413672018143848
+</code></pre></td></tr></table>
+</details>
+</div>
+<h3><a name="Further-Reading" class="anchor" href="#Further-Reading">Further Reading</a></h3>
+<ul>
+<li><a href="/explanations/complexity.html">Utilities: Complexity Calculator</a></li>
+<li><a href="/guides/definecustom.html">How-To: Define a Custom Alphabet</a></li>
+</ul>
+<h3><a name="Copyright" class="anchor" href="#Copyright">Copyright</a></h3>
+<p>The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's <a href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt">License</a> file.</p>
+
+        <div class="fsdocs-tip" id="fs1">val sameAsDefault: obj</div>
+<div class="fsdocs-tip" id="fs2">val printfn: format: Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs3">val nameof: &#39;T -&gt; string</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://pblasucci.github.io/ananoid/';</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-search.js"></script>
+    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-tips.js"></script>
+
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    </div>
+</body>
+
+</html>

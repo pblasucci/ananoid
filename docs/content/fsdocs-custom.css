@@ -1,0 +1,105 @@
+.fsharp-icon-logo {
+    width: 25px;
+    margin-top: -2px;
+    -webkit-filter: grayscale(100%) brightness(1) invert(1); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%) brightness(1) invert(1);
+}
+
+.fsdocs-member-xmldoc summary {
+  max-width: 100%;
+}
+
+.fsdocs-member-xmldoc summary::marker {
+  content: '« Click to toggle details »';
+  font-style: italic;
+  font-size: smaller;
+  color: var(--fsdocs-table-pre-color);
+}
+
+body .navbar .dropdown-menu .active .bi {
+    display: block !important;
+}
+
+details.lang-block summary {
+  pointer-events: none;
+}
+
+nav.navbar {
+  background: linear-gradient(to top, var(--fsdocs-pre-background-color), var(--fsdocs-pre-background-color));
+}
+
+nav.navbar .container {
+  background-color: var(--fsdocs-pre-background-color);
+}
+
+nav.navbar .dropdown-item img.fsharp-icon-logo {
+    margin-right: 0px;
+}
+
+div#lang-strip {
+  display: flex;
+  align-content: stretch;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+}
+
+div#lang-strip details.lang-block {
+  width: max-content;
+  flex-grow: 1;
+  flex-basis: 125px;
+}
+
+div#lang-strip details.lang-block pre {
+  height: 159px;
+}
+
+div#lang-strip details.lang-block table.pre pre {
+  height: 135px;
+}
+
+div.lang-bar {
+  display: flex;
+  align-content: stretch;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+}
+
+div.lang-bar details.lang-block {
+  width: max-content;
+  flex-grow: 1;
+}
+
+div.lang-bar details.lang-block:first-child {
+  width: 100%;
+}
+
+div.lang-bar details.lang-block td {
+  vertical-align: top;
+}
+
+div.lang-bar details.lang-block:last-of-type {
+  flex-grow: 2;
+}
+
+div.lang-bar details.lang-block.console table.pre {
+  border: 1px solid var(--fsdocs-pre-border-color) !important;
+  border-right-width: 20px !important;
+  border-radius: 5px !important;
+  background-color: var(--ananoid-console-field-color) !important;
+}
+
+div.lang-bar details.lang-block.console table.pre pre {
+  background-color: var(--ananoid-console-field-color) !important;
+}
+
+div.lang-bar details.lang-block img {
+  padding: 10px 0;
+}
+
+blockquote {
+  display: block;
+  background: linear-gradient(to right, var(--ananoid-logo-field-color), transparent 25px);
+  white-space: nowrap;
+}
