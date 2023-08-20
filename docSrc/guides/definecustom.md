@@ -226,5 +226,5 @@ For more information see the project's [License][0] file.
 
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[1]: /explanations/complexity.html
-[2]: /guides/nanoidparser.html
+[1]: ../explanations/complexity.html
+[2]: ../guides/nanoidparser.html

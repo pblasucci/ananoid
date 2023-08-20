@@ -132,5 +132,5 @@ For more information see the project's [License][0] file.
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://learn.microsoft.com/en-us/dotnet/standard/base-types/common-type-system#structures
-[2]: /guides/nanoidoptions.html
-[3]: /guides/nanoidstring.html
+[2]: ../guides/nanoidoptions.html
+[3]: ../guides/nanoidstring.html

@@ -99,7 +99,7 @@ For more information see the project's [License][0] file.
 
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[1]: /guides/nanoidstring.html
+[1]: ../guides/nanoidstring.html
 [2]: https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure
-[3]: /explanations/highlights.html
-[4]: /guides/installcore.html
+[3]: ../explanations/highlights.html
+[4]: ../guides/installcore.html

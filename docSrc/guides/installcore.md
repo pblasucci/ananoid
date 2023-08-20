@@ -49,6 +49,6 @@ For more information see the project's [License][0] file.
 
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[1]: https://github.com/pblasucci/ananoid/blob/c7b6f7a5e38a38f651af267107ab18b1d00c050d/ananoid/Core.fs
-[2]: /guides/taggednanoid.html
-[3]: /explanations/highlights.html
+[1]: https://github.com/pblasucci/ananoid/blob/main/ananoid/Core.fs
+[2]: ../guides/taggednanoid.html
+[3]: ../explanations/highlights.html
