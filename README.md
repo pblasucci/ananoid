@@ -14,6 +14,12 @@ It uses cryptographically secure random number generation, and has no
 dependencies beyond the dotnet 6 base class libraries. It has both a high-level
 API, and a simpler, more memory-efficient, low-level API.
 
+### Recommended Reading
+
+- [Getting Started][4]
+- [API Documentation][5]
+- [CHANGELOG][6]
+
 ### Installation via NuGet
 
 The latest version of this package can be installed from [NuGet][2] via the
@@ -59,3 +65,6 @@ For more information see the project's [License][0] file.
 [1]: https://github.com/ai/nanoid
 [2]: https://www.nuget.org/packages/pblasucci.ananoid
 [3]: https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+[4]: https://paul.blasuc.ci/ananoid/guides/nanoiddefault.html
+[5]: https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid.html
+[6]: https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md
