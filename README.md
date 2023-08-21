@@ -78,3 +78,5 @@ For more information see the project's [License][0] file.
 [4]: https://pblasucci.github.io/ananoid/guides/nanoiddefault.html
 [5]: https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid.html
 [6]: https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md
+[7]: https://github.com/TheAngryByrd
+
