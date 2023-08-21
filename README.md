@@ -56,6 +56,16 @@ following:
   --sourcerepo https://github.com/pblasucci/ananoid
 ```
 
+---
+> ### Shout Outs!
+>
+> Special thanks goes out to [TheAngryBird][7] for doing all the dirty work
+> around the mechanics of HTML layout / theming, which he then -- graciously --
+> made available under MIT License.
+>
+> This repository's documentation would look much uglier without his efforts.
+---
+
 ### Copyright
 
 The library is available under the Mozilla Public License, Version 2.0.
