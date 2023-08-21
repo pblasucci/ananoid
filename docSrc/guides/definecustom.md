@@ -119,9 +119,9 @@ End If
 <summary>C#</summary>
 
 ```csharp
-var checked = String.Empty.ToAlphabet();
+var @checked = String.Empty.ToAlphabet();
 
-var message = checked switch
+var message = @checked switch
 {
   { IsOk: true, ResultValue: var alphabet } => $"{alphabet.Letters} are valid.",
 

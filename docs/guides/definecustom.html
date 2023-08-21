@@ -86,23 +86,7 @@
     How-To Guides
   </a>
   <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
-    aria-expanded="false">
-    Explanations
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
   </ul>
 </li>
                     <li class="nav-item dropdown">
@@ -254,9 +238,9 @@ why, exactly, a given set of letters is not valid.</p>
 </details>
 <details open class="lang-block">
 <summary>C#</summary>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">var</span> <span class="k">checked</span> <span class="o">=</span> String.Empty.ToAlphabet();
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">var</span> @<span class="k">checked</span> <span class="o">=</span> String.Empty.ToAlphabet();
 
-<span class="k">var</span> message <span class="o">=</span> <span class="k">checked</span> <span class="k">switch</span>
+<span class="k">var</span> message <span class="o">=</span> @<span class="k">checked</span> <span class="k">switch</span>
 {
   { IsOk: <span class="k">true</span>, ResultValue: <span class="k">var</span> alphabet } <span class="o">=</span><span class="o">&gt;</span> $<span class="s">"{alphabet.Letters} are valid."</span>,
 
