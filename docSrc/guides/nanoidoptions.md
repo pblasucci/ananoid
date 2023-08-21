@@ -155,8 +155,8 @@ numericId: 636055844887099129607418661609616210543112085301585290059389173605526
 
 ### Further Reading
 
-+ [Utilities: Complexity Calculator][1]
-+ [How-To: Define a Custom Alphabet][2]
++ [Utilities: Complexity Calculator][2]
++ [How-To: Define a Custom Alphabet][3]
 
 ### Copyright
 The library is available under the Mozilla Public License, Version 2.0.
@@ -164,5 +164,6 @@ For more information see the project's [License][0] file.
 
 
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
-[1]: ../explanations/complexity.html
-[2]: ../guides/definecustom.html
+[1]: ../reference/pblasucci-ananoid-knownalphabets.html
+[2]: ../explanations/complexity.html
+[3]: ../guides/definecustom.html

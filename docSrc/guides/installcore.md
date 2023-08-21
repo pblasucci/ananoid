@@ -34,7 +34,7 @@ module in your library/application/et cetera.
 <details open class="lang-block">
 <summary>OUT</summary>
 
-<img alt="project overview" src="/img/installcore.png"/>
+<img alt="project overview" src="../img/installcore.png"/>
 </details>
 </div>
 
