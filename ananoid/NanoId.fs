@@ -87,7 +87,9 @@ module Alphabet =
   let inline (|Letters|) (alphabet : Alphabet) = Letters(string alphabet)
 
   let makeOrRaise letters =
-    letters |> ofLetters |> Result.defaultWith (fun e -> e.Promote())
+    match ofLetters letters with
+    | Ok alphabet -> alphabet
+    | Error error -> error.Promote()
 
   let makeNanoId size (Letters alphabet) =
     if size < 1 then NanoId.Empty else NanoId(Core.nanoIdOf alphabet size)

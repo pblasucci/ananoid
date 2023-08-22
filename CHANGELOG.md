@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning][SemVer].
 
 ## [Unreleased]
 
+
+## [1.0.1] - 2023-08-21
+
+### Changed
+
+- Lower `FSharp.Core` dependency version to `6.0.0`
+
+
 ## [1.0.0] - 2023-08-21
 
 ### Added
