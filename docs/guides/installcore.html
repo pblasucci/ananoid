@@ -86,23 +86,7 @@
     How-To Guides
   </a>
   <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
-    aria-expanded="false">
-    Explanations
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
+    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
   </ul>
 </li>
                     <li class="nav-item dropdown">
@@ -169,12 +153,11 @@
         
 <h1><a name="How-To-Install-the-Core-Module-from-Source" class="anchor" href="#How-To-Install-the-Core-Module-from-Source">How-To: Install the Core Module from Source</a></h1>
 <p>Ananoid can serve most uses cases via the <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>
-type and its associates (<a href="https://learn.microsoft.com/dotnet/api/pblasucci.ananoid.nanoidoptions">NanoIdOptions</a>,
-<a href="https://learn.microsoft.com/dotnet/api/pblasucci.ananoid.nanoidparser">NanoIdParser</a>, et cetera). However, sometimes this is
-not desired (or at least, not <em>optimal</em>). For times when the a struct or class
-is just too much, Ananoid also provides its core functionality --
-cryptographically-secure randomly-generated identifiers -- as functions which
-take simple inputs and just produce strings.</p>
+type and its associates (<a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>, et cetera).
+However, sometimes this is not desired (or at least, not <em>optimal</em>). For times
+when the a struct or class is just too much, Ananoid also provides its core
+functionality -- cryptographically-secure randomly-generated identifiers -- as
+functions which take primitive inputs and just produce strings.</p>
 <p>Further, there are some circumstances wherein it might be advantageous to only
 take the lowest-level parts of the library as a <em>source-code dependency</em> (the
 so-called "vendorizing" of dependencies). In order to accomodate this, the
