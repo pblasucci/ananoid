@@ -92,13 +92,13 @@ module Main =
         ]
     )
 
-  let lengthView length =
+  let lengthView (length : IWritable<decimal>) =
     Component.create (
       nameof length,
       fun context ->
         let state = context.usePassed length
 
-        let minLength, maxLength = (1.0, 129.0)
+        let minLength, maxLength = (1.0M, 129.0M)
 
         Grid.create [
           Grid.classes [ nameof length ]
@@ -119,7 +119,10 @@ module Main =
               NumericUpDown.minimum minLength
               NumericUpDown.maximum maxLength
               NumericUpDown.value state.Current
-              NumericUpDown.onValueChanged state.Set
+              NumericUpDown.onValueChanged (fun change ->
+                if change.HasValue then
+                  state.Set change.Value
+              )
             ]
             Slider.create [
               Slider.row 0
@@ -129,10 +132,10 @@ module Main =
               Slider.smallChange 1.0
               Slider.largeChange 10.0
               Slider.isSnapToTickEnabled true
-              Slider.minimum minLength
-              Slider.maximum maxLength
-              Slider.value state.Current
-              Slider.onValueChanged state.Set
+              Slider.minimum (double minLength)
+              Slider.maximum (double maxLength)
+              Slider.value (double state.Current)
+              Slider.onValueChanged (decimal >> state.Set)
             ]
           ]
         ]
@@ -149,12 +152,13 @@ module Main =
           | PerHour _ -> true
           | PerSecond _ -> false
 
-        let updateValue value =
-          state.Set(
-            match state.Current with
-            | PerHour _ -> PerHour value
-            | PerSecond _ -> PerSecond value
-          )
+        let updateValue (change : Nullable<decimal>) =
+          if change.HasValue then
+            state.Set(
+              match state.Current with
+              | PerHour _ -> PerHour (float change.Value)
+              | PerSecond _ -> PerSecond (float change.Value)
+            )
 
         let updateUnits units = state.Set(units state.Current.Amount)
 
@@ -180,7 +184,7 @@ module Main =
               NumericUpDown.maximum Int32.MaxValue
               NumericUpDown.minimum 1
               NumericUpDown.parsingNumberStyle NumberStyles.Integer
-              NumericUpDown.value state.Current.Amount
+              NumericUpDown.value (decimal state.Current.Amount)
               NumericUpDown.onValueChanged updateValue
             ]
             TextBlock.create [
@@ -242,7 +246,7 @@ module Main =
   let view () =
     Component(fun context ->
       let alphabet = context.useState UrlSafe.Letters
-      let length = context.useState 21.0
+      let length = context.useState 21.0M
       let frequency = context.useState (PerHour 1000.0)
       let results = context.useState nan
 

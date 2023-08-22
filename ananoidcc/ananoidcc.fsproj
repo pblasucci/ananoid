@@ -19,9 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia.Diagnostics" Version="0.10.21" />
-      <PackageReference Include="JaggerJo.Avalonia.FuncUI.DSL" Version="0.5.3" />
+      <PackageReference Include="Avalonia.Desktop" Version="11.0.4" />
+      <PackageReference Include="Avalonia.Diagnostics" Version="11.0.4" />
       <PackageReference Update="FSharp.Core" Version="7.0.400" />
+      <PackageReference Include="Avalonia.FuncUI" Version="1.0.1" />
+      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.4" />
     </ItemGroup>
 
     <ItemGroup>

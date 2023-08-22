@@ -30,6 +30,9 @@
     <RepositoryUrl>https://github.com/pblasucci/ananoid</RepositoryUrl>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryType>git</RepositoryType>
+    <FsDocsLicenseLink>https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt</FsDocsLicenseLink>
+    <FsDocsReleaseNotesLink>https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md</FsDocsReleaseNotesLink>
+    <FsDocsReadmeLink>https://github.com/pblasucci/ananoid/blob/main/README.md</FsDocsReadmeLink>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
