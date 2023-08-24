@@ -6,7 +6,8 @@
 <Application
   xmlns="https://github.com/avaloniaui"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  x:Class="pblasucci.Ananoid.App">
+  x:Class="pblasucci.Ananoid.App"
+  RequestedThemeVariant="Light">
   <Application.Styles>
     <FluentTheme DensityStyle="Compact"/>
 
@@ -25,6 +26,7 @@
     </Style>
 
     <Style Selector="Grid.alphabet > Label">
+      <Setter Property="FontSize" Value="12" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
 
@@ -51,7 +53,7 @@
     </Style>
 
     <Style Selector="Grid.alphabet MenuItem">
-      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontSize" Value="10" />
     </Style>
 
     <Style Selector="Grid.alphabet > TextBox">
@@ -66,6 +68,7 @@
     </Style>
 
     <Style Selector="Grid.length > Label">
+      <Setter Property="FontSize" Value="12" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
 
@@ -83,6 +86,10 @@
     <!-- Frequency -->
     <Style Selector="Grid.frequency">
       <Setter Property="Margin" Value="4" />
+    </Style>
+
+    <Style Selector="Grid.frequency > Label">
+      <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style Selector="Grid.frequency > NumericUpDown">
