@@ -7,6 +7,7 @@ namespace pblasucci.Ananoid
 
 open System
 open System.Globalization
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.FuncUI
@@ -284,7 +285,7 @@ module Main =
     )
 
 
-type MainHost() =
+type MainHost() as me =
   inherit
     HostWindow(
       CanResize = false,
@@ -295,3 +296,5 @@ type MainHost() =
       Width = 480.0,
       WindowStartupLocation = CenterScreen
     )
+
+  do me.AttachDevTools()
