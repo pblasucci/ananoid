@@ -9,7 +9,7 @@ open System
 open BenchmarkDotNet.Attributes
 open BenchmarkDotNet.Engines
 open BenchmarkDotNet.Running
-open Nanoid
+open NanoidDotNet
 open pblasucci.Ananoid
 open pblasucci.Ananoid.Core
 open LetterSets
