@@ -23,6 +23,10 @@ open type TextWrapping
 
 
 module Main =
+
+  open Avalonia.Input.TextInput
+  open Avalonia.Layout
+
   let alphabets =
     Map [
       (nameof Alphanumeric, Alphanumeric.Letters)
@@ -119,10 +123,14 @@ module Main =
               NumericUpDown.showButtonSpinner false
               NumericUpDown.minimum minLength
               NumericUpDown.maximum maxLength
-              NumericUpDown.value state.Current
+              NumericUpDown.increment 1
+              NumericUpDown.clipValueToMinMax true
+              NumericUpDown.contentType TextInputContentType.Digits
+              NumericUpDown.parsingNumberStyle NumberStyles.Integer
+              NumericUpDown.value (truncate state.Current)
               NumericUpDown.onValueChanged (fun change ->
                 if change.HasValue then
-                  state.Set change.Value
+                  state.Set(truncate change.Value)
               )
             ]
             Slider.create [
