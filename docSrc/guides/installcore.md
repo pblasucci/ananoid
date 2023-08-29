@@ -25,7 +25,7 @@ module in your library/application/et cetera.
 > ---
 > ##Attention!!!
 >
-> __Unfortunately, this is only applicable for F# projects... sorry ¯\_(ツ)_/¯.__
+> __Unfortunately, this is only applicable for F# projects... sorry ¯\\_(ツ)_/¯.__
 >
 > ---
 
