@@ -173,7 +173,7 @@ module Tagged =
   let nanoId' () = nanoIdOf' Defaults.Alphabet Defaults.Size
 
 
-/// Pre-defined alphabets commonly used to generation identities.
+/// Pre-defined alphabets commonly used to generate identifiers.
 module Alphabets =
   // Combination of all the lowercase, uppercase characters and numbers
   /// from 0 to 9, not including any symbols or special characters.
