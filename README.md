@@ -59,7 +59,7 @@ following:
 ---
 > ### Shout Outs!
 >
-> Special thanks goes out to [TheAngryBird][7] for doing all the dirty work
+> Special thanks goes out to [TheAngryByrd][7] for doing all the dirty work
 > around the mechanics of HTML layout / theming, which he then -- graciously --
 > made available under MIT License.
 >
