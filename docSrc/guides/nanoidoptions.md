@@ -109,7 +109,7 @@ longerId: xXFsRF7OGQK9dXpYZp6i88wlTU6YaVGdPWAHJTyo6SjHy-whflF7Lom0oVJerVoM
 </details>
 </div>
 
-Or if we wanted a 12-character value composed entirely of numbers:
+Or if we wanted a 128-character value composed entirely of numbers:
 
 <div class="lang-bar">
 <details open class="lang-block">
