@@ -21,7 +21,7 @@ safety of more robust types.
 > ---
 > ##Attention!!!
 >
-> __This feature is only relevant to F# consumers... sorry ¯\_(ツ)_/¯ .__
+> __This feature is only relevant to F# consumers... sorry ¯\\_(ツ)_/¯ .__
 >
 > ---
 
