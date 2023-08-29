@@ -313,7 +313,7 @@ type AlphabetExtensions =
     alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
 
 
-/// Pre-defined alphabets commonly used to generation identities.
+/// Pre-defined alphabets commonly used to generate identifiers.
 module KnownAlphabets =
   /// Combination of all the lowercase, uppercase characters and numbers
   /// from 0 to 9, not including any symbols or special characters.
