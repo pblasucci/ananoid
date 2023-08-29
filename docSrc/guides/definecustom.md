@@ -152,7 +152,7 @@ Too small: ''!
 </div>
 
 However, sometimes, processing complex failures is uncessary (or, at least,
-undesirable). In those cases, Ananaoid can raise an
+undesirable). In those cases, Ananoid can raise an
 `cref:T:pblasucci.Ananoid.AlphabetException`, which not only surfaces an
 `AlphabetError` but also halts program flow and captures a stack trace. This
 is shown in the following example:
