@@ -13,7 +13,7 @@ How-To: Parse an Existing String into a NanoId
 While _generating_ identifiers is the primary purpose for Ananoid, it is also
 sometimes useful to _parse_ raw strings into `NanoId` instances (eg: when
 rehydrating entities from a database). To help facilitate this, Ananoid
-provides a fwe utilites, each of which validates that the string in question
+provides a few utilites, each of which validates that the string in question
 _could_ have been created from a given `cref:T:pblasucci.Ananoid.Alphabet`
 instance. Here, we parse a URL-safe identifier:
 
