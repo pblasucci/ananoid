@@ -79,3 +79,7 @@ let ``Parse and ToString are invertible`` nanoId =
   | Some nanoId' -> nanoId' = nanoId
   | None -> false
   |> Prop.label $"\nNot invertible: %A{nanoId}"
+
+[<Property(Arbitrary = [| typeof<Generation> |])>]
+let ``Parse can explicitly reject empty input`` (alphabet : Alphabet) =
+  "" |> alphabet.ParseNonEmptyNanoId |> Option.isNone

@@ -172,7 +172,7 @@
 <p>While <em>generating</em> identifiers is the primary purpose for Ananoid, it is also
 sometimes useful to <em>parse</em> raw strings into <code>NanoId</code> instances (eg: when
 rehydrating entities from a database). To help facilitate this, Ananoid
-provides a fwe utilites, each of which validates that the string in question
+provides a few utilites, each of which validates that the string in question
 <em>could</em> have been created from a given <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>
 instance. Here, we parse a URL-safe identifier:</p>
 <div class="lang-bar">
@@ -255,6 +255,7 @@ alphabet (eg, using a purely numeric alphaber to parse a hexidecimal string):</p
   UrlSafe.TryParse(nanoId.ToString(), <span class="k">out</span> <span class="k">var</span> parsed)
   <span class="o">?</span> $<span class="s">"nanoId: {nanoId}, parsed: {parsed}"</span>
   <span class="o">:</span> $<span class="s">"Failed to parse '{nanoId}' as a numeric nano identifer!"</span>;
+
 WriteLine(message);
 </code></pre></td></tr></table>
 </details>
@@ -267,31 +268,30 @@ Failed to parse 'B978025EB0903089A89F40E43632587D' as a numeric nano identifer!
 </details>
 </div>
 <p>Finally, it is worth noting: the length of the string being parsed is <em>not</em>
-validated. However, strings which are: <code>null</code>, zero-lengh, or consist only of
-whitespace will result in a parsed value of <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.</p>
+validated. However, by default, strings which are: <code>null</code>, zero-lengh, or
+consist only of whitespace will result in a parsed value of
+<a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.</p>
 <div class="lang-bar">
 <details open class="lang-block">
 <summary>F#</summary>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="id">NoLookalikes</span>
-<span class="o">|&gt;</span> <span class="id">Alphabet</span><span class="pn">.</span><span class="id">parseNanoId</span> <span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="id">String</span><span class="pn">.</span><span class="id">Empty</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 19)" onmouseover="showTip(event, 'fs3', 19)" class="id">Option</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 20)" onmouseover="showTip(event, 'fs4', 20)" class="id">iter</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">parsed</span> <span class="k">-&gt;</span>
-  <span onmouseout="hideTip(event, 'fs6', 21)" onmouseover="showTip(event, 'fs6', 21)" class="id">printfn</span> <span class="s">$&quot;Is empty? %b{</span><span class="id">NanoId</span><span class="pn">.</span><span class="id">isEmpty</span> <span class="id">parsed</span><span class="s">}&quot;</span>
-<span class="pn">)</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">didParse</span><span class="pn">,</span> <span class="id">parsed</span> <span class="o">=</span> <span class="id">NoLookalikes</span><span class="pn">.</span><span class="id">TryParseNanoId</span> <span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="id">String</span><span class="pn">.</span><span class="id">Empty</span>
+<span class="k">if</span> <span class="id">didParse</span> <span class="k">then</span>
+  <span onmouseout="hideTip(event, 'fs6', 19)" onmouseover="showTip(event, 'fs6', 19)" class="id">printfn</span> <span class="s">$&quot;Is empty? %b{</span><span class="id">NanoId</span><span class="pn">.</span><span class="id">isEmpty</span> <span class="id">parsed</span><span class="s">}&quot;</span>
 </code></pre>
 </details>
 <details open class="lang-block">
 <summary>VB</summary>
 <table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Dim</span> parsed <span class="k">As</span> NanoId
-<span class="k">If</span> NoLookalikes.TryParse(nanoId.ToString(), parsed) <span class="k">Then</span>
+<span class="k">If</span> NoLookalikes.TryParseNanoId(<span class="k">String</span>.Empty, parsed) <span class="k">Then</span>
   WriteLine($<span class="s">"Is empty? {NanoId.Empty.Equals(parsed)}"</span>)
 <span class="k">End</span> <span class="k">If</span>
 </code></pre></td></tr></table>
 </details>
 <details open class="lang-block">
 <summary>C#</summary>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">if</span> (NoLookalikes.TryParse(nanoId.ToString(), <span class="k">out</span> <span class="k">var</span> parsed))
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">if</span> (NoLookalikes.ParseNanoId(<span class="k">string</span>.Empty) <span class="k">is</span> { Value: <span class="k">var</span> parsed })
 {
-  WriteLine($<span class="s">"Is empty? {NanoId.Empty.Equals(parsed)}"</span>);
+  WriteLine($<span class="s">"Is empty? {parsed is {Length: 0}}"</span>);
 }
 </code></pre></td></tr></table>
 </details>
@@ -300,6 +300,48 @@ whitespace will result in a parsed value of <a href="https://pblasucci.github.io
 <table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/nanoidparser.fsx
 
 Is empty? true
+</code></pre></td></tr></table>
+</details>
+</div>
+<p>If more stringent behavior is required, Ananoid provides four functions/methods
+an alternative. They are:</p>
+<ul>
+<li><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoidmodule.html#parseNonEmptyAs">NanoId.parseNonEmptyAs</a></li>
+<li><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabetmodule.html#parseNonEmptyNanoId">Alphabet.parseNonEmptyNanoId</a></li>
+<li><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html#ParseNonEmptyNanoId">Alphabet.ParseNonEmptyNanoId</a></li>
+<li><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabetextensions.html#TryParseNonEmptyNanoId">AlphabetExtensions.TryParseNonEmptyNanoId</a></li>
+</ul>
+<p>Specifically, each of these operations will report <em>failure</em> if the input
+provided to them is: <code>null</code>, zero-length, or consist only of whitespace.
+This may be seen in the following examples:</p>
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">parsed</span> <span class="o">=</span> <span class="k">null</span> <span class="o">|&gt;</span> <span class="id">NanoId</span><span class="pn">.</span><span class="id">parseNonEmptyAs</span> <span class="id">Uppercase</span>
+<span onmouseout="hideTip(event, 'fs6', 20)" onmouseover="showTip(event, 'fs6', 20)" class="id">printfn</span> <span class="s">$&quot;Did parse? %b{</span><span onmouseout="hideTip(event, 'fs3', 21)" onmouseover="showTip(event, 'fs3', 21)" class="id">Option</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 22)" onmouseover="showTip(event, 'fs10', 22)" class="id">isSome</span> <span class="id">parsed</span><span class="s">}&quot;</span>
+</code></pre>
+</details>
+<details open class="lang-block">
+<summary>VB</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">Dim</span> parsed <span class="k">As</span> NanoId
+<span class="k">If</span> Uppercase.ParseNonEmptyNanoId(<span class="k">Nothing</span>) <span class="k">Is</span> <span class="k">Nothing</span> <span class="k">Then</span>
+  WriteLine(<span class="s">"Did parse? false"</span>)
+<span class="k">End</span> <span class="k">If</span>
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block">
+<summary>C#</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">if</span> (Uppercase.TryParseNonEmptyNanoId(<span class="k">null</span>, <span class="k">out</span> _) <span class="k">is</span> <span class="k">false</span>)
+{
+  WriteLine(<span class="s">"Did parse? false"</span>);
+}
+</code></pre></td></tr></table>
+</details>
+<details open class="lang-block console">
+<summary>OUT</summary>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="sh">&gt; dotnet fsi ~/scratches/nanoidparser.fsx
+
+Did parse? false
 </code></pre></td></tr></table>
 </details>
 </div>
@@ -325,6 +367,7 @@ from Microsoft.FSharp.Core</div>
 <div class="fsdocs-tip" id="fs9">module String
 
 from Microsoft.FSharp.Core</div>
+<div class="fsdocs-tip" id="fs10">val isSome: option: &#39;T option -&gt; bool</div>
 
     </div>
 

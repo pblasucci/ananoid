@@ -97,7 +97,30 @@ type Alphabet =
   /// On successful parsing, returns a <c>NanoId</c> instance;
   /// otherwise, returns <c>None</c>.
   /// </returns>
+  /// <remarks>
+  /// If the input <c>value</c> is empty (ie: <c>null</c>, zero-length, or
+  /// consists only of whitespace), parsing is considered to succeed
+  /// (ie: the method will return <c>Some NanoId.Empty</c>). This mirrors
+  /// the behavior of <see cref="M:pblasucci.Ananoid.Alphabet.MakeNanoId"/>
+  /// </remarks>
   member ParseNanoId : value : string -> NanoId option
+
+  /// <summary>
+  /// Attempts to convert the given <c>value</c> into a
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
+  /// using the current alphabet to guide validation.
+  /// </summary>
+  /// <param name="value">The raw string to be converted.</param>
+  /// <returns>
+  /// On successful parsing, returns a <c>NanoId</c> instance;
+  /// otherwise, returns <c>None</c>.
+  /// </returns>
+  /// <remarks>
+  /// If the input <c>value</c> is empty (ie: <c>null</c>, zero-length, or
+  /// consists only of whitespace), parsing is considered to fail
+  /// (ie: the method will return <c>None</c>).
+  /// </remarks>
+  member ParseNonEmptyNanoId : value : string -> NanoId option
 
   /// <summary>
   /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
@@ -164,7 +187,30 @@ module NanoId =
   /// On successful parsing, returns a <c>NanoId</c> instance;
   /// otherwise, returns <c>None</c>.
   /// </returns>
+  /// <remarks>
+  /// If the given value is empty (ie: <c>null</c>, zero-length, or consists only
+  /// of whitespace), parsing will succeed (ie: return <c>Some nanoId</c>).
+  /// However, the resulting <c>NanoId</c> instance will be
+  /// <see cref='P:pblasucci.Ananoid.NanoId.Empty'/>.
+  /// </remarks>
   val parseAs : alphabet : Alphabet -> value : string -> NanoId option
+
+  /// <summary>
+  /// Attempts to convert the given <c>value</c> into a
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
+  /// using the given alphabet to guide validation.
+  /// </summary>
+  /// <param name="alphabet">The letters to check against for validity.</param>
+  /// <param name="value">The raw string to be converted.</param>
+  /// <returns>
+  /// On successful parsing, returns a <c>NanoId</c> instance;
+  /// otherwise, returns <c>None</c>.
+  /// </returns>
+  /// <remarks>
+  /// Parsing will "fail" (ie: return <c>None</c>) if the given value is empty
+  /// (ie: <c>null</c>, zero-length, or consists only of whitespace).
+  /// </remarks>
+  val parseNonEmptyAs : alphabet : Alphabet -> value : string -> NanoId option
 
 
 /// Contains utilities for working with alphabets.
@@ -240,7 +286,31 @@ module Alphabet =
   /// On successful parsing, returns a <c>NanoId</c> instance;
   /// otherwise, returns <c>None</c>.
   /// </returns>
+  /// <remarks>
+  /// If the given value is empty (ie: <c>null</c>, zero-length, or consists
+  /// only of whitespace), parsing will succeed (ie: return <c>Some nanoId</c>).
+  /// However, the resulting <c>NanoId</c> instance will be
+  /// <see cref='P:pblasucci.Ananoid.NanoId.Empty'/>.
+  /// </remarks>
   val parseNanoId : value : string -> alphabet : Alphabet -> NanoId option
+
+  /// <summary>
+  /// Attempts to convert the given <c>value</c> into a
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
+  /// using a valid alphabet to guide validation.
+  /// </summary>
+  /// <param name="value">The raw string to be converted.</param>
+  /// <param name="alphabet">The letters to check against for validity.</param>
+  /// <returns>
+  /// On successful parsing, returns a <c>NanoId</c> instance;
+  /// otherwise, returns <c>None</c>.
+  /// </returns>
+  /// <remarks>
+  /// Parsing will "fail" (ie: return <c>None</c>) if the given value is empty
+  /// (ie: <c>null</c>, zero-length, or consists only of whitespace).
+  /// </remarks>
+  val parseNonEmptyNanoId :
+    value : string -> alphabet : Alphabet -> NanoId option
 
 
 /// <summary>
@@ -308,8 +378,39 @@ type AlphabetExtensions =
   /// <param name="nanoId">
   /// On successful parsing, contains a <c>NanoId</c> instance.
   /// </param>
-  /// <returns>true is parsing succeeded; false, otherwise.</returns>
+  /// <returns>
+  /// <c>true</c> if parsing succeeded; <c>false</c> otherwise.
+  /// </returns>
+  /// <remarks>
+  /// If the input <c>value</c> is empty (ie: <c>null</c>, zero-length, or
+  /// consists only of whitespace), parsing is considered to succeed (ie: the
+  /// method will return <c>true</c>). However, the resulting <c>NanoId</c>
+  /// instance will be <see cref='P:pblasucci.Ananoid.NanoId.Empty'/>.
+  /// </remarks>
+  [<Extension>]
   static member TryParseNanoId :
+    alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
+
+  /// <summary>
+  /// Attempts to convert the given <c>value</c> into a
+  /// <see cref="T:pblasucci.Ananoid.NanoId" />,
+  /// using the current alphabet to guide validation.
+  /// </summary>
+  /// <param name="alphabet">The letters to check against for validity.</param>
+  /// <param name="value">The raw string to be converted.</param>
+  /// <param name="nanoId">
+  /// On successful parsing, contains a <c>NanoId</c> instance.
+  /// </param>
+  /// <returns>
+  /// <c>true</c> if parsing succeeded; <c>false</c> otherwise.
+  /// </returns>
+  /// <remarks>
+  /// If the input <c>value</c> is empty (ie: <c>null</c>, zero-length, or
+  /// consists only of whitespace), parsing is considered to fail (ie: the
+  /// method will return <c>false</c>).
+  /// </remarks>
+  [<Extension>]
+  static member TryParseNonEmptyNanoId :
     alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
 
 

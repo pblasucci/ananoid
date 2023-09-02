@@ -5,7 +5,7 @@
     <AssemblyName>pblasucci.ananoid</AssemblyName>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Title>Ananoid</Title>
     <Authors>Paul Blasucci</Authors>
     <Description>Provides nano identifiers, an alternative to UUIDs (inspired by https://github.com/ai/nanoid).</Description>

@@ -218,7 +218,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+              <code onmouseout="hideTip(event, '37', 37)" onmouseover="showTip(event, '37', 37)">
                 <p>
                   <a id="Letters">
                     <a href="#Letters">
@@ -227,7 +227,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="35">
+              <div class="fsdocs-tip" id="37">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>this.Letters</span></code>
@@ -280,7 +280,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
+              <code onmouseout="hideTip(event, '38', 38)" onmouseover="showTip(event, '38', 38)">
                 <p>
                   <a id="MakeNanoId">
                     <a href="#MakeNanoId">
@@ -289,7 +289,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="36">
+              <div class="fsdocs-tip" id="38">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>this.MakeNanoId</span></code>
@@ -333,7 +333,7 @@
                     <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
                     <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
                   </div>
-                  <a href="https://github.com/pblasucci/ananoid/ananoid/NanoId.fs#L108-108" class="fsdocs-source-link" title="Source on GitHub">
+                  <a href="https://github.com/pblasucci/ananoid/ananoid/NanoId.fs#L114-114" class="fsdocs-source-link" title="Source on GitHub">
                     <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
                     <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
                   </a>
@@ -377,7 +377,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '37', 37)" onmouseover="showTip(event, '37', 37)">
+              <code onmouseout="hideTip(event, '39', 39)" onmouseover="showTip(event, '39', 39)">
                 <p>
                   <a id="ParseNanoId">
                     <a href="#ParseNanoId">
@@ -386,7 +386,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="37">
+              <div class="fsdocs-tip" id="39">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>this.ParseNanoId</span></code>
@@ -431,7 +431,7 @@
                     <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
                     <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
                   </div>
-                  <a href="https://github.com/pblasucci/ananoid/ananoid/NanoId.fs#L110-110" class="fsdocs-source-link" title="Source on GitHub">
+                  <a href="https://github.com/pblasucci/ananoid/ananoid/NanoId.fs#L116-116" class="fsdocs-source-link" title="Source on GitHub">
                     <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
                     <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
                   </a>
@@ -444,6 +444,123 @@
                   </p>
                 </div>
               </summary>
+              <p class="fsdocs-remarks">
+                
+ If the input <code>value</code> is empty (ie: <code>null</code>, zero-length, or
+ consists only of whitespace), parsing is considered to succeed
+ (ie: the method will return <code>Some NanoId.Empty</code>). This mirrors
+ the behavior of <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html#MakeNanoId">Alphabet.MakeNanoId</a>
+              </p>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    value
+                  </span>
+                  :
+                  <code>string</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The raw string to be converted.
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><span><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                </dt>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    
+ On successful parsing, returns a <code>NanoId</code> instance;
+ otherwise, returns <code>None</code>.
+ 
+                  </p>
+                </dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '40', 40)" onmouseover="showTip(event, '40', 40)">
+                <p>
+                  <a id="ParseNonEmptyNanoId">
+                    <a href="#ParseNonEmptyNanoId">
+                      <code><span>this.ParseNonEmptyNanoId</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="40">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>this.ParseNonEmptyNanoId</span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        value
+                      </b>
+                      :
+                      <code>string</code>
+                       - 
+                      The raw string to be converted.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                  </span>
+                  
+ On successful parsing, returns a <code>NanoId</code> instance;
+ otherwise, returns <code>None</code>.
+ 
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.Alphabet.ParseNonEmptyNanoId`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.Alphabet.ParseNonEmptyNanoId\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/ananoid/NanoId.fs#L118-118" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Attempts to convert the given <code>value</code> into a
+ <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>,
+ using the current alphabet to guide validation.
+ 
+                  </p>
+                </div>
+              </summary>
+              <p class="fsdocs-remarks">
+                
+ If the input <code>value</code> is empty (ie: <code>null</code>, zero-length, or
+ consists only of whitespace), parsing is considered to fail
+ (ie: the method will return <code>None</code>).
+ 
+              </p>
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
@@ -499,7 +616,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '38', 38)" onmouseover="showTip(event, '38', 38)">
+              <code onmouseout="hideTip(event, '41', 41)" onmouseover="showTip(event, '41', 41)">
                 <p>
                   <a id="Validate">
                     <a href="#Validate">
@@ -508,7 +625,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="38">
+              <div class="fsdocs-tip" id="41">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>Alphabet.Validate<span><span>(<span>letters</span>)</span></span></span></code>

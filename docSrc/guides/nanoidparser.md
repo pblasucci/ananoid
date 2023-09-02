@@ -74,7 +74,6 @@ nanoId: ZoCRoGew6hVWYIIimu-p4, parsed: ZoCRoGew6hVWYIIimu-p4
 </details>
 </div>
 
-
 Next, we see what happens if a raw string _cannot_ be constituted from a given
 alphabet (eg, using a purely numeric alphaber to parse a hexidecimal string):
 
@@ -119,6 +118,7 @@ var message =
   UrlSafe.TryParse(nanoId.ToString(), out var parsed)
   ? $"nanoId: {nanoId}, parsed: {parsed}"
   : $"Failed to parse '{nanoId}' as a numeric nano identifer!";
+
 WriteLine(message);
 ```
 </details>
@@ -135,19 +135,18 @@ Failed to parse 'B978025EB0903089A89F40E43632587D' as a numeric nano identifer!
 </div>
 
 Finally, it is worth noting: the length of the string being parsed is _not_
-validated. However, strings which are: `null`, zero-lengh, or consist only of
-whitespace will result in a parsed value of `cref:M:pblasucci.Ananoid.NanoId.Empty`.
+validated. However, by default, strings which are: `null`, zero-lengh, or
+consist only of whitespace will result in a parsed value of
+`cref:M:pblasucci.Ananoid.NanoId.Empty`.
 
 <div class="lang-bar">
 <details open class="lang-block">
 <summary>F#</summary>
 
 ```fsharp
-NoLookalikes
-|> Alphabet.parseNanoId String.Empty
-|> Option.iter (fun parsed ->
+let didParse, parsed = NoLookalikes.TryParseNanoId String.Empty
+if didParse then
   printfn $"Is empty? %b{NanoId.isEmpty parsed}"
-)
 ```
 </details>
 
@@ -156,7 +155,7 @@ NoLookalikes
 
 ```vb
 Dim parsed As NanoId
-If NoLookalikes.TryParse(nanoId.ToString(), parsed) Then
+If NoLookalikes.TryParseNanoId(String.Empty, parsed) Then
   WriteLine($"Is empty? {NanoId.Empty.Equals(parsed)}")
 End If
 ```
@@ -166,9 +165,9 @@ End If
 <summary>C#</summary>
 
 ```csharp
-if (NoLookalikes.TryParse(nanoId.ToString(), out var parsed))
+if (NoLookalikes.ParseNanoId(string.Empty) is { Value: var parsed })
 {
-  WriteLine($"Is empty? {NanoId.Empty.Equals(parsed)}");
+  WriteLine($"Is empty? {parsed is {Length: 0}}");
 }
 ```
 </details>
@@ -184,6 +183,60 @@ Is empty? true
 </details>
 </div>
 
+If more stringent behavior is required, Ananoid provides four functions/methods
+an alternative. They are:
+
++ `cref:M:pblasucci.Ananoid.NanoIdModule.parseNonEmptyAs`
++ `cref:M:pblasucci.Ananoid.AlphabetModule.parseNonEmptyNanoId`
++ `cref:M:pblasucci.Ananoid.Alphabet.ParseNonEmptyNanoId`
++ `cref:M:pblasucci.Ananoid.AlphabetExtensions.TryParseNonEmptyNanoId`
+
+Specifically, each of these operations will report _failure_ if the input
+provided to them is: `null`, zero-length, or consist only of whitespace.
+This may be seen in the following examples:
+
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+
+```fsharp
+let parsed = null |> NanoId.parseNonEmptyAs Uppercase
+printfn $"Did parse? %b{Option.isSome parsed}"
+```
+</details>
+
+<details open class="lang-block">
+<summary>VB</summary>
+
+```vb
+Dim parsed As NanoId
+If Uppercase.ParseNonEmptyNanoId(Nothing) Is Nothing Then
+  WriteLine("Did parse? false")
+End If
+```
+</details>
+
+<details open class="lang-block">
+<summary>C#</summary>
+
+```csharp
+if (Uppercase.TryParseNonEmptyNanoId(null, out _) is false)
+{
+  WriteLine("Did parse? false");
+}
+```
+</details>
+
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/nanoidparser.fsx
+
+Did parse? false
+```
+</details>
+</div>
 
 ### Related Reading
 
