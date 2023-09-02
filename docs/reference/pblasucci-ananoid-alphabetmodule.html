@@ -639,6 +639,145 @@
                   </p>
                 </div>
               </summary>
+              <p class="fsdocs-remarks">
+                
+ If the given value is empty (ie: <code>null</code>, zero-length, or consists
+ only of whitespace), parsing will succeed (ie: return <code>Some nanoId</code>).
+ However, the resulting <code>NanoId</code> instance will be
+ <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.
+ 
+              </p>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    value
+                  </span>
+                  :
+                  <code>string</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The raw string to be converted.
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    alphabet
+                  </span>
+                  :
+                  <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The letters to check against for validity.
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><span><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                </dt>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    
+ On successful parsing, returns a <code>NanoId</code> instance;
+ otherwise, returns <code>None</code>.
+ 
+                  </p>
+                </dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
+                <p>
+                  <a id="parseNonEmptyNanoId">
+                    <a href="#parseNonEmptyNanoId">
+                      <code><span>Alphabet.parseNonEmptyNanoId&#32;<span>value&#32;alphabet</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="5">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Alphabet.parseNonEmptyNanoId&#32;<span>value&#32;alphabet</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        value
+                      </b>
+                      :
+                      <code>string</code>
+                       - 
+                      The raw string to be converted.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        alphabet
+                      </b>
+                      :
+                      <code><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                       - 
+                      The letters to check against for validity.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                  </span>
+                  
+ On successful parsing, returns a <code>NanoId</code> instance;
+ otherwise, returns <code>None</code>.
+ 
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.AlphabetModule.parseNonEmptyNanoId`')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.AlphabetModule.parseNonEmptyNanoId\'/>')">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/pblasucci/ananoid/ananoid/NanoId.fs#L106-106" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github.png" class="normal"/>
+                    <img src="https://pblasucci.github.io/ananoid/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                    
+ Attempts to convert the given <code>value</code> into a
+ <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>,
+ using a valid alphabet to guide validation.
+ 
+                  </p>
+                </div>
+              </summary>
+              <p class="fsdocs-remarks">
+                
+ Parsing will "fail" (ie: return <code>None</code>) if the given value is empty
+ (ie: <code>null</code>, zero-length, or consists only of whitespace).
+ 
+              </p>
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">

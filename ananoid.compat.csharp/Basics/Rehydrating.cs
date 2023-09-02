@@ -81,4 +81,8 @@ public class Rehydrating
     var didParse = alphabet.TryParseNanoId(nanoId.ToString(), out var parsed);
     return (didParse && nanoId.Equals(parsed)).Label($"{nanoId} != {parsed}");
   }
+
+  [Property]
+  public bool Can_explicitly_fail_to_parse_empty_input(Alphabet alphabet)
+    => alphabet.TryParseNonEmptyNanoId(string.Empty, out _) is false;
 }

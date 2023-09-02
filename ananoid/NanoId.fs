@@ -103,11 +103,20 @@ module Alphabet =
     | Allowed alphabet value -> Some(NanoId value)
     | _ -> None
 
+  let parseNonEmptyNanoId value alphabet =
+    match value with
+    | Empty -> None
+    | Allowed alphabet value -> Some(NanoId value)
+    | _ -> None
+
 
 type Alphabet with
   member me.MakeNanoId(size) = me |> Alphabet.makeNanoId size
 
   member me.ParseNanoId(value) = me |> Alphabet.parseNanoId value
+
+  member me.ParseNonEmptyNanoId(value) =
+    me |> Alphabet.parseNonEmptyNanoId value
 
 
 [<Extension>]
@@ -120,14 +129,20 @@ type AlphabetExtensions =
   static member ToAlphabetOrThrow(letters) = Alphabet.makeOrRaise letters
 
   [<Extension>]
-  static member TryParseNanoId
+  static member TryParseNanoId(alphabet, value, nanoId : outref<NanoId>) =
+    let parsed = alphabet |> Alphabet.parseNanoId value
+    nanoId <- parsed |> Option.defaultValue NanoId.Empty
+    Option.isSome parsed
+
+  [<Extension>]
+  static member TryParseNonEmptyNanoId
     (
       alphabet,
       value,
       nanoId : outref<NanoId>
     )
     =
-    let parsed = alphabet |> Alphabet.parseNanoId value
+    let parsed = alphabet |> Alphabet.parseNonEmptyNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
 
@@ -143,6 +158,9 @@ module NanoId =
   let ofOptions alphabet size = alphabet |> Alphabet.makeNanoId size
 
   let parseAs alphabet value = alphabet |> Alphabet.parseNanoId value
+
+  let parseNonEmptyAs alphabet value =
+    alphabet |> Alphabet.parseNonEmptyNanoId value
 
 
 module KnownAlphabets =

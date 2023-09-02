@@ -50,7 +50,6 @@ Public Module Basics
   Sub RehydrateExistingValues()
     ' A NanoIdParser can validate strings and transform them into NanoIds.
     Dim parsed1 As NanoId
-
     If KnownAlphabets.UrlSafe.TryParseNanoId("ypswLHEC", parsed1) Then
       WriteLine($"Parsed Url-safe: {parsed1}")
     End If
@@ -58,9 +57,14 @@ Public Module Basics
     ' NanoIdParser instances are pre-defined for all the well-know alphabets,
     ' because different alphabets have different validation criteria.
     Dim parsed2 As NanoId
-
     If Not KnownAlphabets.Numbers.TryParseNanoId("!@#$%", parsed2) Then
       WriteLine($"{nameof(parsed2)} never was parsed: '{parsed2}'")
+    End If
+
+    ' By default, an empty string can be parsed into any alphabet, but
+    ' parsing can be told to explicitly fail on empty inputs instead.
+    If KnownAlphabets.Uppercase.ParseNonEmptyNanoId("    ") Is Nothing Then
+      WriteLine($"Could not parse an empty string")
     End If
   End Sub
 End Module
