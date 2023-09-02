@@ -23,7 +23,7 @@ following command:
 <summary>CLI</summary>
 
 ```sh
-> dotnet add package pblasucci.ananoid --version 1.0.1
+> dotnet add package pblasucci.ananoid --version 1.1.1
 ```
 </details>
 </div>

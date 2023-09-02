@@ -26,7 +26,7 @@ The latest version of this package can be installed from [NuGet][2] via the
 following command:
 
 ```sh
-> dotnet add package pblasucci.ananoid --version 1.0.1
+> dotnet add package pblasucci.ananoid --version 1.1.0
 ```
 
 ### Building from source
