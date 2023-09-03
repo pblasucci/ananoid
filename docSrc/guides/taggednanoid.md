@@ -28,7 +28,7 @@ safety of more robust types.
 Effectively, instead of generating strings, the functions in the
 `cref:T:pblasucci.Ananoid.Core.Tagged` module (ab)use F#'s [units of measure][2]
 functionality to generate strings that have been "tagged" with a special
-measure, `cref:T:pblasucci.Ananoid.Core.Tagged.nanoid@measure`. This causes
+measure, `cref:T:pblasucci.Ananoid.Core.Tagged.nanoid@measure'`. This causes
 them to be typed-checked separately from ordinary string. However, as they are
 erased at run-time, they pose none of the overhead of full types (like
 `cref:T:pblasucci.Ananoid.NanoId`). Usage can be as simple as:
@@ -57,6 +57,7 @@ let taggedNumericId = nanoIdOf' "0123456789" 12
 > let taggedNumericId = nanoIdOf' "0123456789" 12;;
     taggedNumericIdL string<nanoid> = "387443539896"
 ```
+</details>
 </div>
 
 Ananoid further provides the `tag` function for converting simple strings into

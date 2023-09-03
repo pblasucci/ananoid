@@ -186,7 +186,7 @@ safety of more robust types.</p>
 <p>Effectively, instead of generating strings, the functions in the
 <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-core-tagged.html">Tagged</a> module (ab)use F#'s <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure">units of measure</a>
 functionality to generate strings that have been "tagged" with a special
-measure, <a href="https://learn.microsoft.com/dotnet/api/pblasucci.ananoid.core.tagged.nanoid@measure">nanoid@measure</a>. This causes
+measure, <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-core-tagged-nanoid@measure'.html">nanoid</a>. This causes
 them to be typed-checked separately from ordinary string. However, as they are
 erased at run-time, they pose none of the overhead of full types (like
 <a href="https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>). Usage can be as simple as:</p>
@@ -209,6 +209,7 @@ erased at run-time, they pose none of the overhead of full types (like
 &gt; let taggedNumericId = nanoIdOf' "0123456789" 12;;
     taggedNumericIdL string&lt;nanoid&gt; = "387443539896"
 </code></pre></td></tr></table>
+</details>
 </div>
 <p>Ananoid further provides the <code>tag</code> function for converting simple strings into
 tagged strings. For converting in the opposite direction (from a tagged string
