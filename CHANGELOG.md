@@ -42,4 +42,4 @@ and this project adheres to [Semantic Versioning][SemVer].
 [Unreleased]: https://github.com/pblasucci/ananoid/compare/v1.1.0...HEAD
 [1.0.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.0.0
 [1.0.1]: https://github.com/pblasucci/ananoid/releases/tag/v1.0.1
-[1.1.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.1.1
+[1.1.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.1.0
