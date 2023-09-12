@@ -100,13 +100,13 @@ If checked.IsOk Then
   Dim alphabet = checked.ResultValue
   WriteLine($"{alphabet.Letters} are valid.")
 Else
-  Dim error = checked.ErrorValue
+  Dim [error] = checked.ErrorValue
   Select True
-    Case error.IsAlphabetTooLarge
-      WriteLine($"Too large: '{error.Letters}'!")
+    Case [error].IsAlphabetTooLarge
+      WriteLine($"Too large: '{[error].Letters}'!")
 
-    Case error.IsAlphabetTooSmall
-      WriteLine($"Too small: '{error.Letters}'!")
+    Case [error].IsAlphabetTooSmall
+      WriteLine($"Too small: '{[error].Letters}'!")
 
     Case Else
       Throw New UnreachableException()

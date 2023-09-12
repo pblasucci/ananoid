@@ -238,13 +238,13 @@ why, exactly, a given set of letters is not valid.</p>
   <span class="k">Dim</span> alphabet = checked.ResultValue
   WriteLine($<span class="s">"{alphabet.Letters} are valid."</span>)
 <span class="k">Else</span>
-  <span class="k">Dim</span> <span class="k">error</span> = checked.ErrorValue
+  <span class="k">Dim</span> [<span class="k">error</span>] = checked.ErrorValue
   <span class="k">Select</span> <span class="k">True</span>
-    <span class="k">Case</span> <span class="k">error</span>.IsAlphabetTooLarge
-      WriteLine($<span class="s">"Too large: '{error.Letters}'!"</span>)
+    <span class="k">Case</span> [<span class="k">error</span>].IsAlphabetTooLarge
+      WriteLine($<span class="s">"Too large: '{[error].Letters}'!"</span>)
 
-    <span class="k">Case</span> <span class="k">error</span>.IsAlphabetTooSmall
-      WriteLine($<span class="s">"Too small: '{error.Letters}'!"</span>)
+    <span class="k">Case</span> [<span class="k">error</span>].IsAlphabetTooSmall
+      WriteLine($<span class="s">"Too small: '{[error].Letters}'!"</span>)
 
     <span class="k">Case</span> <span class="k">Else</span>
       <span class="k">Throw</span> <span class="k">New</span> UnreachableException()
