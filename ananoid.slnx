@@ -1,0 +1,22 @@
+<Solution>
+  <Project Path="ananoid\ananoid.fsproj" />
+  <Project Path="ananoidcc\ananoidcc.fsproj" />
+  <Folder Name="/tests/">
+    <Project Path="ananoid.tests\ananoid.tests.fsproj" />
+    <Project Path="ananoid.perf\ananoid.perf.fsproj" />
+  </Folder>
+  <Folder Name="/compat/">
+    <Project Path="ananoid.compat.csharp\ananoid.compat.csharp.csproj" />
+    <Project Path="ananoid.compat.vbasic\ananoid.compat.vbasic.vbproj" />
+  </Folder>
+  <Folder Name="/errata/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="CHANGELOG.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE.txt" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>

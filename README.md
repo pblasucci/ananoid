@@ -11,7 +11,7 @@ for uniquely identifying database entries, file names, et cetera.
 
 Ananoid (pronounced: "an-an-oyd") is a library for generating such identifiers.
 It uses cryptographically secure random number generation, and has no
-dependencies beyond the dotnet 6 base class libraries. It has both a high-level
+dependencies beyond the .NET 8 base class libraries. It has both a high-level
 API, and a simpler, more memory-efficient, low-level API.
 
 ### Recommended Reading
@@ -33,9 +33,9 @@ following command:
 
 _Prerequisites:_
 
-[.NET SDK version 7][3], or higher (note, .NET 7 is required to _build_ all
+[.NET SDK version 10][3], or higher (note, .NET 10 is required to _build_ all
 the projects in this repository. However, _consuming_ the `pblasucci.ananoid.dll`
-file only requires .NET 6).
+file only requires .NET 8).
 
 _Build steps:_
 
@@ -74,7 +74,7 @@ For more information see the project's [License][0] file.
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/ai/nanoid
 [2]: https://www.nuget.org/packages/pblasucci.ananoid
-[3]: https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+[3]: https://dotnet.microsoft.com/en-us/download/dotnet/10.0
 [4]: https://pblasucci.github.io/ananoid/guides/nanoiddefault.html
 [5]: https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid.html
 [6]: https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md

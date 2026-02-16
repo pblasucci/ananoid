@@ -5,76 +5,56 @@
 *)
 namespace pblasucci.Ananoid.Tests
 
-open FsCheck
+open global.Xunit
+
+open Hedgehog
+open Hedgehog.FSharp
+open Hedgehog.Xunit
+
 open pblasucci.Ananoid
 open pblasucci.Ananoid.Core
 open pblasucci.Ananoid.Core.Tagged
 open pblasucci.Ananoid.KnownAlphabets
 
 
-type RawNanoId = RawNanoId of string
+type Generation =
+  static let validAlphabet : Gen<Alphabet> =
+    Gen.item [
+      Alphanumeric
+      HexadecimalLowercase
+      HexadecimalUppercase
+      Lowercase
+      NoLookalikes
+      NoLookalikesSafe
+      Numbers
+      Uppercase
+      UrlSafe
+    ]
 
-type TaggedNanoId = TaggedNanoId of string<nanoid>
+  static let taggedNanoId : Gen<string<nanoid>> =
+    Gen.sized (fun size -> gen { return size |> nanoIdOf' Defaults.Alphabet })
+
+  static member Configuration =
+    AutoGenConfig.defaults
+    |> AutoGenConfig.addGenerator validAlphabet
+    |> AutoGenConfig.addGenerator taggedNanoId
 
 
-type Generation() =
-  static member ValidAlphabet =
-    let generate =
-      Gen.elements [
-        Alphanumeric
-        HexadecimalLowercase
-        HexadecimalUppercase
-        Lowercase
-        NoLookalikes
-        NoLookalikesSafe
-        Numbers
-        Uppercase
-        UrlSafe
-      ]
+type SmallNegativeIntAttribute() =
+  inherit GenAttribute<int>()
 
-    Arb.fromGen generate
+  override _.Generator = Gen.int32 (Range.constant -100 -1)
 
-  static member RawNanoId =
-    let generate =
-      Gen.sized (fun size ->
-        Gen.fresh (fun () -> RawNanoId(nanoIdOf Defaults.Alphabet size))
-      )
-      |> Gen.scaleSize (max 1)
 
-    let shrink (RawNanoId value) =
-      match String.length value with
-      | length when length > 1 ->
-        length
-        |> Arb.shrinkNumber
-        |> Seq.map (fun size -> RawNanoId(nanoIdOf Defaults.Alphabet size))
-      | _ -> Seq.empty
+type RawNanoIdAttribute() =
+  inherit GenAttribute<string>()
 
-    Arb.fromGenShrink (generate, shrink)
+  override _.Generator =
+    Gen.sized (fun size -> gen {
+      let! alphabet = Gen.autoWith<Alphabet> Generation.Configuration
+      return size |> nanoIdOf alphabet.Letters
+    })
 
-  static member TaggedNanoId =
-    let generate =
-      Gen.sized (fun size ->
-        Gen.fresh (fun () -> TaggedNanoId(nanoIdOf' Defaults.Alphabet size))
-      )
 
-    let shrink (TaggedNanoId value) =
-      match String.length (string value) with
-      | 0 -> Seq.empty
-      | length ->
-        length
-        |> Arb.shrinkNumber
-        |> Seq.map (fun size -> TaggedNanoId(nanoIdOf' Defaults.Alphabet size))
-
-    Arb.fromGenShrink (generate, shrink)
-
-  static member NanoId =
-    let generate = Gen.fresh NanoId.NewId
-    let shrink nanoId =
-      match String.length (string nanoId) with
-      | 0 -> Seq.empty
-      | length ->
-        length
-        |> Arb.shrinkNumber
-        |> Seq.map (NanoId.ofOptions UrlSafe)
-
-    Arb.fromGenShrink (generate, shrink)
+[<assembly: CaptureConsole>]
+do ()

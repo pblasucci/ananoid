@@ -4,42 +4,28 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-using Xunit.Abstractions;
-
+#pragma warning disable CS1591 // ⮜⮜⮜ missing XMLDoc comments
 namespace pblasucci.Ananoid.Compat.Customization;
 
-// ⮟⮟⮟ missing XMLDoc comments
-#pragma warning disable CS1591
 using Xunit;
 
 public class BringYourOwnAlphabets
 {
-  private readonly ITestOutputHelper output;
-  public BringYourOwnAlphabets(ITestOutputHelper output)
-  {
-    this.output = output;
-  }
-
   [Property]
-  public Property Custom_alphabet_permits_value_it_creates(NonNegativeInt input)
+  public bool Custom_alphabet_permits_value_it_creates(
+    [NonZeroInt(1, 1000)] int inputSize)
   {
-    switch (Alphabet.Validate("qwerty123"))
-    {
-      case { IsOk: false, ErrorValue: var error }:
-        return false.Label($"{error.Message} for '{error.Letters}'");
-
-      case { IsOk: true, ResultValue: var alphabet }:
-        var nanoId = alphabet.MakeNanoId(size: (int)input);
-        var okay = alphabet.TryParseNanoId(nanoId.ToString(), out var parsed);
-        return (okay && nanoId.Equals(parsed)).Collect(nanoId);
-    }
+    var alphabet = "qwerty123".ToAlphabetOrThrow();
+    var nanoId = alphabet.MakeNanoId(inputSize);
+    var didParse = alphabet.TryParseNanoId(nanoId.ToString(), out var parsed);
+    return didParse && parsed.Equals(nanoId);
   }
 
-  [Property(MaxTest = 1)]
+  [Fact]
   public void Custom_alphabet_must_be_at_least_one_letter()
   {
     var x = Assert.Throws<AlphabetException>(() => "".ToAlphabetOrThrow());
-    output.WriteLine($"FATAL! {x.Alphabet}");
+    Console.WriteLine($"FATAL! {x.Reason}");
 
     Assert.True(x.Reason.IsAlphabetTooSmall);
   }
@@ -47,10 +33,9 @@ public class BringYourOwnAlphabets
   [Fact]
   public void Custom_alphabet_must_be_less_then_256_letters()
   {
-    var x = Assert.Throws<AlphabetException>(
-      () => new string('$', 386).ToAlphabetOrThrow()
-    );
-    output.WriteLine($"FATAL! {x.Alphabet}");
+    var tooLarge = new string('#', 386);
+    var x = Assert.Throws<AlphabetException>(tooLarge.ToAlphabetOrThrow);
+    Console.WriteLine($"FATAL! {x.Reason}");
 
     Assert.True(x.Reason.IsAlphabetTooLarge);
   }

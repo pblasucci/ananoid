@@ -1,4 +1,4 @@
-Imports Microsoft.FSharp.Core
+Imports pblasucci.Ananoid.AlphabetExtensions
 Imports pblasucci.Ananoid.KnownAlphabets
 
 Public Module Customization

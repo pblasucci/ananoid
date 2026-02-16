@@ -1,3 +1,5 @@
+Imports pblasucci.Ananoid.AlphabetExtensions
+
 Public Module Basics
   Sub NanoIdsCanBeEmpty()
     ' NanoId is a struct (value type), whose default value is 'empty'.
@@ -8,8 +10,8 @@ Public Module Basics
 
     ' ⮟⮟⮟ This is the preferred idiom.
     Dim empty2 = NanoId.Empty
-    ' An instance may check the `.IsEmpty` property.
-    WriteLine($"{nameof(empty0)} is empty? {empty0.Length < 1}")
+    ' An instance may be checked with the `NanoId.IsEmpty` function.
+    WriteLine($"{nameof(empty0)} is empty? {NanoId.IsEmpty(empty0)}")
 
     ' Empty instances are always equal.
     Dim bothAreEqual = empty1.Equals(empty2)

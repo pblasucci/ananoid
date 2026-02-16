@@ -6,6 +6,7 @@
 namespace pblasucci.Ananoid
 
 open System.Runtime.CompilerServices
+open System.Runtime.InteropServices
 
 
 /// Represents a unique textual identifier, with a known length,
@@ -25,6 +26,9 @@ type NanoId =
   /// symbols: <c>A-Za-z0-9_-</c> and the default size is 21).
   /// </summary>
   static member NewId : unit -> NanoId
+
+  /// Returns true, when the given nanoId is zero-valued; otherwise, false.
+  static member IsEmpty : nanoId : NanoId -> bool
 
 
 /// <summary>
@@ -317,7 +321,6 @@ module Alphabet =
 /// Contains utilities intended to simplify working with
 /// <see cref="T:pblasucci.Ananoid.Alphabet" /> in languages other than F#.
 /// </summary>
-[<Extension>]
 [<Sealed>]
 type AlphabetExtensions =
   /// <summary>
@@ -389,7 +392,7 @@ type AlphabetExtensions =
   /// </remarks>
   [<Extension>]
   static member TryParseNanoId :
-    alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
+    alphabet : Alphabet * value : string * [<Out>] nanoId : outref<NanoId> -> bool
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
@@ -411,7 +414,7 @@ type AlphabetExtensions =
   /// </remarks>
   [<Extension>]
   static member TryParseNonEmptyNanoId :
-    alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
+    alphabet : Alphabet * value : string * [<Out>] nanoId : outref<NanoId> -> bool
 
 
 /// Pre-defined alphabets commonly used to generate identifiers.

@@ -7,7 +7,7 @@ namespace pblasucci.Ananoid
 
 open System
 open System.Runtime.CompilerServices
-open Microsoft.FSharp.Core
+open System.Runtime.InteropServices
 
 
 [<AutoOpen>]
@@ -31,6 +31,8 @@ type NanoId(nanoId' : string) =
   static member Empty = NanoId()
 
   static member NewId() = NanoId(Core.nanoId ())
+
+  static member IsEmpty(nanoId : NanoId) = nanoId.Length < 1
 
 
 type AlphabetError =
@@ -119,7 +121,6 @@ type Alphabet with
     me |> Alphabet.parseNonEmptyNanoId value
 
 
-[<Extension>]
 [<Sealed>]
 type AlphabetExtensions =
   [<Extension>]
@@ -129,7 +130,13 @@ type AlphabetExtensions =
   static member ToAlphabetOrThrow(letters) = Alphabet.makeOrRaise letters
 
   [<Extension>]
-  static member TryParseNanoId(alphabet, value, nanoId : outref<NanoId>) =
+  static member TryParseNanoId
+    (
+      alphabet,
+      value,
+      [<Out>] nanoId : outref<NanoId>
+    )
+    =
     let parsed = alphabet |> Alphabet.parseNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
@@ -139,7 +146,7 @@ type AlphabetExtensions =
     (
       alphabet,
       value,
-      nanoId : outref<NanoId>
+      [<Out>] nanoId : outref<NanoId>
     )
     =
     let parsed = alphabet |> Alphabet.parseNonEmptyNanoId value
@@ -185,5 +192,6 @@ module KnownAlphabets =
   let UrlSafe = { alphabet' = UrlSafe }
 
 
+// NOTE ⮟⮟⮟ needed for VB.NET support
 [<assembly : Extension>]
 do ()

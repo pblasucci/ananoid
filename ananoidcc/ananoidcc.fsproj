@@ -19,11 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia.Desktop" Version="11.0.4" />
-      <PackageReference Include="Avalonia.Diagnostics" Version="11.0.4" />
-      <PackageReference Update="FSharp.Core" Version="7.0.400" />
-      <PackageReference Include="Avalonia.FuncUI" Version="1.0.1" />
-      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.4" />
+      <PackageReference Include="Avalonia.Desktop" />
+      <PackageReference Include="Avalonia.Diagnostics" />
+      <PackageReference Include="Avalonia.FuncUI" />
+      <PackageReference Include="Avalonia.Themes.Fluent" />
+      <PackageReference Include="FSharp.Core" />
     </ItemGroup>
 
     <ItemGroup>

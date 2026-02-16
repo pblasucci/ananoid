@@ -22,8 +22,10 @@
 ///
 module pblasucci.Ananoid.Core
 
-#nowarn "9" (* unverifiable IL - see `Core.stackspan` function for details *)
-#nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
+// unverifiable IL - see `Core.stackspan` function for details
+#nowarn "9"
+// inline IL -- see `Tagged.nanoid.tag` function for details
+#nowarn "42"
 
 open System
 open System.Security.Cryptography
