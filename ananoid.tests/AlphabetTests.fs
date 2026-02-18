@@ -16,7 +16,7 @@ open pblasucci.Ananoid
 
 [<Fact>]
 let ``Custom alphabet fails if letter-set is null`` () =
-  match Alphabet.ofLetters null with
+  match Alphabet.ofLetters (null |> box |> unbox) with
   // ⮟ pass ⮟
   | Error(AlphabetTooSmall _) -> ()
   // ⮟ fail ⮟

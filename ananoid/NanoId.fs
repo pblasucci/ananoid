@@ -11,22 +11,26 @@ open System.Runtime.InteropServices
 
 
 [<AutoOpen>]
-module StringPatterns =
-  let inline (|Empty|_|) value =
-    if String.IsNullOrWhiteSpace value then Some() else None
+module String =
+  let inline trimmed value =
+    match value with
+    | Null -> ""
+    | NonNull(value : string) -> value.Trim()
 
-  let inline (|Trimmed|) (value : string) =
-    Trimmed(if String.IsNullOrWhiteSpace value then "" else value.Trim())
+  let inline (|Trimmed|) value = trimmed value
 
-  let inline (|Length|) (Trimmed trimmed) = Length(uint32 trimmed.Length)
+  let inline (|Length|) value =
+    match value with
+    | Null -> 0ul
+    | NonNull(Trimmed value) -> uint32 value.Length
 
 
 [<IsReadOnly>]
 [<Struct>]
-type NanoId(nanoId' : string) =
-  member _.Length = String.length nanoId'
+type NanoId(nanoId' : string | null) =
+  member _.Length = nanoId' |> trimmed |> String.length
 
-  override _.ToString() = let (Trimmed value) = nanoId' in value
+  override _.ToString() = trimmed nanoId'
 
   static member Empty = NanoId()
 
@@ -86,7 +90,7 @@ type AlphabetError with
 module Alphabet =
   let ofLetters letters = Alphabet.Validate letters
 
-  let inline (|Letters|) (alphabet : Alphabet) = Letters(string alphabet)
+  let inline (|Letters|) (alphabet : Alphabet) = string alphabet
 
   let makeOrRaise letters =
     match ofLetters letters with
@@ -101,13 +105,13 @@ module Alphabet =
 
   let parseNanoId value alphabet =
     match value with
-    | Empty -> Some NanoId.Empty
+    | Length 0ul -> Some NanoId.Empty
     | Allowed alphabet value -> Some(NanoId value)
     | _ -> None
 
   let parseNonEmptyNanoId value alphabet =
     match value with
-    | Empty -> None
+    | Length 0ul -> None
     | Allowed alphabet value -> Some(NanoId value)
     | _ -> None
 
