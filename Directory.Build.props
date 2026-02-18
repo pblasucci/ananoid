@@ -41,6 +41,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <!-- TreatWarningsAsErrors disabled for now due to FSharp.Core version conflicts -->
+    <!-- Settings specific to RELEASE builds go here -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>
