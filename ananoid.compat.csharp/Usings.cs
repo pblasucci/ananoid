@@ -9,3 +9,4 @@ global using Hedgehog.Xunit;
 global using Xunit;
 
 [assembly: CaptureConsole]
+// ⮝⮝⮝ enables using `Console.WriteLine` with xUnit.v3

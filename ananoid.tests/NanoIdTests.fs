@@ -29,16 +29,16 @@ let ``Multiple empty NanoId instances are equal`` () =
 [<Fact>]
 let ``Default NanoId is 21 UrlSafe characters`` () =
   let value = NanoId.ofDefaults ()
-  let parsed = UrlSafe.ParseNanoId(string value)
   Assert.Multiple(
     (fun () -> Assert.Equal(21, value.Length)),
-    (fun () -> Assert.True(Option.isSome parsed))
+    (fun () ->
+      // NOTE "can be parsed" is a good-enough proxy for "is of alphabet"
+      Assert.True(value |> string |> UrlSafe.ParseNanoId |> Option.isSome)
+    )
   )
 
 [<Property>]
-let ``Output size always equals input size``
-  ([<NonNegativeInt(1000000)>] size)
-  =
+let ``Output size always equals input size`` ([<NonNegativeInt(1000000)>] size) =
   property {
     let _generated = UrlSafe.MakeNanoId(size)
     let length = _generated.Length
@@ -47,9 +47,7 @@ let ``Output size always equals input size``
   }
 
 [<Property(typeof<Generation>)>]
-let ``Multiple instances are equal when their underlying values are equal``
-  ([<RawNanoId>] input)
-  =
+let ``Multiple instances are equal when their underlying values are equal`` ([<RawNanoId>] input) =
   property {
     let _one = UrlSafe |> Alphabet.parseNanoId input
     let _two = input |> NanoId.parseAs UrlSafe
@@ -68,11 +66,7 @@ let ``Multiple instances are ordered the same as their underlying values``
   property {
     let _inputs = List.sort [ input1; input2; input3 ]
     let _values =
-      List.sort [
-        yield! fromRaw input1
-        yield! fromRaw input2
-        yield! fromRaw input3
-      ]
+      List.sort [ yield! fromRaw input1; yield! fromRaw input2; yield! fromRaw input3 ]
 
     let _correctlySorted =
       _values
@@ -84,10 +78,7 @@ let ``Multiple instances are ordered the same as their underlying values``
   }
 
 [<Property(typeof<Generation>)>]
-let ``Parse and ToString are invertible``
-  (alphabet : Alphabet)
-  ([<PositiveInt(1000000)>] nanoIdLength)
-  =
+let ``Parse and ToString are invertible`` (alphabet : Alphabet) ([<PositiveInt(1000000)>] nanoIdLength) =
   property {
     let nanoId = alphabet.MakeNanoId nanoIdLength
     let parsed = nanoId |> string |> NanoId.parseAs alphabet

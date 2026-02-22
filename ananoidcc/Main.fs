@@ -45,10 +45,7 @@ module Main =
       MenuItem.header "Pre-defined..."
       MenuItem.viewItems [
         for KeyValue(name, letters) in alphabets do
-          MenuItem.create [
-            MenuItem.header name
-            MenuItem.onClick (fun _ -> state.Set letters)
-          ]
+          MenuItem.create [ MenuItem.header name; MenuItem.onClick (fun _ -> state.Set letters) ]
       ]
     ]
 
@@ -77,11 +74,7 @@ module Main =
               TextBlock.column 1
               TextBlock.text (computeSize state.Current)
             ]
-            Menu.create [
-              Menu.row 0
-              Menu.column 2
-              Menu.viewItems [ alphabetMenuItems state ]
-            ]
+            Menu.create [ Menu.row 0; Menu.column 2; Menu.viewItems [ alphabetMenuItems state ] ]
             TextBox.create [
               TextBox.name input
               TextBox.row 1
@@ -114,8 +107,7 @@ module Main =
               Label.row 0
               Label.column 0
               Label.content "Length"
-              Label.tip
-                "The length of a generated identifier, in number of characters."
+              Label.tip "The length of a generated identifier, in number of characters."
             ]
             NumericUpDown.create [
               NumericUpDown.row 1
@@ -165,8 +157,8 @@ module Main =
           if change.HasValue then
             state.Set(
               match state.Current with
-              | PerHour _ -> PerHour (float change.Value)
-              | PerSecond _ -> PerSecond (float change.Value)
+              | PerHour _ -> PerHour(float change.Value)
+              | PerSecond _ -> PerSecond(float change.Value)
             )
 
         let updateUnits units = state.Set(units state.Current.Amount)
@@ -196,11 +188,7 @@ module Main =
               NumericUpDown.value (decimal state.Current.Amount)
               NumericUpDown.onValueChanged updateValue
             ]
-            TextBlock.create [
-              TextBlock.row 1
-              TextBlock.column 1
-              TextBlock.text "Nano IDs"
-            ]
+            TextBlock.create [ TextBlock.row 1; TextBlock.column 1; TextBlock.text "Nano IDs" ]
             RadioButton.create [
               RadioButton.row 1
               RadioButton.column 2
@@ -239,7 +227,8 @@ module Main =
               Grid.row 0
               Button.content "Generate Identifier"
               Button.onClick (fun _ ->
-                nanoId.Set(nanoIdOf alphabet.Current (int length.Current))
+                let value = nanoIdOf alphabet.Current (int length.Current)
+                nanoId.Set(value)
               )
             ]
             TextBox.create [
@@ -280,11 +269,7 @@ module Main =
           (* results *)
           Border.create [
             Border.classes [ nameof results ]
-            Border.child (
-              TextBlock.create [
-                TextBlock.text (formatDuration results.Current)
-              ]
-            )
+            Border.child (TextBlock.create [ TextBlock.text (formatDuration results.Current) ])
           ]
 
           generatorView (alphabet, length)

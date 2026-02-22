@@ -313,8 +313,7 @@ module Alphabet =
   /// Parsing will "fail" (ie: return <c>None</c>) if the given value is empty
   /// (ie: <c>null</c>, zero-length, or consists only of whitespace).
   /// </remarks>
-  val parseNonEmptyNanoId :
-    value : string -> alphabet : Alphabet -> NanoId option
+  val parseNonEmptyNanoId : value : string -> alphabet : Alphabet -> NanoId option
 
 
 /// <summary>
@@ -391,8 +390,7 @@ type AlphabetExtensions =
   /// instance will be <see cref='P:pblasucci.Ananoid.NanoId.Empty'/>.
   /// </remarks>
   [<Extension>]
-  static member TryParseNanoId :
-    alphabet : Alphabet * value : string * [<Out>] nanoId : outref<NanoId> -> bool
+  static member TryParseNanoId : alphabet : Alphabet * value : string * [<Out>] nanoId : outref<NanoId> -> bool
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
@@ -413,8 +411,7 @@ type AlphabetExtensions =
   /// method will return <c>false</c>).
   /// </remarks>
   [<Extension>]
-  static member TryParseNonEmptyNanoId :
-    alphabet : Alphabet * value : string * [<Out>] nanoId : outref<NanoId> -> bool
+  static member TryParseNonEmptyNanoId : alphabet : Alphabet * value : string * [<Out>] nanoId : outref<NanoId> -> bool
 
 
 /// Pre-defined alphabets commonly used to generate identifiers.

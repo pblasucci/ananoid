@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning][SemVer].
 
 ╮( ꒪౪꒪)╭
 
+## [1.2.0] - ???
+
+### Changed
+
+- Updated SDK to .NET 10
+- Updated RTM to .NET 8
+- Upgraded dependecies and tools
+- More performance optimizations in `Core.fs`
+- More benchmarks covering more scenarios
+
+### Added
+
+- `NanoId.IsEmpty` static method (analog to `NanoId.isEmpty` module function)
+
 ## [1.1.0] - 2023-09-02
 
 ### Added
@@ -43,3 +57,4 @@ and this project adheres to [Semantic Versioning][SemVer].
 [1.0.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.0.0
 [1.0.1]: https://github.com/pblasucci/ananoid/releases/tag/v1.0.1
 [1.1.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.1.0
+[2.0.0]: https://github.com/pblasucci/ananoid/releases/tag/v2.0.0

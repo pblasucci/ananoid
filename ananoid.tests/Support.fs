@@ -50,11 +50,13 @@ type RawNanoIdAttribute() =
   inherit GenAttribute<string>()
 
   override _.Generator =
-    Gen.sized (fun size -> gen {
-      let! alphabet = Gen.autoWith<Alphabet> Generation.Configuration
-      return size |> nanoIdOf alphabet.Letters
-    })
+    Gen.sized (fun size ->
+      gen {
+        let! alphabet = Gen.autoWith<Alphabet> Generation.Configuration
+        return size |> nanoIdOf alphabet.Letters
+      }
+    )
 
 
-[<assembly: CaptureConsole>]
+[<assembly : CaptureConsole>]
 do ()

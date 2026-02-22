@@ -35,19 +35,18 @@ open Microsoft.FSharp.NativeInterop
 open type System.Numerics.BitOperations
 
 
-let inline private outOfRange paramName =
-  raise (ArgumentOutOfRangeException paramName)
+let inline private outOfRange paramName = raise (ArgumentOutOfRangeException paramName)
 
 let inline private stackspan<'T when 'T : unmanaged> size =
   Span<'T>(size |> NativePtr.stackalloc<'T> |> NativePtr.toVoidPtr, size)
 
 let inline private (|Length|) value =
   if String.IsNullOrWhiteSpace value then
-    Length(0ul)
+    0ul
   else
-    Length(value.Trim() |> String.length |> uint32)
+    value.Trim() |> String.length |> uint32
 
-let private generatePow2 (alphabet: string) (mask: int) size =
+let private generatePow2 (alphabet : string) (mask : int) size =
   String.Create(
     size,
     struct (alphabet, mask),
@@ -61,7 +60,7 @@ let private generatePow2 (alphabet: string) (mask: int) size =
     )
   )
 
-let private generate (alphabet: string) (length: int) (mask: int) size =
+let private generate (alphabet : string) (length : int) (mask : int) size =
   let step = int (ceil ((1.6 * float mask * float size) / float length))
 
   String.Create(
@@ -99,8 +98,7 @@ module Defaults =
   /// This is the default alphabet if one is not explicitly specified.
   /// </summary>
   [<Literal>]
-  let Alphabet =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
+  let Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
 
   /// Twenty-one (21) single-byte characters.
   /// This is the default output length if one is not explicitly specified.
@@ -121,8 +119,10 @@ module Defaults =
 /// </exception>
 [<CompiledName("NewNanoId")>]
 let nanoIdOf (Length length as alphabet) size =
-  if size < 1 then ""
-  elif length < 1u || 255u < length then outOfRange (nameof alphabet)
+  if size < 1 then
+    ""
+  elif length < 1u || 255u < length then
+    outOfRange (nameof alphabet)
   else
     let mask = (2 <<< 31 - LeadingZeroCount((length - 1u) ||| 1u)) - 1
     if mask + 1 = int length then
@@ -203,8 +203,7 @@ module Alphabets =
   // Combination of all the lowercase, uppercase characters and numbers
   /// from 0 to 9, not including any symbols or special characters.
   [<Literal>]
-  let Alphanumeric =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  let Alphanumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
   /// Hexadecimal lowercase characters: 0123456789abcdef.
   [<Literal>]

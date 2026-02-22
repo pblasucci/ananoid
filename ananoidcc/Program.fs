@@ -23,7 +23,8 @@ type App() =
   override me.OnFrameworkInitializationCompleted() =
     match me.ApplicationLifetime with
     | :? IClassicDesktopStyleApplicationLifetime as desktop ->
-      desktop.MainWindow <- MainHost()
+      let host = MainHost()
+      desktop.MainWindow <- host
 
     | _ -> raise (InvalidProgramException WrongLifetime)
 

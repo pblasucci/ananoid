@@ -8,7 +8,6 @@ namespace Avalonia.FuncUI.DSL
 [<AutoOpen>]
 module Label =
   open Avalonia.Controls
-  open Avalonia.FuncUI.Builder
   open Avalonia.FuncUI.Types
 
   let create (attrs : IAttr<_> list) = ViewBuilder.Create<Label>(attrs)
@@ -35,21 +34,15 @@ module Support =
       | PerHour amount -> amount / 3600.0
 
   let inline (|Length|) value =
-    Length(if String.IsNullOrWhiteSpace(value) then 0 else value.Trim().Length)
+    if String.IsNullOrWhiteSpace(value) then 0 else value.Trim().Length
 
-  let timeToCollision
-    (Length alphabetLength)
-    (nanoIdLength : int)
-    (frequency : Frequency)
-    =
+  let timeToCollision (Length alphabetLength) (nanoIdLength : int) (frequency : Frequency) =
     if 0 < alphabetLength && alphabetLength < 256 && 0 < nanoIdLength then
       let P = 0.01 (* ⮜ probability *)
 
-      let numberOfBits =
-        float nanoIdLength * (log (float alphabetLength) / log 2.0)
+      let numberOfBits = float nanoIdLength * (log (float alphabetLength) / log 2.0)
 
-      let numberOfIds =
-        sqrt (2.0 * Math.Pow(2.0, numberOfBits) * (log (1.0 / (1.0 - P))))
+      let numberOfIds = sqrt (2.0 * Math.Pow(2.0, numberOfBits) * (log (1.0 / (1.0 - P))))
 
       floor (numberOfIds / frequency.TotalSeconds)
     else
@@ -61,8 +54,7 @@ module Support =
     Pluralize : bool
   } with
     member me.Render(value) =
-      let suffix =
-        if me.Pluralize && 1 < value then $"%s{me.Label}s" else me.Label
+      let suffix = if me.Pluralize && 1 < value then $"%s{me.Label}s" else me.Label
       if value < 1 then $"Less than 1 %s{suffix}" else $"~{value} %s{suffix}"
 
     static member Of(factor, label, ?pluralize) = {

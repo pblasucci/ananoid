@@ -53,12 +53,7 @@ type AlphabetError =
     | AlphabetTooLarge _ -> "Alphabet may not contain more than 255 letters."
     | AlphabetTooSmall _ -> "Alphabet must contain at least one letter."
 
-  override me.ToString() =
-    let case =
-      match me with
-      | AlphabetTooLarge _ -> nameof AlphabetTooLarge
-      | AlphabetTooSmall _ -> nameof AlphabetTooSmall
-    $"{nameof AlphabetError}.{case} '{me.Message}'"
+  override me.ToString() = me.Message
 
 
 [<Sealed>]
@@ -121,8 +116,7 @@ type Alphabet with
 
   member me.ParseNanoId(value) = me |> Alphabet.parseNanoId value
 
-  member me.ParseNonEmptyNanoId(value) =
-    me |> Alphabet.parseNonEmptyNanoId value
+  member me.ParseNonEmptyNanoId(value) = me |> Alphabet.parseNonEmptyNanoId value
 
 
 [<Sealed>]
@@ -134,25 +128,13 @@ type AlphabetExtensions =
   static member ToAlphabetOrThrow(letters) = Alphabet.makeOrRaise letters
 
   [<Extension>]
-  static member TryParseNanoId
-    (
-      alphabet,
-      value,
-      [<Out>] nanoId : outref<NanoId>
-    )
-    =
+  static member TryParseNanoId(alphabet, value, [<Out>] nanoId : outref<NanoId>) =
     let parsed = alphabet |> Alphabet.parseNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
 
   [<Extension>]
-  static member TryParseNonEmptyNanoId
-    (
-      alphabet,
-      value,
-      [<Out>] nanoId : outref<NanoId>
-    )
-    =
+  static member TryParseNonEmptyNanoId(alphabet, value, [<Out>] nanoId : outref<NanoId>) =
     let parsed = alphabet |> Alphabet.parseNonEmptyNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
@@ -170,8 +152,7 @@ module NanoId =
 
   let parseAs alphabet value = alphabet |> Alphabet.parseNanoId value
 
-  let parseNonEmptyAs alphabet value =
-    alphabet |> Alphabet.parseNonEmptyNanoId value
+  let parseNonEmptyAs alphabet value = alphabet |> Alphabet.parseNonEmptyNanoId value
 
 
 module KnownAlphabets =

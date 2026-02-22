@@ -26,7 +26,7 @@ The latest version of this package can be installed from [NuGet][2] via the
 following command:
 
 ```sh
-> dotnet add package pblasucci.ananoid --version 1.1.0
+> dotnet add package pblasucci.ananoid --version 2.0.0
 ```
 
 ### Building from source
@@ -35,7 +35,7 @@ _Prerequisites:_
 
 [.NET SDK version 10][3], or higher (note, .NET 10 is required to _build_ all
 the projects in this repository. However, _consuming_ the `pblasucci.ananoid.dll`
-file only requires .NET 8).
+assembly only requires .NET 8).
 
 _Build steps:_
 

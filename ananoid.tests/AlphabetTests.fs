@@ -20,10 +20,8 @@ let ``Custom alphabet fails if letter-set is null`` () =
   // ⮟ pass ⮟
   | Error(AlphabetTooSmall _) -> ()
   // ⮟ fail ⮟
-  | Error unexpected ->
-    Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
-  | Ok shouldNotHave ->
-    Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
+  | Error unexpected -> Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
+  | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
 [<Fact>]
 let ``Custom alphabet fails if too short`` () =
@@ -31,10 +29,8 @@ let ``Custom alphabet fails if too short`` () =
   // ⮟ pass ⮟
   | Error(AlphabetTooSmall _) -> ()
   // ⮟ fail ⮟
-  | Error unexpected ->
-    Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
-  | Ok shouldNotHave ->
-    Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
+  | Error unexpected -> Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
+  | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
 [<Fact>]
 let ``Custom alphabet fails if too large`` () =
@@ -44,10 +40,8 @@ let ``Custom alphabet fails if too large`` () =
   // ⮟ pass ⮟
   | Error(AlphabetTooLarge _) -> ()
   // ⮟ fail ⮟
-  | Error unexpected ->
-    Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
-  | Ok shouldNotHave ->
-    Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
+  | Error unexpected -> Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
+  | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
 [<Property(typeof<Generation>)>]
 let ``All pre-defined alphabets produce comprehensible outputs`` alphabet =

@@ -47,17 +47,21 @@ let ``Raises exception on over-large alphabet`` () =
 [<Fact>]
 let ``Default is UrlSafe alphabet of size 21`` () =
   let value = nanoId ()
-  let parsed = UrlSafe |> Alphabet.parseNanoId value
   Assert.Multiple(
     (fun () -> Assert.Equal(21, value.Length)),
-    (fun () -> Assert.True(Option.isSome parsed))
+    (fun () ->
+      // NOTE "can be parsed" is a good-enough proxy for "is of alphabet"
+      Assert.True(UrlSafe |> Alphabet.parseNanoId value |> Option.isSome)
+    )
   )
 
 [<Fact>]
 let ``Tagged default is UrlSafe alphabet of size 21`` () =
   let value = string (nanoId' ())
-  let parsed = value |> NanoId.parseAs UrlSafe
   Assert.Multiple(
     (fun () -> Assert.Equal(21, value.Length)),
-    (fun () -> Assert.True(Option.isSome parsed))
+    (fun () ->
+      // NOTE "can be parsed" is a good-enough proxy for "is of alphabet"
+      Assert.True(value |> NanoId.parseAs UrlSafe |> Option.isSome)
+    )
   )
