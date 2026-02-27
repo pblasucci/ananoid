@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>pblasucci.Ananoid.Perf</RootNamespace>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>

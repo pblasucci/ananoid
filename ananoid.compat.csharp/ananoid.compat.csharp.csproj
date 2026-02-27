@@ -4,7 +4,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <RootNamespace>pblasucci.Ananoid.Compat</RootNamespace>
     <LangVersion>latest</LangVersion>

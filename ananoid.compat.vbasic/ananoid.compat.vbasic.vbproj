@@ -5,7 +5,6 @@
     <RootNamespace>ananoid.compat.vbasic</RootNamespace>
     <LangVersion>latest</LangVersion>
     <OptionStrict>On</OptionStrict>
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

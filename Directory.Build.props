@@ -24,13 +24,15 @@
       $(NoWarn);  <!-- include suppressions set elsewhere -->
     </NoWarn>
     <IsPackable>false</IsPackable>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <RootNamespace>pblasucci.Ananoid</RootNamespace>
     <Company>Paul Blasucci</Company>
     <Product>Ananoid</Product>
     <RepositoryUrl>https://github.com/pblasucci/ananoid</RepositoryUrl>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryType>git</RepositoryType>
+    <FsDocsSourceRepository>https://github.com/pblasucci/ananoid/blob/main</FsDocsSourceRepository>
+    <FsDocsSourceFolder>ananoid</FsDocsSourceFolder>
     <FsDocsLicenseLink>https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt</FsDocsLicenseLink>
     <FsDocsReleaseNotesLink>https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md</FsDocsReleaseNotesLink>
     <FsDocsReadmeLink>https://github.com/pblasucci/ananoid/blob/main/README.md</FsDocsReadmeLink>

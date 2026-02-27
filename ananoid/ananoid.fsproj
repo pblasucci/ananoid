@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>pblasucci.ananoid</AssemblyName>
     <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <VersionPrefix>1.2.0</VersionPrefix>
     <Title>Ananoid</Title>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
       <RootNamespace>pblasucci.Ananoid.Tests</RootNamespace>
-      <GenerateDocumentationFile>false</GenerateDocumentationFile>
+      <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
