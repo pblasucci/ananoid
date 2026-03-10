@@ -63,18 +63,20 @@
 </header>
 <aside id="fsdocs-main-menu">
     <ul class="menu">
-        <li class="nav-header">Links</li>
-        <li class="license-menu-item builtin-menu-item nav-item"><a class="nav-link" href="{{fsdocs-license-link}}">License</a>
-        </li>
-        <li class="release-notes-menu-item builtin-menu-item nav-item"><a class="nav-link"
-                                href="{{fsdocs-release-notes-link}}">Release
-            Notes</a></li>
-        <li class="repository-menu-item builtin-menu-item nav-item"><a class="nav-link" href="{{fsdocs-repository-link}}">Source
-            Repository</a></li>
-        {{fsdocs-list-of-documents}}
-        {{fsdocs-list-of-namespaces}}
+      {{fsdocs-list-of-documents}}
+      {{fsdocs-list-of-namespaces}}
+      <li class="nav-header">Links</li>
+      <li class="license-menu-item builtin-menu-item nav-item"><a class="nav-link"
+          href="{{fsdocs-license-link}}" target="_blank">License</a>
+      </li>
+      <li class="release-notes-menu-item builtin-menu-item nav-item"><a class="nav-link"
+          href="{{fsdocs-release-notes-link}}" target="_blank">Release
+          Notes</a></li>
+      <li class="repository-menu-item builtin-menu-item nav-item"><a class="nav-link"
+          href="{{fsdocs-repository-link}}" target="_blank">Source
+          Repository</a></li>
     </ul>
-</aside>
+  </aside>
 <main>
     <div id="content">
         {{fsdocs-content}}

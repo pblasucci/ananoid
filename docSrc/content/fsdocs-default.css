@@ -52,17 +52,18 @@
 
     /* light theme */
     --primary: #1e8bc3;
-    --background: #f5f5f6;
+    --background: #ffffff;
     --text-color: #020202;
     --text-hover: #282828;
     --heading-color: #2e293a;
-    --code-background: #ffffff;
-    --code-color: #1a4b0b;
+    --code-background: #f3f4f7;
+    --code-color: #6B2FBA;
     --header-background: #f9fbfc;
-    --header-border: #e8ecf1;
+    --header-border: rgb(156, 163, 175);
     --header-link-color: var(--text-color);
     --mobile-menu-background: var(--header-background);
     --menu-color: var(--text-color);
+    --menu-background: #e3e3e3;
     --menu-item-hover-background: #eff0f1;
     --menu-item-hover-color: var(--menu-color);
     --doc-tip-background: #F7F7F7;
@@ -94,7 +95,7 @@
 
     --header-brand-text-transform: none;
 
-    --code-strings-color: #0093A1;
+    --code-strings-color: #990000;
     --code-printf-color: #6B2FBA;
     --code-escaped-color: #EA8675;
     --code-identifiers-color: #6B2FBA;
@@ -122,6 +123,9 @@
     --code-preprocessor-color: #af75c1;
     --code-fsioutput-color: #808080;
     --code-tooltip-color: #d1d1d1;
+
+    --ananoid-logo-field-color: #c9fd63;
+    --ananoid-console-field-color: #fdf6e3;
 }
 
 /* dark theme */
