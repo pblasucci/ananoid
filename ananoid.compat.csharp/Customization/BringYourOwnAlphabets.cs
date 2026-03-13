@@ -24,19 +24,17 @@ public class BringYourOwnAlphabets
   [Fact]
   public void Custom_alphabet_must_be_at_least_one_letter()
   {
-    var x = Assert.Throws<AlphabetException>(() => "".ToAlphabetOrThrow());
-    Console.WriteLine($"FATAL! {x.Reason}");
+    var x = Assert.Throws<ArgumentOutOfRangeException>(() => "".ToAlphabetOrThrow());
+    Console.WriteLine($"FATAL! {x.Message}");
 
-    Assert.True(x.Reason.IsAlphabetTooSmall);
+    Assert.Equal("letters", x.ParamName);
   }
 
   [Fact]
   public void Custom_alphabet_must_be_less_then_256_letters()
   {
     var tooLarge = new string('#', 386);
-    var x = Assert.Throws<AlphabetException>(tooLarge.ToAlphabetOrThrow);
-    Console.WriteLine($"FATAL! {x.Reason}");
-
-    Assert.True(x.Reason.IsAlphabetTooLarge);
+    var isOkay = tooLarge.TryMakeAlphabet(out _);
+    Assert.False(isOkay);
   }
 }

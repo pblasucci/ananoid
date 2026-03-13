@@ -30,16 +30,17 @@ Public Module Customization
   Sub CustomAlphabetRequirements()
     ' alphabet must be at least one letter
     Try
-      Dim alphabet = "".ToAlphabetOrThrow()
-    Catch x As AlphabetException
-      WriteLine($"Failure! reason: '{x.Message}', source: {x.Source}")
+      Dim shouldBeNothing = "".ToAlphabetOrThrow()
+    Catch x As ArgumentOutOfRangeException
+      WriteLine($"FAIL! {x.Message}")
     End Try
 
     ' alphabet cannot exceed 255 letters
-    Try
-      Dim alphabet = new String("$"c, 386).ToAlphabetOrThrow()
-    Catch x As AlphabetException
-      WriteLine($"Failure! reason: '{x.Message}', source: {x.Source}")
-    End Try
+    Dim letters = new String("$"c, 386)
+    Dim alphabet As Alphabet = Nothing
+    Dim isOkay = letters.TryMakeAlphabet(alphabet)
+    If Not isOkay AndAlso alphabet Is Nothing Then
+      WriteLine($"Failed to create alphabet from {letters}")
+    End If
   End Sub
 End Module

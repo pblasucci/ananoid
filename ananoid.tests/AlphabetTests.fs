@@ -18,18 +18,16 @@ open pblasucci.Ananoid
 let ``Custom alphabet fails if letter-set is null`` () =
   match Alphabet.ofLetters (null |> box |> unbox) with
   // ⮟ pass ⮟
-  | Error(AlphabetTooSmall _) -> ()
+  | Error _ -> ()
   // ⮟ fail ⮟
-  | Error unexpected -> Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
   | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
 [<Fact>]
 let ``Custom alphabet fails if too short`` () =
   match Alphabet.ofLetters "" with
   // ⮟ pass ⮟
-  | Error(AlphabetTooSmall _) -> ()
+  | Error _ -> ()
   // ⮟ fail ⮟
-  | Error unexpected -> Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
   | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
 [<Fact>]
@@ -38,9 +36,8 @@ let ``Custom alphabet fails if too large`` () =
 
   match tooLarge.ToAlphabet() with
   // ⮟ pass ⮟
-  | Error(AlphabetTooLarge _) -> ()
+  | Error _ -> ()
   // ⮟ fail ⮟
-  | Error unexpected -> Assert.Fail($"Failed, unexpectedly: %s{unexpected.Message}")
   | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
 [<Property(typeof<Generation>)>]

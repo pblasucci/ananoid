@@ -6,6 +6,7 @@
 namespace pblasucci.Ananoid
 
 open System
+open System.Diagnostics.CodeAnalysis
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 
@@ -39,29 +40,12 @@ type NanoId(nanoId' : string | null) =
   static member IsEmpty(nanoId : NanoId) = nanoId.Length < 1
 
 
-type AlphabetError =
-  | AlphabetTooLarge of Source : string
-  | AlphabetTooSmall of Source : string
-
-  member me.Letters =
-    match me with
-    | AlphabetTooLarge letters
-    | AlphabetTooSmall letters -> letters
-
-  member me.Message =
-    match me with
-    | AlphabetTooLarge _ -> "Alphabet may not contain more than 255 letters."
-    | AlphabetTooSmall _ -> "Alphabet must contain at least one letter."
-
-  override me.ToString() = me.Message
-
-
-[<Sealed>]
-type AlphabetException(reason : AlphabetError) =
-  inherit Exception($"Invalid alphabet, reason: %s{reason.Message}")
-
-  member _.Alphabet = reason.Letters
-  member _.Reason = reason
+type InvalidAlphabet = {
+  invalidAlphabet' : string | null
+} with
+  member me.Letters = trimmed me.invalidAlphabet'
+  member internal _.Message = "must be between 1 and 255 letters"
+  override me.ToString() = $"Invalid Alphabet: '%s{me.Letters}' %s{me.Message}"
 
 
 type Alphabet = {
@@ -71,26 +55,27 @@ type Alphabet = {
 
   override me.ToString() = me.Letters
 
-  static member Validate(Trimmed letters) =
-    if String.length letters < 1 then Error(AlphabetTooSmall letters)
-    elif 255 < String.length letters then Error(AlphabetTooLarge letters)
-    else Ok({ alphabet' = letters })
+  static member Validate(Trimmed letters & Length length) =
+    if length < 1u || 255u < length then
+      Error { invalidAlphabet' = letters }
+    else
+      Ok { alphabet' = letters }
 
 
-type AlphabetError with
-  member me.Promote() = raise (AlphabetException me)
+module AlphabetPatterns =
+  let inline (|Letters|) (hasLetters : 'T) = (^T : (member Letters : string) hasLetters)
 
 
 [<RequireQualifiedAccess>]
 module Alphabet =
-  let ofLetters letters = Alphabet.Validate letters
+  open AlphabetPatterns
 
-  let inline (|Letters|) (alphabet : Alphabet) = string alphabet
+  let ofLetters letters = Alphabet.Validate letters
 
   let makeOrRaise letters =
     match ofLetters letters with
     | Ok alphabet -> alphabet
-    | Error error -> error.Promote()
+    | Error e -> raise <| ArgumentOutOfRangeException(nameof letters, letters, e.Message)
 
   let makeNanoId size (Letters alphabet) =
     if size < 1 then NanoId.Empty else NanoId(Core.nanoIdOf alphabet size)
@@ -128,13 +113,21 @@ type AlphabetExtensions =
   static member ToAlphabetOrThrow(letters) = Alphabet.makeOrRaise letters
 
   [<Extension>]
-  static member TryParseNanoId(alphabet, value, [<Out>] nanoId : outref<NanoId>) =
+  static member TryMakeAlphabet(letters, [<Out; NotNullWhen(returnValue = true)>] alphabet : outref<Alphabet | null>) =
+    let validated = Alphabet.ofLetters letters
+    alphabet <- validated |> Result.map withNull |> Result.defaultValue null
+    Result.isOk validated
+
+  [<Extension>]
+  static member TryParseNanoId(alphabet, value, [<Out; NotNullWhen(returnValue = true)>] nanoId : outref<NanoId>) =
     let parsed = alphabet |> Alphabet.parseNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
 
   [<Extension>]
-  static member TryParseNonEmptyNanoId(alphabet, value, [<Out>] nanoId : outref<NanoId>) =
+  static member TryParseNonEmptyNanoId
+    (alphabet, value, [<Out; NotNullWhen(returnValue = true)>] nanoId : outref<NanoId>)
+    =
     let parsed = alphabet |> Alphabet.parseNonEmptyNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
