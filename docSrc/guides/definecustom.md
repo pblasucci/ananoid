@@ -160,7 +160,7 @@ boolean condition. Consider the following:
 ```fsharp
 match String.Empty.TryMakeAlphabet() with
 | (true, alphabet) -> printfn $"%s{alphabet.Letters} are valid."
-| (false, _) -> printfn "Too small: ''!
+| (false, _) -> printfn "Too small: ''!"
 ```
 </details>
 
@@ -206,8 +206,8 @@ Too small: ''!
 
 Further, Ananoid can escalate failures by raising a
 `cref:T:System.ArgumentOutOfRangeException`, which surfaces details from an
-`InvalidAlphabet` while also halting program flow and capturing a stack trace.
-This is shown in the following example:
+`cref:T:pblasucci.Ananoid.InvalidAlphabet` while also halting program flow and
+capturing a stack trace. This is shown in the following example:
 
 <div class="lang-bar">
 <details open class="lang-block">
@@ -215,7 +215,8 @@ This is shown in the following example:
 
 ```fsharp
 try
-  Alphabet.makeOrRaise (String.replicate 800 "$")
+  let alphabet = Alphabet.makeOrRaise ("$" |> String.replicate 800)
+  printfn $"%s{alphabet.Letters} are valid."
 with
 | :? ArgumentOutOfRangeException as x -> printfn $"FAIL! %s{x.Message}"
 ```
@@ -229,10 +230,8 @@ Try
   Dim letters = New String("$"c, 800)
   Dim alphabet = letters.ToAlphabetOrThrow()
   WriteLine($"{alphabet.Letters} are valid.")
-
 Catch x As ArgumentOutOfRangeException
   WriteLine($"FAIL! {x.Message}")
-
 End Try
 ```
 </details>
