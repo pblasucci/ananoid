@@ -3,7 +3,7 @@ Imports pblasucci.Ananoid.AlphabetExtensions
 Public Module Basics
   Sub NanoIdsCanBeEmpty()
     ' NanoId is a struct (value type), whose default value is 'empty'.
-    Dim empty0 As NanoId
+    Dim empty0 As NanoId = Nothing
 
     ' ⮟⮟⮟ This is the same as the previous line.
     Dim empty1 As New NanoId()
@@ -51,14 +51,14 @@ Public Module Basics
 
   Sub RehydrateExistingValues()
     ' A NanoIdParser can validate strings and transform them into NanoIds.
-    Dim parsed1 As NanoId
+    Dim parsed1 As NanoId = Nothing
     If KnownAlphabets.UrlSafe.TryParseNanoId("ypswLHEC", parsed1) Then
       WriteLine($"Parsed Url-safe: {parsed1}")
     End If
 
     ' NanoIdParser instances are pre-defined for all the well-know alphabets,
     ' because different alphabets have different validation criteria.
-    Dim parsed2 As NanoId
+    Dim parsed2 As NanoId = Nothing
     If Not KnownAlphabets.Numbers.TryParseNanoId("!@#$%", parsed2) Then
       WriteLine($"{nameof(parsed2)} never was parsed: '{parsed2}'")
     End If
