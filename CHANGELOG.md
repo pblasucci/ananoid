@@ -11,8 +11,6 @@ and this project adheres to [Semantic Versioning][SemVer].
 
 ╮( ꒪౪꒪)╭
 
-## [1.2.0] - ???
-
 ### Changed
 
 - Updated SDK to .NET 10
@@ -20,10 +18,15 @@ and this project adheres to [Semantic Versioning][SemVer].
 - Upgraded dependecies and tools
 - More performance optimizations in `Core.fs`
 - More benchmarks covering more scenarios
+- BREAK! Replaced `AlphabetError` with `InvalidAlphabet`
+- BREAK! Code which previously raised `TryMakeAlphabet` now raises `ArgumentOutOfRangeException`
+- Updated documentation (new styles, better search, up-to-date content)
 
 ### Added
 
 - `NanoId.IsEmpty` static method (analog to `NanoId.isEmpty` module function)
+- `TryMakeAlphabet` extension method (on `String`), simplifies creation of custom alphabets
+- `|Letters|` active pattern for extracting letters from `Alphabet`, `InvalidAlphabet`
 
 ## [1.1.0] - 2023-09-02
 
