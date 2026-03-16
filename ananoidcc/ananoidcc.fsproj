@@ -2,8 +2,9 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
+        <ApplicationIcon>logo.ico</ApplicationIcon>
         <VersionPrefix>0.1.0</VersionPrefix>
-        <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+        <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
         <SelfContained>true</SelfContained>
         <PublishReadyToRun>true</PublishReadyToRun>
         <PublishSingleFile>true</PublishSingleFile>

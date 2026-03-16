@@ -7,8 +7,10 @@ namespace pblasucci.Ananoid
 
 open System
 open System.Globalization
+open System.Threading.Tasks
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Input.Platform
 open Avalonia.Media
 open Avalonia.FuncUI
 open Avalonia.FuncUI.DSL
