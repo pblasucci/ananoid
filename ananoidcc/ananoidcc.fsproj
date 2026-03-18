@@ -25,6 +25,7 @@
       <PackageReference Include="Avalonia.FuncUI" />
       <PackageReference Include="Avalonia.Themes.Fluent" />
       <PackageReference Include="FSharp.Core" />
+      <PackageReference Include="FsToolkit.ErrorHandling.IcedTasks" />
     </ItemGroup>
 
     <ItemGroup>

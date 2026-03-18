@@ -7,6 +7,7 @@
     <!-- Core packages -->
     <PackageVersion Include="FSharp.Core" Version="10.0.103" />
     <!-- Testing packages -->
+    <PackageVersion Include="FsToolkit.ErrorHandling.IcedTasks" Version="5.2.0" />
     <PackageVersion Include="Hedgehog.Xunit.v3" Version="2.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <!-- Build and tooling packages -->

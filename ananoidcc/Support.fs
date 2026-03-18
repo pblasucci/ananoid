@@ -5,12 +5,21 @@
 *)
 namespace Avalonia.FuncUI.DSL
 
-[<AutoOpen>]
-module Label =
-  open Avalonia.Controls
-  open Avalonia.FuncUI.Types
+open Avalonia.Controls
+open Avalonia.FuncUI
+open Avalonia.FuncUI.Types
+open FsToolkit.ErrorHandling
 
+module Label =
   let create (attrs : IAttr<_> list) = ViewBuilder.Create<Label>(attrs)
+
+[<AutoOpen>]
+module TopLevel =
+    let inline (|Clipboard|_|) (context : IComponentContext) =
+      option {
+        let! visual = TopLevel.GetTopLevel(context.control)
+        return! Option.ofObj visual.Clipboard
+      }
 
 (* _____________ ⮝⮝⮝ GUI DSL / Calculations ⮟⮟⮟ _____________ *)
 
