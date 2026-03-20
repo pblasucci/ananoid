@@ -32,6 +32,8 @@ module Support =
     | PerHour of amount : float
     | PerSecond of amount : float
 
+    static let secondsPerHour = 3600.0
+
     member me.Amount =
       match me with
       | PerHour amount
@@ -40,21 +42,28 @@ module Support =
     member me.TotalSeconds =
       match me with
       | PerSecond amount -> amount
-      | PerHour amount -> amount / 3600.0
+      | PerHour amount -> amount / secondsPerHour
 
   let inline (|Length|) value =
     if String.IsNullOrWhiteSpace(value) then 0 else value.Trim().Length
 
   let timeToCollision (Length alphabetLength) (nanoIdLength : int) (frequency : Frequency) =
     if 0 < alphabetLength && alphabetLength < 256 && 0 < nanoIdLength then
-      let P = 0.01 (* ⮜ probability *)
+      // Target probability
+      let P = 0.01
 
-      let numberOfBits = float nanoIdLength * (log (float alphabetLength) / log 2.0)
+      // Number of bits is a single Nano ID, based on:
+      // 1. the number of letters in the alphabet
+      // 2. the length of the generated Nano ID
+      let entropy = float nanoIdLength * (log (float alphabetLength) / log 2.0)
 
-      let numberOfIds = sqrt (2.0 * Math.Pow(2.0, numberOfBits) * (log (1.0 / (1.0 - P))))
+      // Estimated number of generated identifiers until collision at target probability
+      let numberOfIds = sqrt (2.0 * Math.Pow(2.0, entropy) * (log (1.0 / (1.0 - P))))
 
+      // Theoretical time needed to generate until collision
       floor (numberOfIds / frequency.TotalSeconds)
     else
+      // cannot compute time-to-collision because inputs are invalid
       nan
 
   type DurationFormat = {

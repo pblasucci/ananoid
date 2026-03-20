@@ -145,6 +145,16 @@ code {
   color: var(--code-value-color);
 }
 
+.lang-block > img {
+  border: 1px solid var(--shadow-color);
+  border-radius: 14px;
+  box-shadow: 6px 6px 10px 1px var(--shadow-color);
+}
+
+.lang-block > img:hover {
+  box-shadow: 8px 8px 12px 2px var(--shadow-color);
+}
+
 blockquote {
   display: block;
   margin-left: var(--spacing-200);
