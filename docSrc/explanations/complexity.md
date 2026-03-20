@@ -9,7 +9,7 @@ Utilities: Complexity Calculator
 ===
 
 While ananoid's defaults are a good choice for many use cases, it can nevertheless be desirable
-to change the size or alaphabet used for generating `NanoId`s. To that end, the libray ships with
+to change the size or alaphabet used for generating Nano IDs. To that end, the libray ships with
 a number [pre-defined alphabets][1], and even lets you [define your own][2]. However, it's important
 to understand the relationship between alphabet, nano id length, and the possibility (however small)
 of having _collisions_. To help with this, the ananoid repository contains a small tool, called
@@ -42,7 +42,12 @@ of collisions for a given alphabet and nano id length.
 
 ### Installation
 
-???
+The ananoidcc tool can be built from source following the instructions in the [README][9] file
+for the repository. However, pre-compiled binaries are also available for download, for both
+[Windows][7] and [Linux][8]. Once downloaded:
+
+1. Unzip the downloaded file to a location of your choice.
+2. Double-click the `ananoidcc` executable to launch the tool.
 
 ### Calculation
 
@@ -53,7 +58,7 @@ but it is non-zero. More importantly, the likelihood of a collision depends on s
 + The number of letters in the of the generated Nano ID;
 + The frequency of generation (ie: how many Nano IDs are generated per unit of time).
 
-The _ananoidcc_ tool calculates the likelihood of a collision, while letting you adjust the various parameters.
+The ananoidcc tool calculates the likelihood of a collision, while letting you adjust the various parameters.
 Using the [birthday problem][3] and [birthday attack][4] mathematics, the tool effectively estimates the number of Nano
 IDs that can be generated before a collision occurs, with a probability (`p`) of 1%. The estimation is based on the
 formula: `n(p;H) ≈ √(2H·ln(1/(1-p)))`, where `H = 2^entropy` and `entropy` is the possible number of bits in a single
@@ -134,11 +139,7 @@ End Function
 // Target probability
 private const double P = 0.01;
 
-public static double TimeToCollision(
-  string alphabet,
-  int nanoIdLength,
-  double frequencyInSeconds
-)
+public static double TimeToCollision(string alphabet, int nanoIdLength, double frequencyInSeconds)
 {
   var alphabetLength = string.IsNullOrWhiteSpace(alphabet) ? 0 : alphabet.Trim().Length;
   // Cannot compute time-to-collision because inputs are invalid
@@ -161,9 +162,9 @@ public static double TimeToCollision(
 
 ### Further Reading
 
-+ [How-To: Customize NanoId Creation][6]
 + [Math: The birthday problem][3]
 + [Math: Collinsion in UUID][5]
++ [How-To: Customize NanoId Creation][6]
 
 ### Copyright
 
@@ -179,3 +180,5 @@ For more information see the project's [License][0] file.
 [5]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Collisions
 [6]: ../guides/nanoidoptions.html
 [7]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc.2.0.0-win-x64.zip
+[8]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc.2.0.0-linux-x64.zip
+[9]: https://github.com/pblasucci/ananoid/#readme

@@ -34,8 +34,8 @@ following command:
 _Prerequisites:_
 
 [.NET SDK version 10][3], or higher (note, .NET 10 is required to _build_ all
-the projects in this repository. However, _consuming_ the `pblasucci.ananoid.dll`
-assembly only requires .NET 8).
+the projects in this repository. However, _consuming_ the
+`pblasucci.ananoid.dll` assembly only requires .NET 8, or higher).
 
 _Build steps:_
 
