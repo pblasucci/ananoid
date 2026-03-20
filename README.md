@@ -54,6 +54,27 @@ following:
 > dotnet fsdocs watch --input ./docSrc/ --properties Configuration=Release
 ```
 
+_Product artifacts for relase:_
+
+Run the following commands. Then upload .nupkg (under `./artifacts/`) to the desired locations
+(NuGet.org, GitHub, et cetera).
+
+#### NuGet package
+```sh
+> dotnet pack ./ananoid/ananoid.fsproj -c Release -o ./artifacts/
+```
+
+#### Complexity calculator
+
+Run the following commands, replacing `{version}` with the version number of the release
+(eg: `1.2.0`). Then compress the contents of each folder under `./artifacts/` into a zip file.
+Finally, upload to the release page on GitHub.
+
+```sh
+> dotnet publish -c Release -r win-x64 --sc -o ./artifacts/ananoidcc-{version}-win-x64/ ./ananoidcc/
+> dotnet publish -c Release -r linux-x64 --sc -o ./artifacts/ananoidcc-{version}-linux-x64/ ./ananoidcc/
+```
+
 ---
 > ### Shout Outs!
 >
