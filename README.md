@@ -51,9 +51,7 @@ From a command prompt (assuming a basic build and test has worked), run the
 following:
 
 ```sh
-> dotnet fsdocs watch --port 2023 --input ./docSrc/ \
-  --properties Configuration=Release \
-  --sourcerepo https://github.com/pblasucci/ananoid
+> dotnet fsdocs watch --input ./docSrc/ --properties Configuration=Release
 ```
 
 ---
