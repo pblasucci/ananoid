@@ -7,9 +7,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][Changelog],
 and this project adheres to [Semantic Versioning][SemVer].
 
-## [Unreleased]
-
-╮( ꒪౪꒪)╭
+## [2.0.0] - 2026-03-24
 
 ### Changed
 
