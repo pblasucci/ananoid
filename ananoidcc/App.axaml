@@ -109,7 +109,7 @@
 
     <!-- Results -->
     <Style Selector="Border.results">
-      <Setter Property="Margin" Value="4,20" />
+      <Setter Property="Margin" Value="4,20,4,6" />
       <Setter Property="Padding" Value="4" />
       <Setter Property="BorderThickness" Value="0,4" />
       <Setter Property="BorderBrush" Value="Purple" />
@@ -127,20 +127,35 @@
       <Setter Property="Margin" Value="0,10,0,0" />
     </Style>
 
+    <Style Selector="Grid.generate > Label">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+
     <Style Selector="Grid.generate > Button">
       <Setter Property="Background" Value="Whitesmoke" />
       <Setter Property="BorderBrush"
               Value="{DynamicResource SystemAccentColor}" />
       <Setter Property="BorderThickness" Value="1" />
-      <Setter Property="CornerRadius" Value="20" />
-      <Setter Property="FontSize" Value="11" />
-      <Setter Property="Margin" Value="4,0,0,0" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Height" Value="20" />
+      <Setter Property="Margin" Value="4,2,0,2" />
+    </Style>
+
+    <Style Selector="Grid.generate > Button:nth-child(4)">
+      <Setter Property="Background" Value="WhiteSmoke" />
+      <Setter Property="BorderBrush"
+              Value="{DynamicResource SystemAccentColor}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Height" Value="20" />
+      <Setter Property="Margin" Value="0,2,4,2" />
     </Style>
 
     <Style Selector="Grid.generate > TextBox">
       <Setter Property="FontFamily" Value="Monospace" />
       <Setter Property="FontSize" Value="14" />
-      <Setter Property="Margin" Value="4,0" />
+      <Setter Property="Margin" Value="4,0,4,0" />
     </Style>
   </Application.Styles>
 </Application>

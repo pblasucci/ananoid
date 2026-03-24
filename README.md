@@ -11,7 +11,7 @@ for uniquely identifying database entries, file names, et cetera.
 
 Ananoid (pronounced: "an-an-oyd") is a library for generating such identifiers.
 It uses cryptographically secure random number generation, and has no
-dependencies beyond the dotnet 6 base class libraries. It has both a high-level
+dependencies beyond the .NET 8 base class libraries. It has both a high-level
 API, and a simpler, more memory-efficient, low-level API.
 
 ### Recommended Reading
@@ -26,16 +26,16 @@ The latest version of this package can be installed from [NuGet][2] via the
 following command:
 
 ```sh
-> dotnet add package pblasucci.ananoid --version 1.1.0
+> dotnet add package pblasucci.ananoid --version 2.0.0
 ```
 
 ### Building from source
 
 _Prerequisites:_
 
-[.NET SDK version 7][3], or higher (note, .NET 7 is required to _build_ all
-the projects in this repository. However, _consuming_ the `pblasucci.ananoid.dll`
-file only requires .NET 6).
+[.NET SDK version 10][3], or higher (note, .NET 10 is required to _build_ all
+the projects in this repository. However, _consuming_ the
+`pblasucci.ananoid.dll` assembly only requires .NET 8, or higher).
 
 _Build steps:_
 
@@ -51,9 +51,28 @@ From a command prompt (assuming a basic build and test has worked), run the
 following:
 
 ```sh
-> dotnet fsdocs watch --port 2023 --input ./docSrc/ \
-  --properties Configuration=Release \
-  --sourcerepo https://github.com/pblasucci/ananoid
+> dotnet fsdocs watch --input ./docSrc/ --properties Configuration=Release
+```
+
+_Product artifacts for relase:_
+
+Run the following commands. Then upload .nupkg (under `./artifacts/`) to the desired locations
+(NuGet.org, GitHub, et cetera).
+
+#### NuGet package
+```sh
+> dotnet pack ./ananoid/ananoid.fsproj -c Release -o ./artifacts/
+```
+
+#### Complexity calculator
+
+Run the following commands, replacing `{version}` with the version number of the release
+(eg: `1.2.0`). Then compress the contents of each folder under `./artifacts/` into a zip file.
+Finally, upload to the release page on GitHub.
+
+```sh
+> dotnet publish -c Release -r win-x64 --sc -o ./artifacts/ananoidcc-{version}-win-x64/ ./ananoidcc/
+> dotnet publish -c Release -r linux-x64 --sc -o ./artifacts/ananoidcc-{version}-linux-x64/ ./ananoidcc/
 ```
 
 ---
@@ -74,7 +93,7 @@ For more information see the project's [License][0] file.
 [0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: https://github.com/ai/nanoid
 [2]: https://www.nuget.org/packages/pblasucci.ananoid
-[3]: https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+[3]: https://dotnet.microsoft.com/en-us/download/dotnet/10.0
 [4]: https://pblasucci.github.io/ananoid/guides/nanoiddefault.html
 [5]: https://pblasucci.github.io/ananoid/reference/pblasucci-ananoid.html
 [6]: https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md

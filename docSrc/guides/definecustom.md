@@ -75,7 +75,7 @@ Is alphabet valid? true
 ### Dealing with failures
 
 Not all letter sets will be valid. When validation fails, Ananoid provides the
-`cref:T:pblasucci.Ananoid.AlphabetError` type, which provides details about
+`cref:T:pblasucci.Ananoid.InvalidAlphabet` type, which provides details about
 why, exactly, a given set of letters is not valid.
 
 <div class="lang-bar">
@@ -83,10 +83,13 @@ why, exactly, a given set of letters is not valid.
 <summary>F#</summary>
 
 ```fsharp
+open AlphabetPatterns // ⮜⮜⮜ contains the `(|Letters|)` active pattern
+
 match Alphabet.ofLetters String.Empty with
 | Ok valid -> printfn $"%s{valid.Letters} are valid."
-| Error(AlphabetTooLarge letters) -> printfn "Too large: '%s{letters}'!"
-| Error(AlphabetTooSmall letters) -> printfn "Too small: '%s{letters}'!"
+
+| Error(Letters invalid) when 255 < String.length invalid -> printfn "Too large: '%s{invalid}'!"
+| Error(Letters invalid) when String.length invalid < 1 -> printfn "Too small: '%s{invalid}'!"
 ```
 </details>
 
@@ -102,10 +105,10 @@ If checked.IsOk Then
 Else
   Dim [error] = checked.ErrorValue
   Select True
-    Case [error].IsAlphabetTooLarge
+    Case 255 < [error].Letters.Length
       WriteLine($"Too large: '{[error].Letters}'!")
 
-    Case [error].IsAlphabetTooSmall
+    Case [error].Letters.Length < 1
       WriteLine($"Too small: '{[error].Letters}'!")
 
     Case Else
@@ -119,19 +122,14 @@ End If
 <summary>C#</summary>
 
 ```csharp
-var @checked = String.Empty.ToAlphabet();
+var @checked = string.Empty.ToAlphabet();
 
 var message = @checked switch
 {
   { IsOk: true, ResultValue: var alphabet } => $"{alphabet.Letters} are valid.",
 
-  { ErrorValue: var error } => error switch
-  {
-    { IsAlphabetTooLarge: true } => $"Too large: '{error.Letters}'!",
-    { IsAlphabetTooSmall: true } => $"Too small: '{error.Letters}'!",
-
-    _ => throw new UnreachableException()
-  },
+  { ErrorValue: { Letters: var letters} } when 255 < letters.Length => $"Too large: '{letters}'!",
+  { ErrorValue: { Letters: var letters} } when letters.Length < 1 => $"Too small: '{letters}'!",
 
   _ => throw new UnreachableException()
 };
@@ -151,11 +149,65 @@ Too small: ''!
 </details>
 </div>
 
-However, sometimes, processing complex failures is uncessary (or, at least,
-undesirable). In those cases, Ananoid can raise an
-`cref:T:pblasucci.Ananoid.AlphabetException`, which not only surfaces an
-`AlphabetError` but also halts program flow and captures a stack trace. This
-is shown in the following example:
+However, sometimes, processing failures is uncessary (or, at least, unwanted).
+In those cases, Ananoid has helper methods which reduce success-or-failure to a
+boolean condition. Consider the following:
+
+<div class="lang-bar">
+<details open class="lang-block">
+<summary>F#</summary>
+
+```fsharp
+match String.Empty.TryMakeAlphabet() with
+| (true, alphabet) -> printfn $"%s{alphabet.Letters} are valid."
+| (false, _) -> printfn "Too small: ''!"
+```
+</details>
+
+<details open class="lang-block">
+<summary>VB</summary>
+
+```vb
+Dim alphabet As Alphabet = Nothing
+Dim isOkay = String.Empty.TryMakeAlphabet(alphabet)
+If Not isOkay AndAlso alphabet Is Nothing Then
+  WriteLine("Too small: ''!")
+Else
+  WriteLine($"{alphabet.Letters} are valid.")
+End If
+```
+</details>
+
+<details open class="lang-block">
+<summary>C#</summary>
+
+```csharp
+if ("".TryMakeAlphabet(out var alphabet))
+{
+  Console.WriteLine($"{alphabet.Letters} are valid.");
+}
+else
+{
+  Console.WriteLine("Too small: ''!");
+}
+```
+</details>
+
+<details open class="lang-block console">
+<summary>OUT</summary>
+
+```sh
+> dotnet fsi ~/scratches/definecustom.fsx
+
+Too small: ''!
+```
+</details>
+</div>
+
+Further, Ananoid can escalate failures by raising a
+`cref:T:System.ArgumentOutOfRangeException`, which surfaces details from an
+`cref:T:pblasucci.Ananoid.InvalidAlphabet` while also halting program flow and
+capturing a stack trace. This is shown in the following example:
 
 <div class="lang-bar">
 <details open class="lang-block">
@@ -163,9 +215,10 @@ is shown in the following example:
 
 ```fsharp
 try
-  Alphabet.makeOrRaise (String.replicate 800 "$")
+  let alphabet = Alphabet.makeOrRaise ("$" |> String.replicate 800)
+  printfn $"%s{alphabet.Letters} are valid."
 with
-| :? AlphabetException as x -> printfn $"FAIL! %A{x.Reason}"
+| :? ArgumentOutOfRangeException as x -> printfn $"FAIL! %s{x.Message}"
 ```
 </details>
 
@@ -177,10 +230,8 @@ Try
   Dim letters = New String("$"c, 800)
   Dim alphabet = letters.ToAlphabetOrThrow()
   WriteLine($"{alphabet.Letters} are valid.")
-
-Catch x As AlphabetException
-  WriteLine($"FAIL! {x.Reason}")
-
+Catch x As ArgumentOutOfRangeException
+  WriteLine($"FAIL! {x.Message}")
 End Try
 ```
 </details>
@@ -194,9 +245,9 @@ try
   var alphabet = new String('$', 300).ToAlphabetOrThrow();
   WriteLine($"{alphabet.Letters} are valid.");
 }
-catch (AlphabetException x)
+catch (ArgumentOutOfRangeException x)
 {
-  WriteLine($"FAIL! {x.Reason}");
+  WriteLine($"FAIL! {x.Message}");
 }
 ```
 </details>
@@ -207,10 +258,7 @@ catch (AlphabetException x)
 ```sh
 > dotnet fsi ~/scratches/definecustom.fsx
 
-FAIl! AlphabetTooLarge
-  "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+FAIL! must be between 1 and 255 letters (Parameter 'letters')
 ```
 </details>
 </div>

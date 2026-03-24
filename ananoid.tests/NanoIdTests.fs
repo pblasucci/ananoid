@@ -5,81 +5,93 @@
 *)
 module pblasucci.Ananoid.Tests.NanoIdTests
 
-open System
-open System.Reflection
-open FsCheck
-open FsCheck.Xunit
+open Hedgehog.FSharp
+open Hedgehog.Xunit
+open global.Xunit
 
 (* ⮟ system under test ⮟ *)
 open pblasucci.Ananoid
 open pblasucci.Ananoid.KnownAlphabets
 
 
-[<Property(MaxTest = 1)>]
+[<Fact>]
 let ``Input size zero produces empty NanoId`` () =
   let generated = UrlSafe |> Alphabet.makeNanoId 0
-  generated |> NanoId.isEmpty |> Prop.label (string generated)
+  Assert.True(NanoId.isEmpty generated)
 
-[<Property(MaxTest = 1)>]
+[<Fact>]
 let ``Multiple empty NanoId instances are equal`` () =
-  let nils = [
-    NanoId()
-    NanoId.Empty
-    NanoId.ofOptions UrlSafe 0
-  ]
+  let nils = [ NanoId(); NanoId.Empty; NanoId.ofOptions UrlSafe 0 ]
   let allEmpty = nils |> List.forall NanoId.isEmpty
-  let allEqual = nils |> List.allPairs nils |> List.forall (fun (l,r) -> l = r)
-  allEmpty .&. allEqual
+  let allEqual = nils |> List.allPairs nils |> List.forall (fun (l, r) -> l = r)
+  Assert.True(allEmpty && allEqual)
 
-[<Property(MaxTest = 1)>]
+[<Fact>]
 let ``Default NanoId is 21 UrlSafe characters`` () =
   let value = NanoId.ofDefaults ()
-  let parsed = UrlSafe.ParseNanoId(string value)
-
-  value.Length = 21 && Option.isSome parsed
+  Assert.Multiple(
+    (fun () -> Assert.Equal(21, value.Length)),
+    (fun () ->
+      // NOTE "can be parsed" is a good-enough proxy for "is of alphabet"
+      Assert.True(value |> string |> UrlSafe.ParseNanoId |> Option.isSome)
+    )
+  )
 
 [<Property>]
-let ``Output size always equals input size`` (NonNegativeInt size) =
-  let generated = UrlSafe.MakeNanoId(size)
-  let length = int generated.Length
-  length = size |> Prop.label $"expect (%i{size}) <> actual (%i{length})"
+let ``Output size always equals input size`` ([<NonNegativeInt(1000000)>] size) =
+  property {
+    let _generated = UrlSafe.MakeNanoId(size)
+    let _length = _generated.Length
+    // HACK:
+    // `length` is actually used, but needs a "no warning leading underscore"
+    // because of a bug in the interaction between tooling and computation expressions.
+    counterexample $"expect (%i{size}) <> actual (%i{_length})"
+    _length = size
+  }
 
-[<Property(Arbitrary = [| typeof<Generation> |])>]
-let ``Multiple instances are equal when their underlying values are equal``
-  (RawNanoId input)
-  =
-  let one = UrlSafe |> Alphabet.parseNanoId input
-  let two = input |> NanoId.parseAs UrlSafe
-  one = two |> Prop.label $"\nNot equal on '{input}'"
+[<Property(typeof<Generation>)>]
+let ``Multiple instances are equal when their underlying values are equal`` ([<RawNanoId>] input) =
+  property {
+    let _one = UrlSafe |> Alphabet.parseNanoId input
+    let _two = input |> NanoId.parseAs UrlSafe
+    counterexample $"\nNot equal on '{input}'"
+    _one = _two
+  }
 
-[<Property(Arbitrary = [| typeof<Generation> |])>]
+[<Property(typeof<Generation>)>]
 let ``Multiple instances are ordered the same as their underlying values``
-  (RawNanoId input1)
-  (RawNanoId input2)
-  (RawNanoId input3)
+  ([<RawNanoId>] input1)
+  ([<RawNanoId>] input2)
+  ([<RawNanoId>] input3)
   =
   let fromRaw = NanoId.parseAs UrlSafe >> Option.toList
 
-  let inputs = List.sort [ input1; input2; input3 ]
-  let values =
-    List.sort [
-      yield! fromRaw input1
-      yield! fromRaw input2
-      yield! fromRaw input3
-    ]
+  property {
+    let _inputs = List.sort [ input1; input2; input3 ]
+    let _values =
+      List.sort [ yield! fromRaw input1; yield! fromRaw input2; yield! fromRaw input3 ]
 
-  values
-  |> List.zip inputs
-  |> List.forall (fun (raw, nano) -> raw = string nano)
-  |> Prop.label $"\ninputs: {inputs}\nvalues: {values}"
+    let _correctlySorted =
+      _values
+      |> List.zip _inputs
+      |> List.forall (fun (raw, nano) -> raw = string nano)
 
-[<Property(Arbitrary = [| typeof<Generation> |])>]
-let ``Parse and ToString are invertible`` nanoId =
-  match nanoId |> string |> NanoId.parseAs UrlSafe with
-  | Some nanoId' -> nanoId' = nanoId
-  | None -> false
-  |> Prop.label $"\nNot invertible: %A{nanoId}"
+    counterexample $"\ninputs: {_inputs}\nvalues: {_values}"
+    return _correctlySorted
+  }
 
-[<Property(Arbitrary = [| typeof<Generation> |])>]
+[<Property(typeof<Generation>)>]
+let ``Parse and ToString are invertible`` (alphabet : Alphabet) ([<PositiveInt(1000000)>] nanoIdLength) =
+  property {
+    let nanoId = alphabet.MakeNanoId nanoIdLength
+    let _parsed = nanoId |> string |> NanoId.parseAs alphabet
+    // HACK:
+    // `parsed` is actually used, but needs a "no warning leading underscore"
+    // because of a bug in the interaction between tooling and computation expressions.
+    counterexample $"%A{_parsed} <> %A{nanoId}"
+    _parsed = Some nanoId
+  }
+
+[<Property(typeof<Generation>)>]
 let ``Parse can explicitly reject empty input`` (alphabet : Alphabet) =
   "" |> alphabet.ParseNonEmptyNanoId |> Option.isNone

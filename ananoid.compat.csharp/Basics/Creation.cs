@@ -4,17 +4,17 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+#pragma warning disable CS1591 // ⮜⮜⮜ missing XMLDoc comments
 namespace pblasucci.Ananoid.Compat.Basics;
 
-#pragma warning disable CS1591
-// ⮝⮝⮝ missing XMLDoc comments
 using Support;
+using static KnownAlphabets; // ⮜⮜⮜ several common alphabets are defined here
 
-[Properties(Arbitrary = new[] { typeof(Generation) })]
+[Properties(typeof(Generation))]
 public class Creation
 {
   [Property]
-  public bool All_forms_of_empty_are_equal(NegativeInt input)
+  public bool All_forms_of_empty_are_equal([SmallNegativeInt] int input)
   {
     // By default, a NanoId is empty.
     NanoId empty1 = default;
@@ -22,56 +22,49 @@ public class Creation
     // But using the static member `Empty` is preferred.
     var empty2 = NanoId.Empty;
 
-    // empty instance can be created from sizes less than one.
-    var empty3 = KnownAlphabets.UrlSafe.MakeNanoId(size: (int)input);
+    // An empty instance can be created from sizes less than one.
+    var empty3 = UrlSafe.MakeNanoId(size: input);
 
     return empty1.Equals(empty2) &&
            empty2.Equals(empty3) &&
            empty3.Equals(empty1);
   }
 
-  [Property(MaxTest = 1)]
-  public bool Being_empty_means_having_length_zero()
+  [Fact]
+  public void Being_empty_means_having_length_zero()
   {
     // NanoId has a fixed length -- even as a string.
-    return NanoId.Empty.Length is 0 && NanoId.Empty.ToString()!.Length is 0;
+    Assert.Multiple(
+      () => Assert.Equal(0, NanoId.Empty.Length),
+      () => Assert.Equal(0, NanoId.Empty.ToString()!.Length)
+    );
   }
 
   [Property]
-  public Property Any_number_of_empties_are_equal(PositiveInt input)
+  public bool Any_number_of_empties_are_equal([PositiveInt(1000000)] int count)
   {
-    var count = (int)input;
-    var items =
-      from _ in Enumerable.Range(start: 1, count) select default(NanoId);
-
-    // The static method `NanoId.IsEmpty()` can check for emptiness, too.
-    return items.All(n => n.Length < 1).Collect(count);
+    return Enumerable.Range(start: 1, count).Select(_ => default(NanoId))
+      .All(NanoId.IsEmpty);
   }
 
   [Property]
-  public Property Nano_id_length_is_input_size(
+  public bool Nano_id_length_is_input_size(
     Alphabet alphabet,
-    NonNegativeInt input
+    [NonNegativeInt(1000000)] int inputSize
   )
   {
-    var size = (int)input;
     // An alphabet is really just a factory for generating NanoId instances.
-    var nanoId = alphabet.MakeNanoId(size);
-
-    return (nanoId.Length == size).Collect((size, nanoId));
+    var nanoId = alphabet.MakeNanoId(inputSize);
+    return (nanoId.Length == inputSize);
   }
 
-  [Property(MaxTest = 1)]
-  public Property By_default_new_nanoid_is_21_url_safe_characters()
+  [Fact]
+  public void By_default_new_nanoid_is_21_url_safe_characters()
   {
-    // This is the most common way to get a (non-empty) NanoId instance.
-    var nanoId = NanoId.NewId();
-
-    return KnownAlphabets.UrlSafe
-      .TryParseNanoId(nanoId.ToString(), out _)
-      // ⮝⮝⮝ if the alphabet can successfully parse it,
-      // ... that's a good-enough proxy for "is of this alphabet".
-      .And(nanoId.Length is 21)
-      .Collect(nanoId);
+    var nanoId = NanoId.NewId().ToString();
+    var isUrlSafe = UrlSafe.TryParseNanoId(nanoId, out var parsed);
+    // ⮝⮝⮝ if the alphabet can successfully parse it,
+    // ... that's a good-enough proxy for "is of this alphabet".
+    Assert.True(isUrlSafe && parsed.Length is 21);
   }
 }

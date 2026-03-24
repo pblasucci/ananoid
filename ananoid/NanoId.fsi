@@ -5,7 +5,10 @@
 *)
 namespace pblasucci.Ananoid
 
+
+open System.Diagnostics.CodeAnalysis
 open System.Runtime.CompilerServices
+open System.Runtime.InteropServices
 
 
 /// Represents a unique textual identifier, with a known length,
@@ -26,46 +29,22 @@ type NanoId =
   /// </summary>
   static member NewId : unit -> NanoId
 
+  /// Returns true, when the given nanoId is zero-valued; otherwise, false.
+  static member IsEmpty : nanoId : NanoId -> bool
 
-/// <summary>
-/// Details the potential failures which can occur when an a letter set is
-/// validated during <see cref="T:pblasucci.Ananoid.Alphabet"/> creation.
-/// </summary>
-type AlphabetError =
-  /// Raised when an alphabet contains more than 255 letters.
-  | AlphabetTooLarge of Source : string
 
-  /// Raised when an alphabet contains no letters.
-  | AlphabetTooSmall of Source : string
-
-  /// The letter set which generated the current error.
+/// Captures alphabet validation failure,
+/// either because the alphabet had too few (&lt; 1) or too many (&gt; 255) non-whitespace characters.
+[<Sealed>]
+type InvalidAlphabet =
+  /// The alphabet which lead to the exception.
   member Letters : string
 
-  /// A human-readable description of the error, suitable for printing.
-  member Message : string
 
-  /// <summary>
-  /// Creates an <see cref="T:pblasucci.Ananoid.AlphabetException"/>
-  /// from the current <c>AlphabetError</c> instance.
-  /// The newly created exception is then raised.
-  /// </summary>
-  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
-  /// Raised as the intended consequence of invoking this method.
-  /// </exception>
-  member Promote : unit -> 'T
-
-
-/// Encapsulates data for the point-in-time failure of
-/// an operation involving alphabet validation.
-[<Sealed; Class>]
-type AlphabetException =
-  inherit System.Exception
-
-  /// The alphabet which lead to the exception.
-  member Alphabet : string
-
-  /// Further details about the actual failure.
-  member Reason : AlphabetError
+/// Contains active patterns to simplify working with alphabets.
+module AlphabetPatterns =
+  /// Extracts the set of letters from an alphabet (regardless of said alphabet's validity)
+  val inline (|Letters|) : hasLetters : ^T -> string when ^T : (member Letters : string)
 
 
 /// <summary>
@@ -141,10 +120,10 @@ type Alphabet =
   /// </param>
   /// <returns>
   /// On successful validation, returns a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
-  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.InvalidAlphabet"/>
   /// with further details about what went wrong.
   /// </returns>
-  static member Validate : letters : string -> Result<Alphabet, AlphabetError>
+  static member Validate : letters : string -> Result<Alphabet, InvalidAlphabet>
 
 
 /// Contains utilities for working with nano identifiers.
@@ -235,10 +214,10 @@ module Alphabet =
   /// </param>
   /// <returns>
   /// On successful validation, returns a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
-  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.InvalidAlphabet"/>
   /// with further details about what went wrong.
   /// </returns>
-  val ofLetters : letters : string -> Result<Alphabet, AlphabetError>
+  val ofLetters : letters : string -> Result<Alphabet, InvalidAlphabet>
 
   /// <summary>
   /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
@@ -257,7 +236,7 @@ module Alphabet =
   /// The letter set which will ultimately be used to generate
   /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
   /// </param>
-  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
+  /// <exception cref="T:pblasucci.Ananoid.InvalidAlphabetException">
   /// Raised when the given alphabet fails to uphold an invariant.
   /// </exception>
   val makeOrRaise : letters : string -> Alphabet
@@ -309,15 +288,13 @@ module Alphabet =
   /// Parsing will "fail" (ie: return <c>None</c>) if the given value is empty
   /// (ie: <c>null</c>, zero-length, or consists only of whitespace).
   /// </remarks>
-  val parseNonEmptyNanoId :
-    value : string -> alphabet : Alphabet -> NanoId option
+  val parseNonEmptyNanoId : value : string -> alphabet : Alphabet -> NanoId option
 
 
 /// <summary>
 /// Contains utilities intended to simplify working with
 /// <see cref="T:pblasucci.Ananoid.Alphabet" /> in languages other than F#.
 /// </summary>
-[<Extension>]
 [<Sealed>]
 type AlphabetExtensions =
   /// <summary>
@@ -339,11 +316,11 @@ type AlphabetExtensions =
   /// </param>
   /// <returns>
   /// On successful validation, returns a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
-  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.AlphabetError"/>
+  /// otherwise, returns a <see cref="T:pblasucci.Ananoid.InvalidAlphabet"/>
   /// with further details about what went wrong.
   /// </returns>
   [<Extension>]
-  static member ToAlphabet : letters : string -> Result<Alphabet, AlphabetError>
+  static member ToAlphabet : letters : string -> Result<Alphabet, InvalidAlphabet>
 
   /// <summary>
   /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
@@ -362,11 +339,40 @@ type AlphabetExtensions =
   /// The letter set which will ultimately be used to generate
   /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
   /// </param>
-  /// <exception cref="T:pblasucci.Ananoid.AlphabetException">
-  /// Raised when the given alphabet fails to uphold an invariant.
+  /// <exception cref="T:System.ArgumentOutOfRangeException">
+  /// Raised when the given letters fail to uphold an invariant.
   /// </exception>
   [<Extension>]
   static member ToAlphabetOrThrow : letters : string -> Alphabet
+
+  /// <summary>
+  /// Builds a new <see cref="T:pblasucci.Ananoid.Alphabet"/> from
+  /// the given letter set after checking that it upholds certain
+  /// invariants which are necessary for the algorithm to work well.
+  /// </summary>
+  /// <remarks>
+  /// An alphabet's letters MUST uphold the following invariants:
+  /// <list type="bullet">
+  /// <item>Is not <c>null</c></item>
+  /// <item>Contains at least one (1) non-whitespace letter</item>
+  /// <item>Contains no more then 255 letters</item>
+  /// </list>
+  /// </remarks>
+  /// <param name="letters">
+  /// The letter set which will ultimately be used to generate
+  /// <see cref="T:pblasucci.Ananoid.NanoId"/> instances.
+  /// </param>
+  /// <param name="alphabet">
+  /// On successful validation, this out parameter will be a <see cref="T:pblasucci.Ananoid.Alphabet"/>;
+  /// otherwise, it will be <c>null</c>.
+  /// </param>
+  /// <returns>
+  /// <c>true</c> if validation succeeded and an <see cref="T:pblasucci.Ananoid.Alphabet"/> was created;
+  /// otherwise, returns <c>false</c>.
+  /// </returns>
+  [<Extension>]
+  static member TryMakeAlphabet :
+    letters : string * [<Out; NotNullWhen(returnValue = true)>] alphabet : outref<Alphabet | null> -> bool
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
@@ -389,7 +395,7 @@ type AlphabetExtensions =
   /// </remarks>
   [<Extension>]
   static member TryParseNanoId :
-    alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
+    alphabet : Alphabet * value : string * [<Out; NotNullWhen(returnValue = true)>] nanoId : outref<NanoId> -> bool
 
   /// <summary>
   /// Attempts to convert the given <c>value</c> into a
@@ -411,7 +417,7 @@ type AlphabetExtensions =
   /// </remarks>
   [<Extension>]
   static member TryParseNonEmptyNanoId :
-    alphabet : Alphabet * value : string * nanoId : outref<NanoId> -> bool
+    alphabet : Alphabet * value : string * [<Out; NotNullWhen(returnValue = true)>] nanoId : outref<NanoId> -> bool
 
 
 /// Pre-defined alphabets commonly used to generate identifiers.

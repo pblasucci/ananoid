@@ -1,201 +1,436 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-root="https://pblasucci.github.io/ananoid/">
 
 <head>
-    <meta charset="utf-8">
-    <title>Performance Highlights</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Paul Blasucci">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-    <link rel="shortcut icon" type="image/x-icon" href="https://pblasucci.github.io/ananoid/img/favicon.ico">
-    <link id="fsdocs-theme" type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-dark.css" />
-    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-main.css" />
-    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/fsdocs-custom.css" />
-
-    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/theme-toggle.js">
-        <!-- Placed in head to prevent flicker -->
-    </script>
-
-    <link type="text/css" rel="stylesheet" href="https://pblasucci.github.io/ananoid/content/navbar-fixed-left.css" />
-    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
-    <!-- END SEARCH BOX: this adds support for the search box -->
-    
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="Paul Blasucci" name="author">
+  <!-- Opengraph properties (https://ogp.me/) -->
+  <meta property="og:site_name" content="ananoid">
+  <meta property="og:title" content="Performance Highlights"/>
+  <meta property="og:url" content="https://pblasucci.github.io/ananoid/explanations/highlights.html">
+  <meta property="og:type" content="website"/>
+  <!-- Twitter cards (https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary-card-with-large-image) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="https://pblasucci.github.io/ananoid/">
+  <meta name="twitter:title" content="Performance Highlights">
+  
+  <title>Performance Highlights | ananoid</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
+        rel="stylesheet">
+  <script
+    src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link href="https://pblasucci.github.io/ananoid/img/favicon.ico" rel="icon" sizes="32x32"
+        type="image/png"/>
+  <script type="application/javascript"
+          src="https://pblasucci.github.io/ananoid/content/fsdocs-theme-set-dark.js"></script>
+  <script type="application/javascript"
+          src="https://pblasucci.github.io/ananoid/content/fsdocs-details-set-expanded.js"></script>
+  <link href="https://pblasucci.github.io/ananoid/content/fsdocs-default.css" rel="stylesheet"
+        type="text/css"/>
+  <link href="https://pblasucci.github.io/ananoid/content/fsdocs-theme.css" rel="stylesheet"
+        type="text/css"/>
+  
+  
 </head>
 
-<body>
-    <nav class="navbar sticky-top navbar-expand-lg bg-body">
-        <div class="container">
-            <a class="navbar-brand" href="https://pblasucci.github.io/ananoid/"><img id="fsdocs-logo" src="https://pblasucci.github.io/ananoid/img/logo.png" /></a>
-            <div id="header">
-                <div class="searchbox">
-                    <input data-search-input="" class="m-3" id="search-by" type="search" placeholder="Search..." />
-                </div>
-            </div>
-            <div class="nav-item dropdown">
-                <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
-                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
-                    data-bs-display="static">
-
-                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke"></i>
-                    <span class="d-none d-sm-none d-md-block ms-2">Toggle theme</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
-                    style="--bs-dropdown-min-width: 8rem;">
-                    <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center"
-                            data-bs-theme-value="light">
-                            <i class="me-2  fa-solid fa-sun"></i>
-                            Light
-                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center active"
-                            data-bs-theme-value="dark">
-                            <i class="me-2  fa-regular fa-moon"></i>
-                            Dark
-                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center"
-                            data-bs-theme-value="auto">
-                            <i class="me-2 fa-solid fa-circle-half-stroke"></i>
-                            Auto
-                            <i class="bi ms-auto d-none fa-solid fa-check"></i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul class="navbar-nav flex-wrap">
-                    <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
-    aria-expanded="false">
-    How-To Guides
+<body class="content">
+<header>
+  <div class="start">
+    <div id="menu-toggle">
+      <iconify-icon class="icon closed" height="22" icon="eva:menu-fill"
+                    width="22"></iconify-icon>
+      <iconify-icon class="icon open" height="22" icon="mi:close"
+                    width="22"></iconify-icon>
+      <input type="checkbox" name="mobile-menu"/>
+      <ul class="menu">
+        <li class="nav-header ">
+  How-To Guides
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">
+    Create a Default NanoId
   </a>
-  <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">Create a Default NanoId</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">Customize NanoId Creation</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">Parse an Existing String into a NanoId</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">Define a Custom Alphabet</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">Work with NanoId strings</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">Work with Tagged NanoId strings</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/guides/installcore.html">Install the Core Module from Source</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
-    aria-expanded="false">
-    Explanations
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">
+    Customize NanoId Creation
   </a>
-  <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">Complexity Calculator</a></li>
-<li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">Performance Highlights</a></li>
-  </ul>
-</li>
-                    <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button" data-bs-toggle="dropdown"
-    aria-expanded="false">
-    API Reference
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">
+    Parse an Existing String into a NanoId
   </a>
-  <ul class="dropdown-menu" aria-labelledby="other-links">
-    <li><a class="dropdown-item" href="https://pblasucci.github.io/ananoid/reference/index.html">All Namespaces</a></li>
-  </ul>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">
+    Define a Custom Alphabet
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">
+    Work with NanoId strings
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">
+    Work with Tagged NanoId strings
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/installcore.html">
+    Install the Core Module from Source
+  </a>
+</li>             
+<li class="nav-header active">
+  Explanations
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">
+    Complexity Calculator
+  </a>
+</li>             
+<li class="nav-item active">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">
+    Performance Highlights
+  </a>
 </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="project-references" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Project References
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="other-links">
-                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/#readme"><i
-                                        class="fa-brands fa-readme  pe-2"></i>README</a></li>
-                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt"><i
-                                        class="fa-regular  fa-id-card pe-2"></i>LICENSE (MPL-2.0)</a></li>
-                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md"><i
-                                        class="fa-regular  fa-sticky-note pe-2"></i>CHANGELOG/Release
-                                    Notes</a></li>
-                            <li><a class="dropdown-item" href="https://github.com/pblasucci/ananoid/"><i
-                                        class="fa-brands fa-github pe-2"></i>Source Repository</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="other-links" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Other Links
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="other-links">
-                            <li><a class="dropdown-item" href="https://docs.microsoft.com/en-us/dotnet/fsharp/"><i
-                                        class="fa-brands fa-microsoft pe-2"></i>F# Documentation</a></li>
-                            <li><a class="dropdown-item" href="https://fsharp.org/guides/slack/"><i
-                                        class="fa-brands fa-slack pe-2"></i>F# Slack</a></li>
-                            <li><a class="dropdown-item" href="https://discord.gg/R6n7c54/"><i
-                                        class="fa-brands fa-discord pe-2"></i>F# Discord</a></li>
-                            <li><a class="dropdown-item" href="http://foundation.fsharp.org/"><img
-                                        src="https://fsharp.org/img/logo/fsharp.svg" Alt="FSharp Logo"
-                                        class="fsharp-icon-logo pe-2"></i>F# Software Foundation</a></li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="masthead">
-            <h3 class="muted"><a href="https://pblasucci.github.io/ananoid/">ananoid <small
-                        class="muted">1.1.0</small></a></h3>
-        </div>
-        <div class="float-right" id="edit-this-page"><span><a class="nav-link"
-                    href="https://github.com/pblasucci/ananoid/edit/main/docSrc/explanations/highlights.md"><i
-                        class="fa-regular fa-pen-to-square pe-2"></i>Edit this page</a></span></div>
-        <hr />
+        <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+        <li class="nav-header">Links</li>
+        <li class="repository-menu-item builtin-menu-item nav-item">
+          <a class="nav-link" href="https://github.com/pblasucci/ananoid/#readme" target="_blank">README</a>
+        </li>
+        <li class="license-menu-item builtin-menu-item nav-item">
+          <a class="nav-link" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt" target="_blank">LICENSE (MPL-2.0)</a>
+        </li>
+        <li class="release-notes-menu-item builtin-menu-item nav-item">
+          <a class="nav-link" href="https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md" target="_blank">CHANGELOG/Release Notes</a>
+        </li>
+        <li class="repository-menu-item builtin-menu-item nav-item">
+          <a class="nav-link" href="https://github.com/pblasucci/ananoid/" target="_blank">SOURCE CODE</a>
+        </li>
+      </ul>
     </div>
-    <div class="container" id="fsdocs-content">
-        
+    <a href="https://pblasucci.github.io/ananoid">
+      <img alt="Header menu logo" src="https://pblasucci.github.io/ananoid/img/logo.png">
+      <strong>ananoid</strong>
+    </a>
+  </div>
+  <div class="end">
+    <a href="https://github.com/pblasucci/ananoid/" target="_blank">
+      <iconify-icon icon="uil:github" width="26" height="26"></iconify-icon>
+    </a>
+    <iconify-icon id="search-btn" icon="carbon:search" class="search" width="24"
+                  height="24"></iconify-icon>
+    <fsdocs-theme-toggle></fsdocs-theme-toggle>
+  </div>
+</header>
+<aside id="fsdocs-main-menu">
+  <ul class="menu">
+    <li class="nav-header ">
+  How-To Guides
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoiddefault.html">
+    Create a Default NanoId
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoidoptions.html">
+    Customize NanoId Creation
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoidparser.html">
+    Parse an Existing String into a NanoId
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/definecustom.html">
+    Define a Custom Alphabet
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/nanoidstring.html">
+    Work with NanoId strings
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/taggednanoid.html">
+    Work with Tagged NanoId strings
+  </a>
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/guides/installcore.html">
+    Install the Core Module from Source
+  </a>
+</li>             
+<li class="nav-header active">
+  Explanations
+</li>             
+<li class="nav-item ">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/explanations/complexity.html">
+    Complexity Calculator
+  </a>
+</li>             
+<li class="nav-item active">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/explanations/highlights.html">
+    Performance Highlights
+  </a>
+</li>
+    <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://pblasucci.github.io/ananoid/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+    <li class="nav-header">Project</li>
+    <li class="repository-menu-item builtin-menu-item nav-item">
+      <a class="nav-link" href="https://github.com/pblasucci/ananoid/#readme" target="_blank">
+        <iconify-icon class="icon" height="16" width="16" icon="carbon:read-me"></iconify-icon>
+        README
+      </a>
+    </li>
+    <li class="license-menu-item builtin-menu-item nav-item">
+      <a class="nav-link" href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt" target="_blank">
+        <iconify-icon class="icon" height="16" width="16" icon="carbon:identification"></iconify-icon>
+        LICENSE (MPL-2.0)
+      </a>
+    </li>
+    <li class="release-notes-menu-item builtin-menu-item nav-item">
+      <a class="nav-link" href="https://github.com/pblasucci/ananoid/blob/main/CHANGELOG.md" target="_blank">
+        <iconify-icon class="icon" height="16" width="16" icon="carbon:serverless-fleet"></iconify-icon>
+        CHANGELOG/Release Notes
+      </a>
+    </li>
+  </ul>
+</aside>
+<main>
+  <div id="content">
+    
 <h1><a name="Performance-Select-Highlights" class="anchor" href="#Performance-Select-Highlights">Performance: Select Highlights</a></h1>
-<p><strong>Coming soon!</strong></p>
+<p>While ananoid is more concerned with correctness and ergonomics, it nevertheless trie to maintain good performance.
+To that end, the repository includes a project which benchmarks several different aspects of the library, via the
+excellent <a href="https://benchmarkdotnet.org/">Benchmark.NET</a> library. As with all performance assessments, the results should be taken with a grain of
+salt, and are not necessarily indicative of every possible situation wherein ananoid might be used. Consumers should
+always profile their own use cases, and not rely solely on the results presented here. That being said, what follows
+are some important highlights.</p>
+<h3><a name="Highlight-Ananoid-vs-NanoidNet-vs-Guid" class="anchor" href="#Highlight-Ananoid-vs-NanoidNet-vs-Guid">Highlight: Ananoid vs NanoidNet vs Guid</a></h3>
+<p>Perhaps the most intersting results are those comparing ananoid to the popular <a href="https://github.com/codeyu/nanoid-net">NanoidNet</a> library (and to the
+built-in <code>Guid</code> type, as a baseline). Each candidate is invoked numerous times, using its respective default settings,
+to track the general throughput, memory usage, and other relevant metrics.</p>
+<div class="perf">
+<table>
+<thead>
+<tr class="header">
+<th><p>Method</p></th>
+<th align="right"><p>Mean</p></th>
+<th align="right"><p>Error</p></th>
+<th align="right"><p>StdDev</p></th>
+<th align="right"><p>Ratio</p></th>
+<th align="right"><p>RatioSD</p></th>
+<th align="right"><p>Gen0</p></th>
+<th align="right"><p>Allocated</p></th>
+<th align="right"><p>Alloc Ratio</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Guid</p></td>
+<td align="right"><p>63.66 ns</p></td>
+<td align="right"><p>0.478 ns</p></td>
+<td align="right"><p>0.424 ns</p></td>
+<td align="right"><p>1.00</p></td>
+<td align="right"><p>0.01</p></td>
+<td align="right"><p>0.0102</p></td>
+<td align="right"><p>96 B</p></td>
+<td align="right"><p>1.00</p></td>
+</tr>
+<tr class="even">
+<td><p>NanoidNet</p></td>
+<td align="right"><p>125.05 ns</p></td>
+<td align="right"><p>2.032 ns</p></td>
+<td align="right"><p>1.586 ns</p></td>
+<td align="right"><p>1.96</p></td>
+<td align="right"><p>0.03</p></td>
+<td align="right"><p>0.0212</p></td>
+<td align="right"><p>200 B</p></td>
+<td align="right"><p>2.08</p></td>
+</tr>
+<tr class="odd">
+<td><p>Ananoid</p></td>
+<td align="right"><p>86.77 ns</p></td>
+<td align="right"><p>0.361 ns</p></td>
+<td align="right"><p>0.320 ns</p></td>
+<td align="right"><p>1.36</p></td>
+<td align="right"><p>0.01</p></td>
+<td align="right"><p>0.0136</p></td>
+<td align="right"><p>128 B</p></td>
+<td align="right"><p>1.33</p></td>
+</tr>
+</tbody>
+</table>
 
-        
-    </div>
+</div>
+<h3><a name="Highlight-Structs-vs-Functions" class="anchor" href="#Highlight-Structs-vs-Functions">Highlight: Structs vs Functions</a></h3>
+<p>Ananoid is designed to have both a low-level API, working in terms of primitives. And a high-level
+API, wherein everything is driven by bespoke types. It is important to note how the high-level API
+improves correctness with only minimal performance overhead, as shown in the following comparison of the two approaches.</p>
+<div class="perf">
+<table>
+<thead>
+<tr class="header">
+<th><p>Method</p></th>
+<th align="right"><p>Mean</p></th>
+<th align="right"><p>Error</p></th>
+<th align="right"><p>StdDev</p></th>
+<th align="right"><p>Ratio</p></th>
+<th align="right"><p>Gen0</p></th>
+<th align="right"><p>Allocated</p></th>
+<th align="right"><p>Alloc Ratio</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>Function</p></td>
+<td align="right"><p>89.31 ns</p></td>
+<td align="right"><p>0.504 ns</p></td>
+<td align="right"><p>0.447 ns</p></td>
+<td align="right"><p>1.00</p></td>
+<td align="right"><p>0.0136</p></td>
+<td align="right"><p>128 B</p></td>
+<td align="right"><p>1.00</p></td>
+</tr>
+<tr class="even">
+<td><p>Struct</p></td>
+<td align="right"><p>87.22 ns</p></td>
+<td align="right"><p>0.461 ns</p></td>
+<td align="right"><p>0.409 ns</p></td>
+<td align="right"><p>0.98</p></td>
+<td align="right"><p>0.0136</p></td>
+<td align="right"><p>128 B</p></td>
+<td align="right"><p>1.00</p></td>
+</tr>
+</tbody>
+</table>
 
-    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="text/javascript">var fsdocs_search_baseurl = 'https://pblasucci.github.io/ananoid/';</script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
+</div>
+<h3><a name="Interpreting-Statistics" class="anchor" href="#Interpreting-Statistics">Interpreting Statistics</a></h3>
+<p>The above tables include a number of different metrics, which make use of the following terms:</p>
+<ul>
+<li><em>Mean:</em> Arithmetic mean of all measurements</li>
+<li><em>Error:</em> Half of 99.9% confidence interval</li>
+<li><em>StdDev:</em> Standard deviation of all measurements</li>
+<li><em>Ratio:</em> Mean of the ratio distribution ([Current]/[Baseline])</li>
+<li><em>RatioSD:</em> Standard deviation of the ratio distribution ([Current]/[Baseline])</li>
+<li><em>Gen0:</em> GC Generation 0 collects per 1000 operations</li>
+<li><em>Allocated:</em> Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)</li>
+<li><em>Alloc Ratio:</em> Allocated memory ratio distribution ([Current]/[Baseline])</li>
+<li><em>1 ns:</em> 1 Nanosecond (0.000000001 sec)</li>
+</ul>
+<h3><a name="System-Setup" class="anchor" href="#System-Setup">System Setup</a></h3>
+<p>The benchmarks were run under the following specifications:</p>
+<ul>
+<li><em>BenchmarkDotNet:</em> v0.15.8</li>
+<li><em>Operating System:</em> Windows 11 (10.0.26200.8037/25H2/2025Update/HudsonValley2)</li>
+<li><em>Computer:</em> 13th Gen Intel Core i7-1360P 2.20GHz, 1 CPU, 16 logical and 12 physical cores</li>
+<li><em>.NET SDK:</em> 10.0.104</li>
+<li><em>GC Strategy:</em> Concurrent Workstation</li>
+<li><em>Run Strategy:</em> Throughput</li>
+<li>
+<em>Hardware Intrinsics:</em>
+<ul>
+<li>AVX2+BMI1+BMI2+F16C+FMA+LZCNT+MOVBE</li>
+<li>AVX</li>
+<li>SSE3+SSSE3+SSE4.1+SSE4.2+POPCNT</li>
+<li>X86Base+SSE+SSE2</li>
+<li>AES+PCLMUL</li>
+<li>AvxVnni</li>
+<li>SERIALIZE VectorSize=256</li>
+</ul>
+</li>
+<li><em>[Host]:</em> .NET 10.0.4 (10.0.4, 10.0.426.12010), X64 RyuJIT x86-64-v3 RELEASE</li>
+<li><em>Job-CEIKLR:</em> .NET 10.0.4 (10.0.4, 10.0.426.12010), X64 RyuJIT x86-64-v3</li>
+</ul>
+<h3><a name="Further-Reading" class="anchor" href="#Further-Reading">Further Reading</a></h3>
+<ul>
+<li><a href="https://benchmarkdotnet.org/">Project: BenchmarkDotNet</a></li>
+<li><a href="https://github.com/codeyu/nanoid-net">Project: NanoidNet</a></li>
+<li><a href="../guides/nanoiddefault.html">How-To: Create a Default NanoId</a></li>
+<li><a href="../guides/nanoidstring.html">How-To: Work with NanoId strings</a></li>
+</ul>
+<h3><a name="Copyright" class="anchor" href="#Copyright">Copyright</a></h3>
+<p>The library is available under the Mozilla Public License, Version 2.0.
+For more information see the project's <a href="https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt">License</a> file.</p>
 
-    <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+  </div>
+</main>
+<aside id="fsdocs-page-menu">
+  <p id="on-this-page">On this page</p>
+  <ul>
+  <li class="level-1">
+    <a href="#Performance-Select-Highlights">
+      Performance: Select Highlights
+    </a>
+  </li>
+  <li class="level-3">
+    <a href="#Highlight-Ananoid-vs-NanoidNet-vs-Guid">
+      Highlight: Ananoid vs NanoidNet vs Guid
+    </a>
+  </li>
+  <li class="level-3">
+    <a href="#Highlight-Structs-vs-Functions">
+      Highlight: Structs vs Functions
+    </a>
+  </li>
+  <li class="level-3">
+    <a href="#Interpreting-Statistics">
+      Interpreting Statistics
+    </a>
+  </li>
+  <li class="level-3">
+    <a href="#System-Setup">
+      System Setup
+    </a>
+  </li>
+  <li class="level-3">
+    <a href="#Further-Reading">
+      Further Reading
+    </a>
+  </li>
+  <li class="level-3">
+    <a href="#Copyright">
+      Copyright
+    </a>
+  </li>
+</ul>
+</aside>
+<dialog>
+  <input type="search" placeholder="Search docs"/>
+  <div class="results">
+    <ul></ul>
+    <p class="empty">Type something to start searching.</p>
+  </div>
+</dialog>
+<script type="module" src="https://pblasucci.github.io/ananoid/content/fsdocs-tips.js"></script>
+<script type="module" src="https://pblasucci.github.io/ananoid/content/fsdocs-theme-toggle.js"></script>
+<script type="module" src="https://pblasucci.github.io/ananoid/content/fsdocs-details-toggle.js"></script>
+<script type="module" src="https://pblasucci.github.io/ananoid/content/fsdocs-theme.js"></script>
+<script type="module" src="https://pblasucci.github.io/ananoid/content/fsdocs-search.js"></script>
 
-    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-search.js"></script>
-    <script type="text/javascript" src="https://pblasucci.github.io/ananoid/content/fsdocs-tips.js"></script>
-
-    <!-- END SEARCH BOX: this adds support for the search box -->
-    </div>
 </body>
 
 </html>

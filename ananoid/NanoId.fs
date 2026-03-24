@@ -6,61 +6,46 @@
 namespace pblasucci.Ananoid
 
 open System
+open System.Diagnostics.CodeAnalysis
 open System.Runtime.CompilerServices
-open Microsoft.FSharp.Core
+open System.Runtime.InteropServices
 
 
 [<AutoOpen>]
-module StringPatterns =
-  let inline (|Empty|_|) value =
-    if String.IsNullOrWhiteSpace value then Some() else None
+module String =
+  let inline trimmed value =
+    match value with
+    | Null -> ""
+    | NonNull(value : string) -> value.Trim()
 
-  let inline (|Trimmed|) (value : string) =
-    Trimmed(if String.IsNullOrWhiteSpace value then "" else value.Trim())
+  let inline (|Trimmed|) value = trimmed value
 
-  let inline (|Length|) (Trimmed trimmed) = Length(uint32 trimmed.Length)
+  let inline (|Length|) value =
+    match value with
+    | Null -> 0ul
+    | NonNull(Trimmed value) -> uint32 value.Length
 
 
 [<IsReadOnly>]
 [<Struct>]
-type NanoId(nanoId' : string) =
-  member _.Length = String.length nanoId'
+type NanoId(nanoId' : string | null) =
+  member _.Length = nanoId' |> trimmed |> String.length
 
-  override _.ToString() = let (Trimmed value) = nanoId' in value
+  override _.ToString() = trimmed nanoId'
 
   static member Empty = NanoId()
 
   static member NewId() = NanoId(Core.nanoId ())
 
-
-type AlphabetError =
-  | AlphabetTooLarge of Source : string
-  | AlphabetTooSmall of Source : string
-
-  member me.Letters =
-    match me with
-    | AlphabetTooLarge letters
-    | AlphabetTooSmall letters -> letters
-
-  member me.Message =
-    match me with
-    | AlphabetTooLarge _ -> "Alphabet may not contain more than 255 letters."
-    | AlphabetTooSmall _ -> "Alphabet must contain at least one letter."
-
-  override me.ToString() =
-    let case =
-      match me with
-      | AlphabetTooLarge _ -> nameof AlphabetTooLarge
-      | AlphabetTooSmall _ -> nameof AlphabetTooSmall
-    $"{nameof AlphabetError}.{case} '{me.Message}'"
+  static member IsEmpty(nanoId : NanoId) = nanoId.Length < 1
 
 
-[<Sealed>]
-type AlphabetException(reason : AlphabetError) =
-  inherit Exception($"Invalid alphabet, reason: %s{reason.Message}")
-
-  member _.Alphabet = reason.Letters
-  member _.Reason = reason
+type InvalidAlphabet = {
+  invalidAlphabet' : string | null
+} with
+  member me.Letters = trimmed me.invalidAlphabet'
+  member internal _.Message = "must be between 1 and 255 letters"
+  override me.ToString() = $"Invalid Alphabet: '%s{me.Letters}' %s{me.Message}"
 
 
 type Alphabet = {
@@ -70,26 +55,27 @@ type Alphabet = {
 
   override me.ToString() = me.Letters
 
-  static member Validate(Trimmed letters) =
-    if String.length letters < 1 then Error(AlphabetTooSmall letters)
-    elif 255 < String.length letters then Error(AlphabetTooLarge letters)
-    else Ok({ alphabet' = letters })
+  static member Validate(Trimmed letters & Length length) =
+    if length < 1u || 255u < length then
+      Error { invalidAlphabet' = letters }
+    else
+      Ok { alphabet' = letters }
 
 
-type AlphabetError with
-  member me.Promote() = raise (AlphabetException me)
+module AlphabetPatterns =
+  let inline (|Letters|) (hasLetters : 'T) = (^T : (member Letters : string) hasLetters)
 
 
 [<RequireQualifiedAccess>]
 module Alphabet =
-  let ofLetters letters = Alphabet.Validate letters
+  open AlphabetPatterns
 
-  let inline (|Letters|) (alphabet : Alphabet) = Letters(string alphabet)
+  let ofLetters letters = Alphabet.Validate letters
 
   let makeOrRaise letters =
     match ofLetters letters with
     | Ok alphabet -> alphabet
-    | Error error -> error.Promote()
+    | Error e -> raise <| ArgumentOutOfRangeException(nameof letters, letters, e.Message)
 
   let makeNanoId size (Letters alphabet) =
     if size < 1 then NanoId.Empty else NanoId(Core.nanoIdOf alphabet size)
@@ -99,13 +85,13 @@ module Alphabet =
 
   let parseNanoId value alphabet =
     match value with
-    | Empty -> Some NanoId.Empty
+    | Length 0ul -> Some NanoId.Empty
     | Allowed alphabet value -> Some(NanoId value)
     | _ -> None
 
   let parseNonEmptyNanoId value alphabet =
     match value with
-    | Empty -> None
+    | Length 0ul -> None
     | Allowed alphabet value -> Some(NanoId value)
     | _ -> None
 
@@ -115,11 +101,9 @@ type Alphabet with
 
   member me.ParseNanoId(value) = me |> Alphabet.parseNanoId value
 
-  member me.ParseNonEmptyNanoId(value) =
-    me |> Alphabet.parseNonEmptyNanoId value
+  member me.ParseNonEmptyNanoId(value) = me |> Alphabet.parseNonEmptyNanoId value
 
 
-[<Extension>]
 [<Sealed>]
 type AlphabetExtensions =
   [<Extension>]
@@ -129,18 +113,20 @@ type AlphabetExtensions =
   static member ToAlphabetOrThrow(letters) = Alphabet.makeOrRaise letters
 
   [<Extension>]
-  static member TryParseNanoId(alphabet, value, nanoId : outref<NanoId>) =
+  static member TryMakeAlphabet(letters, [<Out; NotNullWhen(returnValue = true)>] alphabet : outref<Alphabet | null>) =
+    let validated = Alphabet.ofLetters letters
+    alphabet <- validated |> Result.map withNull |> Result.defaultValue null
+    Result.isOk validated
+
+  [<Extension>]
+  static member TryParseNanoId(alphabet, value, [<Out; NotNullWhen(returnValue = true)>] nanoId : outref<NanoId>) =
     let parsed = alphabet |> Alphabet.parseNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
     Option.isSome parsed
 
   [<Extension>]
   static member TryParseNonEmptyNanoId
-    (
-      alphabet,
-      value,
-      nanoId : outref<NanoId>
-    )
+    (alphabet, value, [<Out; NotNullWhen(returnValue = true)>] nanoId : outref<NanoId>)
     =
     let parsed = alphabet |> Alphabet.parseNonEmptyNanoId value
     nanoId <- parsed |> Option.defaultValue NanoId.Empty
@@ -159,8 +145,7 @@ module NanoId =
 
   let parseAs alphabet value = alphabet |> Alphabet.parseNanoId value
 
-  let parseNonEmptyAs alphabet value =
-    alphabet |> Alphabet.parseNonEmptyNanoId value
+  let parseNonEmptyAs alphabet value = alphabet |> Alphabet.parseNonEmptyNanoId value
 
 
 module KnownAlphabets =
@@ -185,5 +170,6 @@ module KnownAlphabets =
   let UrlSafe = { alphabet' = UrlSafe }
 
 
+// NOTE ⮟⮟⮟ needed for VB.NET support
 [<assembly : Extension>]
 do ()

@@ -10,7 +10,7 @@ A nano identifier, or nanoid, is a randomly generated opaque value, suitable
 for uniquely identifying database entries, file names, et cetera. Ananoid
 (pronounced: "an-an-oyd") is a library for generating such identifiers.
 It uses cryptographically secure random number generation, and has no
-dependencies beyond the dotnet 6 base class libraries. It has both a high-level
+dependencies beyond the .NET 8 base class libraries. It has both a high-level
 API, and a simpler, more memory-efficient, low-level API.
 
 ### Installation via NuGet
@@ -23,7 +23,7 @@ following command:
 <summary>CLI</summary>
 
 ```sh
-> dotnet add package pblasucci.ananoid --version 1.1.0
+> dotnet add package pblasucci.ananoid --version 2.0.0
 ```
 </details>
 </div>

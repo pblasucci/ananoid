@@ -5,48 +5,46 @@
 *)
 module pblasucci.Ananoid.Tests.Alphabet
 
-open System
-open FsCheck
-open FsCheck.Xunit
+open Hedgehog.FSharp
+open Hedgehog.Xunit
+open global.Xunit
+open pblasucci.Ananoid.Tests
 
 (* ⮟ system under test ⮟ *)
 open pblasucci.Ananoid
-open pblasucci.Ananoid.Tests
-open FsCheck.Prop
 
 
-[<Property(MaxTest = 1)>]
-let ``Custom alphabet fails if letter set is null`` () =
-  match Alphabet.ofLetters null with
+[<Fact>]
+let ``Custom alphabet fails if letter-set is null`` () =
+  match Alphabet.ofLetters (null |> box |> unbox) with
   // ⮟ pass ⮟
-  | Error(AlphabetTooSmall _) -> Prop.ofTestable true
+  | Error _ -> ()
   // ⮟ fail ⮟
-  | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
-  | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
+  | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
-[<Property(MaxTest = 1)>]
+[<Fact>]
 let ``Custom alphabet fails if too short`` () =
   match Alphabet.ofLetters "" with
   // ⮟ pass ⮟
-  | Error(AlphabetTooSmall _) -> Prop.ofTestable true
+  | Error _ -> ()
   // ⮟ fail ⮟
-  | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
-  | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
+  | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
-[<Property(MaxTest = 1)>]
+[<Fact>]
 let ``Custom alphabet fails if too large`` () =
   let tooLarge = "qwerty123" |> String.replicate 512
 
   match tooLarge.ToAlphabet() with
   // ⮟ pass ⮟
-  | Error(AlphabetTooLarge _) -> Prop.ofTestable true
+  | Error _ -> ()
   // ⮟ fail ⮟
-  | Error unexpectedly -> false |> Prop.label $"%A{unexpectedly}"
-  | Ok tooShortOptions -> false |> Prop.label $"%A{tooShortOptions}"
+  | Ok shouldNotHave -> Assert.Fail($"Did not fail; generated: %s{shouldNotHave.Letters}")
 
-[<Property(Arbitrary = [| typeof<Generation> |])>]
+[<Property(typeof<Generation>)>]
 let ``All pre-defined alphabets produce comprehensible outputs`` alphabet =
-  let generated = alphabet |> Alphabet.makeNanoId Core.Defaults.Size
-  let parsed = alphabet.ParseNanoId(string generated)
-  parsed = Some generated
-  |> Prop.label $"{alphabet} failed to validate given letters. ({generated})"
+  property {
+    let generated = alphabet |> Alphabet.makeNanoId Core.Defaults.Size
+    let _parsed = alphabet.ParseNanoId(string generated)
+    counterexample $"{alphabet} failed to validate given letters. ({generated})"
+    _parsed = Some generated
+  }

@@ -11,7 +11,6 @@ open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.Markup.Xaml
 
-
 type App() =
   inherit Application()
 
@@ -23,7 +22,8 @@ type App() =
   override me.OnFrameworkInitializationCompleted() =
     match me.ApplicationLifetime with
     | :? IClassicDesktopStyleApplicationLifetime as desktop ->
-      desktop.MainWindow <- MainHost()
+      let host = MainHost()
+      desktop.MainWindow <- host
 
     | _ -> raise (InvalidProgramException WrongLifetime)
 
@@ -31,6 +31,7 @@ type App() =
 
 
 module Program =
+  [<STAThread>]
   [<EntryPoint>]
   let main args =
     try

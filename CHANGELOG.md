@@ -7,9 +7,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][Changelog],
 and this project adheres to [Semantic Versioning][SemVer].
 
-## [Unreleased]
+## [2.0.0] - 2026-03-24
 
-╮( ꒪౪꒪)╭
+### Changed
+
+- Updated SDK to .NET 10
+- Updated RTM to .NET 8
+- Upgraded dependecies and tools
+- More performance optimizations in `Core.fs`
+- More benchmarks covering more scenarios
+- BREAK! Replaced `AlphabetError` with `InvalidAlphabet`
+- BREAK! Code which previously raised `TryMakeAlphabet` now raises `ArgumentOutOfRangeException`
+- Updated documentation (new styles, better search, up-to-date content)
+
+### Added
+
+- `NanoId.IsEmpty` static method (analog to `NanoId.isEmpty` module function)
+- `TryMakeAlphabet` extension method (on `String`), simplifies creation of custom alphabets
+- `|Letters|` active pattern for extracting letters from `Alphabet`, `InvalidAlphabet`
 
 ## [1.1.0] - 2023-09-02
 
@@ -43,3 +58,4 @@ and this project adheres to [Semantic Versioning][SemVer].
 [1.0.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.0.0
 [1.0.1]: https://github.com/pblasucci/ananoid/releases/tag/v1.0.1
 [1.1.0]: https://github.com/pblasucci/ananoid/releases/tag/v1.1.0
+[2.0.0]: https://github.com/pblasucci/ananoid/releases/tag/v2.0.0

@@ -22,51 +22,70 @@
 ///
 module pblasucci.Ananoid.Core
 
-#nowarn "9" (* unverifiable IL - see `Core.stackspan` function for details *)
-#nowarn "42" (* inline IL -- see `Tagged.nanoid.tag` function for details *)
+// unverifiable IL - see `Core.stackspan` function for details
+#nowarn "9"
+// inline IL -- see `Tagged.nanoid.tag` function for details
+#nowarn "42"
 
 open System
+open System.Buffers
 open System.Security.Cryptography
 open Microsoft.FSharp.NativeInterop
 
 open type System.Numerics.BitOperations
 
 
-let inline private outOfRange paramName =
-  raise (ArgumentOutOfRangeException paramName)
+let inline private outOfRange paramName = raise (ArgumentOutOfRangeException paramName)
 
 let inline private stackspan<'T when 'T : unmanaged> size =
   Span<'T>(size |> NativePtr.stackalloc<'T> |> NativePtr.toVoidPtr, size)
 
 let inline private (|Length|) value =
   if String.IsNullOrWhiteSpace value then
-    Length(0ul)
+    0ul
   else
-    Length(value.Trim() |> String.length |> uint32)
+    value.Trim() |> String.length |> uint32
 
-let private generate (Length length as alphabet) size =
-  let mask = (2 <<< 31 - LeadingZeroCount((length - 1u) ||| 1u)) - 1
+let private generatePow2 (alphabet : string) (mask : int) size =
+  String.Create(
+    size,
+    struct (alphabet, mask),
+    SpanAction<char, struct (string * int)>(fun nanoid state ->
+      let struct (alphabet, mask) = state
+      let size = nanoid.Length
+      let buffer = stackspan<byte> size
+      RandomNumberGenerator.Fill(buffer)
+      for i = 0 to size - 1 do
+        nanoid[i] <- alphabet[int buffer[i] &&& mask]
+    )
+  )
+
+let private generate (alphabet : string) (length : int) (mask : int) size =
   let step = int (ceil ((1.6 * float mask * float size) / float length))
 
-  let nanoid = stackspan<char> size
-  let mutable nanoidCount = 0
+  String.Create(
+    size,
+    struct (alphabet, mask, step, length),
+    SpanAction<char, struct (string * int * int * int)>(fun nanoid state ->
+      let struct (alphabet, mask, step, length) = state
+      let size = nanoid.Length
+      let mutable nanoidCount = 0
+      let buffer = stackspan<byte> step
+      let mutable bufferCount = 0
 
-  let buffer = stackspan<byte> step
-  let mutable bufferCount = 0
+      while nanoidCount < size do
+        RandomNumberGenerator.Fill(buffer)
+        bufferCount <- 0
 
-  while nanoidCount < size do
-    RandomNumberGenerator.Fill(buffer)
-    bufferCount <- 0
+        while nanoidCount < size && bufferCount < step do
+          let index = int buffer[bufferCount] &&& mask
+          bufferCount <- bufferCount + 1
 
-    while nanoidCount < size && bufferCount < step do
-      let index = int buffer[bufferCount] &&& mask
-      bufferCount <- bufferCount + 1
-
-      if index < int length then
-        nanoid[nanoidCount] <- alphabet[index]
-        nanoidCount <- nanoidCount + 1
-
-  nanoid.ToString()
+          if index < length then
+            nanoid[nanoidCount] <- alphabet[index]
+            nanoidCount <- nanoidCount + 1
+    )
+  )
 
 
 /// Defines the recommended set of characters and output length
@@ -79,8 +98,7 @@ module Defaults =
   /// This is the default alphabet if one is not explicitly specified.
   /// </summary>
   [<Literal>]
-  let Alphabet =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
+  let Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz-"
 
   /// Twenty-one (21) single-byte characters.
   /// This is the default output length if one is not explicitly specified.
@@ -101,9 +119,16 @@ module Defaults =
 /// </exception>
 [<CompiledName("NewNanoId")>]
 let nanoIdOf (Length length as alphabet) size =
-  if size < 1 then ""
-  elif length < 1u || 255u < length then outOfRange (nameof alphabet)
-  else generate alphabet size
+  if size < 1 then
+    ""
+  elif length < 1u || 255u < length then
+    outOfRange (nameof alphabet)
+  else
+    let mask = (2 <<< 31 - LeadingZeroCount((length - 1u) ||| 1u)) - 1
+    if mask + 1 = int length then
+      generatePow2 alphabet mask size
+    else
+      generate alphabet (int length) mask size
 
 /// <summary>
 /// Generates a new identifier with the default alphabet and size.
@@ -178,8 +203,7 @@ module Alphabets =
   // Combination of all the lowercase, uppercase characters and numbers
   /// from 0 to 9, not including any symbols or special characters.
   [<Literal>]
-  let Alphanumeric =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  let Alphanumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
   /// Hexadecimal lowercase characters: 0123456789abcdef.
   [<Literal>]

@@ -11,3 +11,4 @@ riderModule.iml
 **/tmp/
 .fake/
 .ionide/
+/artifacts/*

@@ -18,12 +18,10 @@ And, for F# consumers, there is one more option: tagged identifiers. This
 feature attempts to strike a balance between the performance of raw strings and
 safety of more robust types.
 
-> ---
 > ##Attention!!!
 >
 > __This feature is only relevant to F# consumers... sorry ¯\\_(ツ)_/¯ .__
 >
-> ---
 
 Effectively, instead of generating strings, the functions in the
 `cref:T:pblasucci.Ananoid.Core.Tagged` module (ab)use F#'s [units of measure][2]

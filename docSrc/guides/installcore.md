@@ -22,16 +22,14 @@ library has been carefully structured so that you may simply copy the file
 [`Core.fs`][1] into your project and treat these functions as just another
 module in your library/application/et cetera.
 
-> ---
 > ##Attention!!!
 >
 > __Unfortunately, this is only applicable for F# projects... sorry ¯\\_(ツ)_/¯.__
 >
-> ---
 
 <div class="lang-bar">
 <details open class="lang-block">
-<summary>OUT</summary>
+<summary>Reference</summary>
 
 <img alt="project overview" src="../img/installcore.png"/>
 </details>
