@@ -16,7 +16,6 @@
     <PackageReference Include="FSharp.Core" />
     <PackageReference Include="Hedgehog.Xunit.v3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Update="FSharp.Core" />
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.v3.runner.common" />
   </ItemGroup>

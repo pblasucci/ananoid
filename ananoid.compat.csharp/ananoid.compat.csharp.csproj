@@ -6,7 +6,6 @@
 
     <IsTestProject>true</IsTestProject>
     <RootNamespace>pblasucci.Ananoid.Compat</RootNamespace>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

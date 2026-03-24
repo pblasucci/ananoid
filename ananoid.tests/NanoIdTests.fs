@@ -41,9 +41,12 @@ let ``Default NanoId is 21 UrlSafe characters`` () =
 let ``Output size always equals input size`` ([<NonNegativeInt(1000000)>] size) =
   property {
     let _generated = UrlSafe.MakeNanoId(size)
-    let length = _generated.Length
-    counterexample $"expect (%i{size}) <> actual (%i{length})"
-    length = size
+    let _length = _generated.Length
+    // HACK:
+    // `length` is actually used, but needs a "no warning leading underscore"
+    // because of a bug in the interaction between tooling and computation expressions.
+    counterexample $"expect (%i{size}) <> actual (%i{_length})"
+    _length = size
   }
 
 [<Property(typeof<Generation>)>]
@@ -81,9 +84,12 @@ let ``Multiple instances are ordered the same as their underlying values``
 let ``Parse and ToString are invertible`` (alphabet : Alphabet) ([<PositiveInt(1000000)>] nanoIdLength) =
   property {
     let nanoId = alphabet.MakeNanoId nanoIdLength
-    let parsed = nanoId |> string |> NanoId.parseAs alphabet
-    counterexample $"%A{parsed} <> %A{nanoId}"
-    parsed = Some nanoId
+    let _parsed = nanoId |> string |> NanoId.parseAs alphabet
+    // HACK:
+    // `parsed` is actually used, but needs a "no warning leading underscore"
+    // because of a bug in the interaction between tooling and computation expressions.
+    counterexample $"%A{_parsed} <> %A{nanoId}"
+    _parsed = Some nanoId
   }
 
 [<Property(typeof<Generation>)>]

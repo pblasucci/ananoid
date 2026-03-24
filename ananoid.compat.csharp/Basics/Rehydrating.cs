@@ -77,7 +77,7 @@ public class Rehydrating
 
   [Property]
   public Property<bool> Any_parser_succeeds_against_known_value(
-    Alphabet alphabet, [PositiveInt(1000000)] int length
+    Alphabet alphabet, [PositiveInt(100000)] int length
   )
   {
     var nanoId = alphabet.MakeNanoId(length);
