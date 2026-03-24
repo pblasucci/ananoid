@@ -179,7 +179,7 @@ For more information see the project's [License][0] file.
 [4]: https://en.wikipedia.org/wiki/Birthday_attack#Mathematics
 [5]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Collisions
 [6]: ../guides/nanoidoptions.html
-[7]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc.2.0.0-win-x64.zip
-[8]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc.2.0.0-linux-x64.zip
+[7]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc-2.0.0-win-x64.zip
+[8]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc-2.0.0-linux-x64.zip
 [9]: https://github.com/pblasucci/ananoid/#readme
 [10]: https://zelark.github.io/nano-id-cc/
