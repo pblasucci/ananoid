@@ -13,7 +13,7 @@ to change the size or alaphabet used for generating Nano IDs. To that end, the l
 a number [pre-defined alphabets][1], and even lets you [define your own][2]. However, it's important
 to understand the relationship between alphabet, nano id length, and the possibility (however small)
 of having _collisions_. To help with this, the ananoid repository contains a small tool, called
-anaoidcc (inspired by the excellent [nano-id-cc][0]!), which can help you figure out the likelihood
+anaoidcc (inspired by the excellent [nano-id-cc][10]!), which can help you figure out the likelihood
 of collisions for a given alphabet and nano id length.
 
 > ##Attention!!!
@@ -172,7 +172,7 @@ The library is available under the Mozilla Public License, Version 2.0.
 For more information see the project's [License][0] file.
 
 
-[0]: https://zelark.github.io/nano-id-cc/
+[0]: https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt
 [1]: ../reference/pblasucci-ananoid-knownalphabets.html
 [2]: ../guides/definecustom.html
 [3]: https://en.wikipedia.org/wiki/Birthday_problem
@@ -182,3 +182,4 @@ For more information see the project's [License][0] file.
 [7]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc.2.0.0-win-x64.zip
 [8]: https://github.com/pblasucci/ananoid/releases/download/v2.0.0/ananoidcc.2.0.0-linux-x64.zip
 [9]: https://github.com/pblasucci/ananoid/#readme
+[10]: https://zelark.github.io/nano-id-cc/

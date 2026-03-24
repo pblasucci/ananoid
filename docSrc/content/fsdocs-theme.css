@@ -186,6 +186,49 @@ blockquote {
   }
 }
 
+.perf {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    & thead {
+      border-bottom: 1px solid var(--shadow-color);
+
+      & tr > th {
+        color: var(--code-value-color);
+        font-size: var(--font-100);
+        text-align: center;
+      }
+    }
+
+    & tbody {
+      & td {
+        padding: 0 var(--spacing-100) var(--spacing-50) var(--spacing-100);
+        border-right: 1px solid var(--shadow-color);
+        border-bottom: 1px solid var(--shadow-color);
+        font-family: var(--monospace-font);
+      }
+
+      & td:nth-child(1) {
+        border-bottom: none;
+        background: linear-gradient(to left, var(--shadow-color), var(--background) 50%);
+        font-family: var(--system-font);
+        font-style: italic;
+        font-size: var(--font-100);
+        text-align: right;
+      }
+
+      & tr:nth-child(odd) {
+        background-color: var(--ananoid-console-field-color);
+      }
+
+      & tr:nth-child(even) {
+        background-color: var(--background);
+      }
+    }
+  }
+}
+
 [data-theme=dark] {
   --code-value-color: #c9fd63;
   --shadow-color: #8C6C41;
