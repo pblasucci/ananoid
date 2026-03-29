@@ -102,7 +102,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -192,7 +192,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -221,7 +221,7 @@
   <div id="content">
     
 <h1><a name="How-To-Define-a-Custom-Alphabet" class="anchor" href="#How-To-Define-a-Custom-Alphabet">How-To: Define a Custom Alphabet</a></h1>
-<p>The default settings for creating a <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>
+<p>The default settings for creating a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>
 (21 characters taken from a mix of letters, numbers, hyphen, and underscore)
 reflect a reasonable balance of entropy versus performance. Further the
 additional alphabets shipped with Ananoid cover a wide range of common needs.
@@ -229,7 +229,7 @@ But it is possible to go further. Consumers can define their <em>own</em> alphab
 <h3><a name="Learning-about-alphabets" class="anchor" href="#Learning-about-alphabets">Learning about alphabets</a></h3>
 <p>Conceptually, an 'alphabet' is a set of 'letters' (technically, single-byte
 characters) from which a <code>NanoId</code> is constituted. In practice, an
-<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a> instance represents a <em>valildated</em> set of
+<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> instance represents a <em>valildated</em> set of
 letters. Specifically, an <code>Alphabet</code> is safe to use for the generation and
 parsing of nano identifiers because it upholds the following invariants:</p>
 <ul>
@@ -272,7 +272,7 @@ Is alphabet valid? true
 </div>
 <h3><a name="Dealing-with-failures" class="anchor" href="#Dealing-with-failures">Dealing with failures</a></h3>
 <p>Not all letter sets will be valid. When validation fails, Ananoid provides the
-<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a> type, which provides details about
+<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a> type, which provides details about
 why, exactly, a given set of letters is not valid.</p>
 <div class="lang-bar">
 <details open class="lang-block">
@@ -377,7 +377,7 @@ Too small: ''!
 </div>
 <p>Further, Ananoid can escalate failures by raising a
 <a href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>, which surfaces details from an
-<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a> while also halting program flow and
+<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a> while also halting program flow and
 capturing a stack trace. This is shown in the following example:</p>
 <div class="lang-bar">
 <details open class="lang-block">
