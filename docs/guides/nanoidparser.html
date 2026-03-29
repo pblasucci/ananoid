@@ -102,7 +102,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
     All Namespaces
   </a>
 </li>
@@ -192,7 +192,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
     All Namespaces
   </a>
 </li>
@@ -226,7 +226,7 @@
 sometimes useful to <em>parse</em> raw strings into <code>NanoId</code> instances (eg: when
 rehydrating entities from a database). To help facilitate this, Ananoid
 provides a few utilites, each of which validates that the string in question
-<em>could</em> have been created from a given <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>
+<em>could</em> have been created from a given <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a>
 instance. Here, we parse a URL-safe identifier:</p>
 <div class="lang-bar">
 <details open class="lang-block">
@@ -323,7 +323,7 @@ Failed to parse 'B978025EB0903089A89F40E43632587D' as a numeric nano identifer!
 <p>Finally, it is worth noting: the length of the string being parsed is <em>not</em>
 validated. However, by default, strings which are: <code>null</code>, zero-lengh, or
 consist only of whitespace will result in a parsed value of
-<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.</p>
+<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.</p>
 <div class="lang-bar">
 <details open class="lang-block">
 <summary>F#</summary>
@@ -359,10 +359,10 @@ Is empty? true
 <p>If more stringent behavior is required, Ananoid provides four functions/methods
 an alternative. They are:</p>
 <ul>
-<li><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoidmodule.html#parseNonEmptyAs">NanoId.parseNonEmptyAs</a></li>
-<li><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabetmodule.html#parseNonEmptyNanoId">Alphabet.parseNonEmptyNanoId</a></li>
-<li><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html#ParseNonEmptyNanoId">Alphabet.ParseNonEmptyNanoId</a></li>
-<li><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabetextensions.html#TryParseNonEmptyNanoId">AlphabetExtensions.TryParseNonEmptyNanoId</a></li>
+<li><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoidmodule.html#parseNonEmptyAs">NanoId.parseNonEmptyAs</a></li>
+<li><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabetmodule.html#parseNonEmptyNanoId">Alphabet.parseNonEmptyNanoId</a></li>
+<li><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html#ParseNonEmptyNanoId">Alphabet.ParseNonEmptyNanoId</a></li>
+<li><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabetextensions.html#TryParseNonEmptyNanoId">AlphabetExtensions.TryParseNonEmptyNanoId</a></li>
 </ul>
 <p>Specifically, each of these operations will report <em>failure</em> if the input
 provided to them is: <code>null</code>, zero-length, or consist only of whitespace.
@@ -401,7 +401,7 @@ Did parse? false
 <h3><a name="Related-Reading" class="anchor" href="#Related-Reading">Related Reading</a></h3>
 <ul>
 <li><a href="../guides/nanoidstring.html">How-To: Work with NanoId strings</a></li>
-<li>API Reference: <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-knownalphabets.html">KnownAlphabets</a></li>
+<li>API Reference: <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-knownalphabets.html">KnownAlphabets</a></li>
 </ul>
 <h3><a name="Copyright" class="anchor" href="#Copyright">Copyright</a></h3>
 <p>The library is available under the Mozilla Public License, Version 2.0.

@@ -32,7 +32,7 @@
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryType>git</RepositoryType>
     <FsDocsNoInheritedMembers>true</FsDocsNoInheritedMembers>
-    <FsDocsSourceRepository>https://github.com/pblasucci/ananoid</FsDocsSourceRepository>
+    <FsDocsSourceRepository>https://github.com/pblasucci/ananoid/blob/main</FsDocsSourceRepository>
     <FsDocsSourceFolder>ananoid</FsDocsSourceFolder>
     <FsDocsLicenseLink>https://github.com/pblasucci/ananoid/blob/main/LICENSE.txt</FsDocsLicenseLink>
     <FsDocsLogoLink>https://pblasucci.github.io/ananoid</FsDocsLogoLink>
