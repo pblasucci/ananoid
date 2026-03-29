@@ -54,6 +54,15 @@ following:
 > dotnet fsdocs watch --input ./docSrc/ --properties Configuration=Release
 ```
 
+_Prepare the docs for publication to the web:_
+
+Because of where my blog is hosted, and the way GitHub Pages handles CORS, it's necessary to override the
+`{{root}}` parameter in any FSharp.Formatting templates, which can be done by the following command:
+
+```sh
+> dotnet fsdocs build --input ./docSrc/ --output ./docs/ --parameters root "https://paul.blasuc.ci/ananoid/" --properties Configuration=Release
+```
+
 _Product artifacts for relase:_
 
 Run the following commands. Then upload .nupkg (under `./artifacts/`) to the desired locations
