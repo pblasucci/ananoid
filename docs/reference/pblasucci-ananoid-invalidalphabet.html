@@ -8,15 +8,15 @@
   <meta content="Paul Blasucci" name="author">
   <!-- Opengraph properties (https://ogp.me/) -->
   <meta property="og:site_name" content="ananoid">
-  <meta property="og:title" content="ananoid (API Reference)"/>
+  <meta property="og:title" content="InvalidAlphabet (ananoid)"/>
   <meta property="og:url" content="https://paul.blasuc.ci/ananoid/">
   <meta property="og:type" content="website"/>
   <!-- Twitter cards (https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary-card-with-large-image) -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="https://paul.blasuc.ci/ananoid/">
-  <meta name="twitter:title" content="ananoid (API Reference)">
+  <meta name="twitter:title" content="InvalidAlphabet (ananoid)">
   
-  <title>ananoid (API Reference) | ananoid</title>
+  <title>InvalidAlphabet (ananoid) | ananoid</title>
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
@@ -102,7 +102,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -192,7 +192,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -220,39 +220,123 @@
 <main>
   <div id="content">
     <div>
-  <h1>
-    API Reference
-  </h1>
   <h2>
-    Available Namespaces:
+    InvalidAlphabet Type
   </h2>
-  <table class="table outer-list fsdocs-member-list">
-    <thead>
-      <tr>
-        <td class="fsdocs-member-list-header">
-          Namespace
-        </td>
-        <td class="fsdocs-member-list-header">
-          Description
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid.html" title="pblasucci.Ananoid">
-            pblasucci.Ananoid
-          </a>
-        </td>
-        <td>
-          
-   This library provides nano identifiers, an alternative to UUIDs (inspired
-   by <a href="https://github.com/ai/nanoid">github.com/ai/nanoid</a>).
-   
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <dl class="fsdocs-metadata">
+    <dt>
+      Namespace: 
+      <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid.html">
+        pblasucci.Ananoid
+      </a>
+    </dt>
+    <dt>
+      Assembly: pblasucci.ananoid.dll
+    </dt>
+    <dt>
+      Base Type: 
+      <code>obj</code>
+    </dt>
+  </dl>
+  <div class="fsdocs-xmldoc">
+    <div>
+      <div class="fsdocs-summary-contents">
+        <p class="fsdocs-summary">
+           Captures alphabet validation failure,
+ either because the alphabet had too few (&lt; 1) or too many (&gt; 255) non-whitespace characters.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div>
+    <h3>
+      Instance members
+    </h3>
+    <table class="table outer-list fsdocs-member-list">
+      <thead>
+        <tr>
+          <td class="fsdocs-member-list-header">
+            Instance member
+          </td>
+          <td class="fsdocs-member-list-header">
+            Description
+            <fsdocs-details-toggle></fsdocs-details-toggle>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
+                <p>
+                  <a id="Letters">
+                    <a href="#Letters">
+                      <code><span>this.Letters</span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="48">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>this.Letters</span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>string</code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-summary-contents">
+                    <p class="fsdocs-summary">
+                       The alphabet which lead to the exception.
+                    </p>
+                  </div>
+                  <div class="icon-button-row">
+                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L46-46" class="fsdocs-source-link" title="Source on GitHub">
+                      <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
+                    </a>
+                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'P:pblasucci.Ananoid.InvalidAlphabet.Letters\'/>')">
+                      <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
+                    </div>
+                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:P:pblasucci.Ananoid.InvalidAlphabet.Letters`')">
+                      <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
+                    </div>
+                  </div>
+                </div>
+              </summary>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code>string</code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div></div>
 </div>
     
   </div>

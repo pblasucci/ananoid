@@ -8,15 +8,15 @@
   <meta content="Paul Blasucci" name="author">
   <!-- Opengraph properties (https://ogp.me/) -->
   <meta property="og:site_name" content="ananoid">
-  <meta property="og:title" content="NanoId (ananoid)"/>
+  <meta property="og:title" content="AlphabetExtensions (ananoid)"/>
   <meta property="og:url" content="https://paul.blasuc.ci/ananoid/">
   <meta property="og:type" content="website"/>
   <!-- Twitter cards (https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary-card-with-large-image) -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="https://paul.blasuc.ci/ananoid/">
-  <meta name="twitter:title" content="NanoId (ananoid)">
+  <meta name="twitter:title" content="AlphabetExtensions (ananoid)">
   
-  <title>NanoId (ananoid) | ananoid</title>
+  <title>AlphabetExtensions (ananoid) | ananoid</title>
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
@@ -102,7 +102,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -192,7 +192,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -221,37 +221,52 @@
   <div id="content">
     <div>
   <h2>
-    NanoId Module
+    AlphabetExtensions Type
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid.html">
+      <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid.html">
         pblasucci.Ananoid
       </a>
     </dt>
     <dt>
       Assembly: pblasucci.ananoid.dll
     </dt>
+    <dt>
+      Base Type: 
+      <code>obj</code>
+    </dt>
   </dl>
   <div class="fsdocs-xmldoc">
     <div>
       <div class="fsdocs-summary-contents">
         <p class="fsdocs-summary">
-           Contains utilities for working with nano identifiers.
+          
+ Contains utilities intended to simplify working with
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> in languages other than F#.
+ 
         </p>
       </div>
     </div>
   </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
   <div>
     <h3>
-      Functions and values
+      Static members
     </h3>
     <table class="table outer-list fsdocs-member-list">
       <thead>
         <tr>
           <td class="fsdocs-member-list-header">
-            Function or value
+            Static member
           </td>
           <td class="fsdocs-member-list-header">
             Description
@@ -263,29 +278,282 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '31', 31)" onmouseover="showTip(event, '31', 31)">
+              <code onmouseout="hideTip(event, '43', 43)" onmouseover="showTip(event, '43', 43)">
                 <p>
-                  <a id="isEmpty">
-                    <a href="#isEmpty">
-                      <code><span>NanoId.isEmpty&#32;<span>nanoId</span></span></code>
+                  <a id="ToAlphabet">
+                    <a href="#ToAlphabet">
+                      <code><span>AlphabetExtensions.ToAlphabet<span><span>(<span>letters</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="31">
+              <div class="fsdocs-tip" id="43">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>NanoId.isEmpty&#32;<span>nanoId</span></span></code>
+                  <code><span>AlphabetExtensions.ToAlphabet<span><span>(<span>letters</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        nanoId
+                        letters
                       </b>
                       :
-                      <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
+                      <code>string</code>
+                       - 
+                      
+ The letter set which will ultimately be used to generate
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a> instances.
+ 
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpresult-2">Result</a>&lt;<span><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>,&#32;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a></span>&gt;</span></code>
+                  </span>
+                  
+ On successful validation, returns a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>;
+ otherwise, returns a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a>
+ with further details about what went wrong.
+ 
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-summary-contents">
+                    <p class="fsdocs-summary">
+                      
+ Builds a new <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> from
+ the given letter set after checking that it upholds certain
+ invariants which are necessary for the algorithm to work well.
+ 
+                    </p>
+                  </div>
+                  <div class="icon-button-row">
+                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L110-110" class="fsdocs-source-link" title="Source on GitHub">
+                      <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
+                    </a>
+                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.AlphabetExtensions.ToAlphabet\'/>')">
+                      <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
+                    </div>
+                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.AlphabetExtensions.ToAlphabet`')">
+                      <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
+                    </div>
+                  </div>
+                </div>
+              </summary>
+              <p class="fsdocs-remarks">
+                
+ An alphabet's letters MUST uphold the following invariants:
+ <ul><li>Is not <code>null</code></li><li>Contains at least one (1) non-whitespace letter</li><li>Contains no more then 255 letters</li></ul>
+              </p>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    letters
+                  </span>
+                  :
+                  <code>string</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    
+ The letter set which will ultimately be used to generate
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a> instances.
+ 
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpresult-2">Result</a>&lt;<span><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>,&#32;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a></span>&gt;</span></code>
+                </dt>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    
+ On successful validation, returns a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>;
+ otherwise, returns a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-invalidalphabet.html">InvalidAlphabet</a>
+ with further details about what went wrong.
+ 
+                  </p>
+                </dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '44', 44)" onmouseover="showTip(event, '44', 44)">
+                <p>
+                  <a id="ToAlphabetOrThrow">
+                    <a href="#ToAlphabetOrThrow">
+                      <code><span>AlphabetExtensions.ToAlphabetOrThrow<span><span>(<span>letters</span>)</span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="44">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AlphabetExtensions.ToAlphabetOrThrow<span><span>(<span>letters</span>)</span></span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        letters
+                      </b>
+                      :
+                      <code>string</code>
+                       - 
+                      
+ The letter set which will ultimately be used to generate
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a> instances.
+ 
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-summary-contents">
+                    <p class="fsdocs-summary">
+                      
+ Builds a new <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> from
+ the given letter set after checking that it upholds certain
+ invariants which are necessary for the algorithm to work well.
+ 
+                    </p>
+                  </div>
+                  <div class="icon-button-row">
+                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L113-113" class="fsdocs-source-link" title="Source on GitHub">
+                      <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
+                    </a>
+                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.AlphabetExtensions.ToAlphabetOrThrow\'/>')">
+                      <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
+                    </div>
+                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.AlphabetExtensions.ToAlphabetOrThrow`')">
+                      <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
+                    </div>
+                  </div>
+                </div>
+              </summary>
+              <p class="fsdocs-remarks">
+                
+ An alphabet's letters MUST uphold the following invariants:
+ <ul><li>Is not <code>null</code></li><li>Contains at least one (1) non-whitespace letter</li><li>Contains no more then 255 letters</li></ul>
+              </p>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    letters
+                  </span>
+                  :
+                  <code>string</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    
+ The letter set which will ultimately be used to generate
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a> instances.
+ 
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-return-docs"></dd>
+              </dl>
+              <table class="fsdocs-exception-list">
+                <tr>
+                  <td>
+                    <a href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">
+                      ArgumentOutOfRangeException
+                    </a>
+                  </td>
+                  <td>
+                    
+ Raised when the given letters fail to uphold an invariant.
+ 
+                  </td>
+                </tr>
+              </table>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
+                <p>
+                  <a id="TryMakeAlphabet">
+                    <a href="#TryMakeAlphabet">
+                      <code><span>AlphabetExtensions.TryMakeAlphabet<span><span>(<span>letters,&#32;alphabet</span>)</span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="45">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AlphabetExtensions.TryMakeAlphabet<span><span>(<span>letters,&#32;alphabet</span>)</span></span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        letters
+                      </b>
+                      :
+                      <code>string</code>
+                       - 
+                      
+ The letter set which will ultimately be used to generate
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a> instances.
+ 
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        alphabet
+                      </b>
+                      :
+                      <code><span>outref&lt;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>&gt;</span></code>
+                       - 
+                      
+ On successful validation, this out parameter will be a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>;
+ otherwise, it will be <code>null</code>.
+ 
                     </span>
                     <br/>
                   </ul>
@@ -294,6 +562,9 @@
                     Returns: 
                     <code>bool</code>
                   </span>
+                  <code>true</code> if validation succeeded and an <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> was created;
+ otherwise, returns <code>false</code>.
+ 
                   <br/>
                 </div>
               </div>
@@ -305,31 +576,62 @@
                 <div class="fsdocs-summary">
                   <div class="fsdocs-summary-contents">
                     <p class="fsdocs-summary">
-                       Returns true, when the given nanoId is zero-valued; otherwise, false.
+                      
+ Builds a new <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> from
+ the given letter set after checking that it upholds certain
+ invariants which are necessary for the algorithm to work well.
+ 
                     </p>
                   </div>
                   <div class="icon-button-row">
-                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L140-140" class="fsdocs-source-link" title="Source on GitHub">
+                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L116-116" class="fsdocs-source-link" title="Source on GitHub">
                       <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
                     </a>
-                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.NanoIdModule.isEmpty\'/>')">
+                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.AlphabetExtensions.TryMakeAlphabet\'/>')">
                       <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
                     </div>
-                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.NanoIdModule.isEmpty`')">
+                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.AlphabetExtensions.TryMakeAlphabet`')">
                       <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
                     </div>
                   </div>
                 </div>
               </summary>
+              <p class="fsdocs-remarks">
+                
+ An alphabet's letters MUST uphold the following invariants:
+ <ul><li>Is not <code>null</code></li><li>Contains at least one (1) non-whitespace letter</li><li>Contains no more then 255 letters</li></ul>
+              </p>
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
-                    nanoId
+                    letters
                   </span>
                   :
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
+                  <code>string</code>
                 </dt>
-                <dd class="fsdocs-param-docs"></dd>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    
+ The letter set which will ultimately be used to generate
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a> instances.
+ 
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    alphabet
+                  </span>
+                  :
+                  <code><span>outref&lt;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>&gt;</span></code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    
+ On successful validation, this out parameter will be a <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>;
+ otherwise, it will be <code>null</code>.
+ 
+                  </p>
+                </dd>
               </dl>
               <dl class="fsdocs-returns">
                 <dt>
@@ -338,7 +640,13 @@
                   </span>
                   <code>bool</code>
                 </dt>
-                <dd class="fsdocs-return-docs"></dd>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    <code>true</code> if validation succeeded and an <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a> was created;
+ otherwise, returns <code>false</code>.
+ 
+                  </p>
+                </dd>
               </dl>
             </details>
           </td>
@@ -346,37 +654,63 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '32', 32)" onmouseover="showTip(event, '32', 32)">
+              <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
                 <p>
-                  <a id="length">
-                    <a href="#length">
-                      <code><span>NanoId.length&#32;<span>nanoId</span></span></code>
+                  <a id="TryParseNanoId">
+                    <a href="#TryParseNanoId">
+                      <code><span>AlphabetExtensions.TryParseNanoId<span><span>(<span>alphabet,&#32;value,&#32;nanoId</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="32">
+              <div class="fsdocs-tip" id="46">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>NanoId.length&#32;<span>nanoId</span></span></code>
+                  <code><span>AlphabetExtensions.TryParseNanoId<span><span>(<span>alphabet,&#32;value,&#32;nanoId</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
+                    <span>
+                      <b>
+                        alphabet
+                      </b>
+                      :
+                      <code><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                       - 
+                      The letters to check against for validity.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        value
+                      </b>
+                      :
+                      <code>string</code>
+                       - 
+                      The raw string to be converted.
+                    </span>
+                    <br/>
                     <span>
                       <b>
                         nanoId
                       </b>
                       :
-                      <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
+                      <code><span>outref&lt;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&gt;</span></code>
+                       - 
+                      
+ On successful parsing, contains a <code>NanoId</code> instance.
+ 
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>int</code>
+                    <code>bool</code>
                   </span>
+                  <code>true</code> if parsing succeeded; <code>false</code> otherwise.
+ 
                   <br/>
                 </div>
               </div>
@@ -388,239 +722,70 @@
                 <div class="fsdocs-summary">
                   <div class="fsdocs-summary-contents">
                     <p class="fsdocs-summary">
-                       The number of characters in the given nanoId instance.
+                      
+ Attempts to convert the given <code>value</code> into a
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>,
+ using the current alphabet to guide validation.
+ 
                     </p>
                   </div>
                   <div class="icon-button-row">
-                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L138-138" class="fsdocs-source-link" title="Source on GitHub">
+                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L122-122" class="fsdocs-source-link" title="Source on GitHub">
                       <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
                     </a>
-                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.NanoIdModule.length\'/>')">
+                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.AlphabetExtensions.TryParseNanoId\'/>')">
                       <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
                     </div>
-                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.NanoIdModule.length`')">
+                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.AlphabetExtensions.TryParseNanoId`')">
                       <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
                     </div>
                   </div>
                 </div>
               </summary>
+              <p class="fsdocs-remarks">
+                
+ If the input <code>value</code> is empty (ie: <code>null</code>, zero-length, or
+ consists only of whitespace), parsing is considered to succeed (ie: the
+ method will return <code>true</code>). However, the resulting <code>NanoId</code>
+ instance will be <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.
+ 
+              </p>
               <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    alphabet
+                  </span>
+                  :
+                  <code><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The letters to check against for validity.
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    value
+                  </span>
+                  :
+                  <code>string</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The raw string to be converted.
+                  </p>
+                </dd>
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
                     nanoId
                   </span>
                   :
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
-                </dt>
-                <dd class="fsdocs-param-docs"></dd>
-              </dl>
-              <dl class="fsdocs-returns">
-                <dt>
-                  <span class="fsdocs-return-name">
-                    Returns: 
-                  </span>
-                  <code>int</code>
-                </dt>
-                <dd class="fsdocs-return-docs"></dd>
-              </dl>
-            </details>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '33', 33)" onmouseover="showTip(event, '33', 33)">
-                <p>
-                  <a id="ofDefaults">
-                    <a href="#ofDefaults">
-                      <code><span>NanoId.ofDefaults&#32;<span>()</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="33">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>NanoId.ofDefaults&#32;<span>()</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        ()
-                      </b>
-                      :
-                      <code>unit</code>
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
-                  </span>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <details>
-              <summary>
-                <div class="fsdocs-summary">
-                  <div class="fsdocs-summary-contents">
-                    <p class="fsdocs-summary">
-                      
- Creates a new instance using the default alphabet and size
- (nb: the default alphabet is URL-friendly numbers, English letters, and
- symbols: <code>A-Za-z0-9_-</code> and the default size is 21).
- 
-                    </p>
-                  </div>
-                  <div class="icon-button-row">
-                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L142-142" class="fsdocs-source-link" title="Source on GitHub">
-                      <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
-                    </a>
-                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.NanoIdModule.ofDefaults\'/>')">
-                      <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
-                    </div>
-                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.NanoIdModule.ofDefaults`')">
-                      <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
-                    </div>
-                  </div>
-                </div>
-              </summary>
-              <dl class="fsdocs-params">
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    ()
-                  </span>
-                  :
-                  <code>unit</code>
-                </dt>
-                <dd class="fsdocs-param-docs"></dd>
-              </dl>
-              <dl class="fsdocs-returns">
-                <dt>
-                  <span class="fsdocs-return-name">
-                    Returns: 
-                  </span>
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
-                </dt>
-                <dd class="fsdocs-return-docs"></dd>
-              </dl>
-            </details>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '34', 34)" onmouseover="showTip(event, '34', 34)">
-                <p>
-                  <a id="ofOptions">
-                    <a href="#ofOptions">
-                      <code><span>NanoId.ofOptions&#32;<span>alphabet&#32;size</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="34">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>NanoId.ofOptions&#32;<span>alphabet&#32;size</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        alphabet
-                      </b>
-                      :
-                      <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
-                       - 
-                      
- The letters from which the new <code>NanoId</code> will be generated.
- 
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        size
-                      </b>
-                      :
-                      <code>int</code>
-                       - 
-                      
- The length of a generated identifier, in number of characters
- (note: negative values are changed to zero).
- 
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
-                  </span>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <details>
-              <summary>
-                <div class="fsdocs-summary">
-                  <div class="fsdocs-summary-contents">
-                    <p class="fsdocs-summary">
-                      
- Creates a new <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a> instance
- of the given size whose letters are taken from the given alphabet.
- 
-                    </p>
-                  </div>
-                  <div class="icon-button-row">
-                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L144-144" class="fsdocs-source-link" title="Source on GitHub">
-                      <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
-                    </a>
-                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.NanoIdModule.ofOptions\'/>')">
-                      <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
-                    </div>
-                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.NanoIdModule.ofOptions`')">
-                      <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
-                    </div>
-                  </div>
-                </div>
-              </summary>
-              <dl class="fsdocs-params">
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    alphabet
-                  </span>
-                  :
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  <code><span>outref&lt;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&gt;</span></code>
                 </dt>
                 <dd class="fsdocs-param-docs">
                   <p>
                     
- The letters from which the new <code>NanoId</code> will be generated.
- 
-                  </p>
-                </dd>
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    size
-                  </span>
-                  :
-                  <code>int</code>
-                </dt>
-                <dd class="fsdocs-param-docs">
-                  <p>
-                    
- The length of a generated identifier, in number of characters
- (note: negative values are changed to zero).
+ On successful parsing, contains a <code>NanoId</code> instance.
  
                   </p>
                 </dd>
@@ -630,9 +795,14 @@
                   <span class="fsdocs-return-name">
                     Returns: 
                   </span>
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a></code>
+                  <code>bool</code>
                 </dt>
-                <dd class="fsdocs-return-docs"></dd>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    <code>true</code> if parsing succeeded; <code>false</code> otherwise.
+ 
+                  </p>
+                </dd>
               </dl>
             </details>
           </td>
@@ -640,19 +810,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '35', 35)" onmouseover="showTip(event, '35', 35)">
+              <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
                 <p>
-                  <a id="parseAs">
-                    <a href="#parseAs">
-                      <code><span>NanoId.parseAs&#32;<span>alphabet&#32;value</span></span></code>
+                  <a id="TryParseNonEmptyNanoId">
+                    <a href="#TryParseNonEmptyNanoId">
+                      <code><span>AlphabetExtensions.TryParseNonEmptyNanoId<span><span>(<span>alphabet,&#32;value,&#32;nanoId</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="35">
+              <div class="fsdocs-tip" id="47">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>NanoId.parseAs&#32;<span>alphabet&#32;value</span></span></code>
+                  <code><span>AlphabetExtensions.TryParseNonEmptyNanoId<span><span>(<span>alphabet,&#32;value,&#32;nanoId</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -662,7 +832,7 @@
                         alphabet
                       </b>
                       :
-                      <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                      <code><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
                        - 
                       The letters to check against for validity.
                     </span>
@@ -677,15 +847,25 @@
                       The raw string to be converted.
                     </span>
                     <br/>
+                    <span>
+                      <b>
+                        nanoId
+                      </b>
+                      :
+                      <code><span>outref&lt;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&gt;</span></code>
+                       - 
+                      
+ On successful parsing, contains a <code>NanoId</code> instance.
+ 
+                    </span>
+                    <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                    <code>bool</code>
                   </span>
-                  
- On successful parsing, returns a <code>NanoId</code> instance;
- otherwise, returns <code>None</code>.
+                  <code>true</code> if parsing succeeded; <code>false</code> otherwise.
  
                   <br/>
                 </div>
@@ -700,19 +880,19 @@
                     <p class="fsdocs-summary">
                       
  Attempts to convert the given <code>value</code> into a
- <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>,
- using the given alphabet to guide validation.
+ <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>,
+ using the current alphabet to guide validation.
  
                     </p>
                   </div>
                   <div class="icon-button-row">
-                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L146-146" class="fsdocs-source-link" title="Source on GitHub">
+                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L128-128" class="fsdocs-source-link" title="Source on GitHub">
                       <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
                     </a>
-                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.NanoIdModule.parseAs\'/>')">
+                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.AlphabetExtensions.TryParseNonEmptyNanoId\'/>')">
                       <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
                     </div>
-                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.NanoIdModule.parseAs`')">
+                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.AlphabetExtensions.TryParseNonEmptyNanoId`')">
                       <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
                     </div>
                   </div>
@@ -720,10 +900,9 @@
               </summary>
               <p class="fsdocs-remarks">
                 
- If the given value is empty (ie: <code>null</code>, zero-length, or consists only
- of whitespace), parsing will succeed (ie: return <code>Some nanoId</code>).
- However, the resulting <code>NanoId</code> instance will be
- <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html#Empty">NanoId.Empty</a>.
+ If the input <code>value</code> is empty (ie: <code>null</code>, zero-length, or
+ consists only of whitespace), parsing is considered to fail (ie: the
+ method will return <code>false</code>).
  
               </p>
               <dl class="fsdocs-params">
@@ -732,7 +911,7 @@
                     alphabet
                   </span>
                   :
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
+                  <code><a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
                 </dt>
                 <dd class="fsdocs-param-docs">
                   <p>
@@ -751,136 +930,18 @@
                     The raw string to be converted.
                   </p>
                 </dd>
-              </dl>
-              <dl class="fsdocs-returns">
-                <dt>
-                  <span class="fsdocs-return-name">
-                    Returns: 
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    nanoId
                   </span>
-                  <code><span><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                  :
+                  <code><span>outref&lt;<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>&gt;</span></code>
                 </dt>
-                <dd class="fsdocs-return-docs">
+                <dd class="fsdocs-param-docs">
                   <p>
                     
- On successful parsing, returns a <code>NanoId</code> instance;
- otherwise, returns <code>None</code>.
+ On successful parsing, contains a <code>NanoId</code> instance.
  
-                  </p>
-                </dd>
-              </dl>
-            </details>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '36', 36)" onmouseover="showTip(event, '36', 36)">
-                <p>
-                  <a id="parseNonEmptyAs">
-                    <a href="#parseNonEmptyAs">
-                      <code><span>NanoId.parseNonEmptyAs&#32;<span>alphabet&#32;value</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="36">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>NanoId.parseNonEmptyAs&#32;<span>alphabet&#32;value</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        alphabet
-                      </b>
-                      :
-                      <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
-                       - 
-                      The letters to check against for validity.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        value
-                      </b>
-                      :
-                      <code>string</code>
-                       - 
-                      The raw string to be converted.
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
-                  </span>
-                  
- On successful parsing, returns a <code>NanoId</code> instance;
- otherwise, returns <code>None</code>.
- 
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <details>
-              <summary>
-                <div class="fsdocs-summary">
-                  <div class="fsdocs-summary-contents">
-                    <p class="fsdocs-summary">
-                      
- Attempts to convert the given <code>value</code> into a
- <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>,
- using the given alphabet to guide validation.
- 
-                    </p>
-                  </div>
-                  <div class="icon-button-row">
-                    <a href="https://github.com/pblasucci/ananoid/NanoId.fs#L148-148" class="fsdocs-source-link" title="Source on GitHub">
-                      <iconify-icon icon="ri:github-fill" height="24" width="24"></iconify-icon>
-                    </a>
-                    <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:pblasucci.Ananoid.NanoIdModule.parseNonEmptyAs\'/>')">
-                      <iconify-icon icon="bi:filetype-xml" height="24" width="24"></iconify-icon>
-                    </div>
-                    <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:pblasucci.Ananoid.NanoIdModule.parseNonEmptyAs`')">
-                      <iconify-icon icon="bi:filetype-md" height="24" width="24"></iconify-icon>
-                    </div>
-                  </div>
-                </div>
-              </summary>
-              <p class="fsdocs-remarks">
-                
- Parsing will "fail" (ie: return <code>None</code>) if the given value is empty
- (ie: <code>null</code>, zero-length, or consists only of whitespace).
- 
-              </p>
-              <dl class="fsdocs-params">
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    alphabet
-                  </span>
-                  :
-                  <code><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a></code>
-                </dt>
-                <dd class="fsdocs-param-docs">
-                  <p>
-                    The letters to check against for validity.
-                  </p>
-                </dd>
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    value
-                  </span>
-                  :
-                  <code>string</code>
-                </dt>
-                <dd class="fsdocs-param-docs">
-                  <p>
-                    The raw string to be converted.
                   </p>
                 </dd>
               </dl>
@@ -889,13 +950,11 @@
                   <span class="fsdocs-return-name">
                     Returns: 
                   </span>
-                  <code><span><a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>&#32;option</span></code>
+                  <code>bool</code>
                 </dt>
                 <dd class="fsdocs-return-docs">
                   <p>
-                    
- On successful parsing, returns a <code>NanoId</code> instance;
- otherwise, returns <code>None</code>.
+                    <code>true</code> if parsing succeeded; <code>false</code> otherwise.
  
                   </p>
                 </dd>
@@ -906,14 +965,6 @@
       </tbody>
     </table>
   </div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
 </div>
     
   </div>

@@ -102,7 +102,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -192,7 +192,7 @@
   API Reference
 </li>             
 <li class="nav-item">
-  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/ananoid/index.html">
+  <a class="nav-link" href="https://paul.blasuc.ci/ananoid/reference/index.html">
     All Namespaces
   </a>
 </li>
@@ -221,8 +221,8 @@
   <div id="content">
     
 <h1><a name="How-To-Work-with-Tagged-NanoId-strings" class="anchor" href="#How-To-Work-with-Tagged-NanoId-strings">How-To: Work with Tagged NanoId strings</a></h1>
-<p>Ananoid can serve most uses cases via the <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>
-type and its associates (<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-alphabet.html">Alphabet</a>, et cetera).
+<p>Ananoid can serve most uses cases via the <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>
+type and its associates (<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-alphabet.html">Alphabet</a>, et cetera).
 However, sometimes this is not desired (or at least, not <em>optimal</em>). For times
 when the a struct or class is just too much, Ananoid also provides its core
 functionality -- cryptographically-secure randomly-generated identifiers -- as
@@ -235,12 +235,12 @@ safety of more robust types.</p>
 <p><strong>This feature is only relevant to F# consumers... sorry ¯\<em>(ツ)</em>/¯ .</strong></p>
 </blockquote>
 <p>Effectively, instead of generating strings, the functions in the
-<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-core-tagged.html">Tagged</a> module (ab)use F#'s <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure">units of measure</a>
+<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-core-tagged.html">Tagged</a> module (ab)use F#'s <a href="https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure">units of measure</a>
 functionality to generate strings that have been "tagged" with a special
-measure, <a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-core-tagged-nanoid@measure'.html">nanoid</a>. This causes
+measure, <a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-core-tagged-nanoid@measure'.html">nanoid</a>. This causes
 them to be typed-checked separately from ordinary string. However, as they are
 erased at run-time, they pose none of the overhead of full types (like
-<a href="https://paul.blasuc.ci/ananoid/reference/ananoid/pblasucci-ananoid-nanoid.html">NanoId</a>). Usage can be as simple as:</p>
+<a href="https://paul.blasuc.ci/ananoid/reference/pblasucci-ananoid-nanoid.html">NanoId</a>). Usage can be as simple as:</p>
 <div class="lang-bar">
 <details open class="lang-block">
 <summary>F#</summary>
